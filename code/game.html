@@ -36,14 +36,21 @@
                 
                   var dé_1 , dé_2 , dé_3 ; 
                     while (partie <3 && continuer==true )  // chaque jouerus a le droit a 3 parties 
-                    {   dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
+                    {   dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();   // le codage du du dé1 
                         dé_2= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
                         dé_3= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
-                        continuer = document.getElementById('check1').value
+                        continuer = document.getElementById('check1').value   // on verfie si le joeur veut continuer ou si il garde le resultat actuelle 
                         partie++; 
                     }
-
-                    console.log ("le score du joueru '%d' est '%d' ", j ,  )
+                    var val_dé1 = codage.indexOf(dé_1,0)+1;
+                    var val_dé2 = codage.indexOf(dé_2,0)+1;
+                    var val_dé3 = codage.indexOf(dé_3,0)+1;
+                    if (val_dé1==1 && val_dé2==1 && val_dé3==1 )  //3AS
+                    {
+                      score =7 ;
+                    }
+                    //les autres cas 
+                    console.log ("le score du joueru '%d' est '%d' ", j , score  );
 
                 }
          }
