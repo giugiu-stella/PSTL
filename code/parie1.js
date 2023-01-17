@@ -16,7 +16,7 @@ var valeur = true
 console.log("faire une partie") ;
  var i =0 ;
 while ( valeur ==true &&  i<22) //22 parties  22*3 =66 bits  
-{          for (let j = 0 ; j<3 ; j++)  // un joueur a le droit a 3 lancers de dés 
+{          for (let j = 0 ; j<3 ; j++)  // un joueur a le droit a 3 lancers de dé
           {
                 var valeur_string = bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
 

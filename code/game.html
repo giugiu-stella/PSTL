@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Récupérer la valeur d'un input texte</title>
+  </head>
+  <body>
+    <input type="text" placeholder="donner le nombre de joueur" id="in">
+    <button type="button" onclick="getValue();">Récupérer la valeur</button>
+    <input type="checkbox"  onclick="getchecked();"  id='check1'>
+
+<script>
+        let codage= ["000","001","010", "011","100","101","110","111"]
+
+        function  bit_aleatoir() {
+            min = Math.ceil(0);
+            max = Math.floor(1);
+        var random =Math.floor( Math.random() * (max-min+1))+ min; 
+        return random;
+        }
+
+        function getchecked( ){
+          const checkBox = document.getElementById('check1').checked;
+          if (checkBox === true) {
+            document.getElementById('check1').value=true ;
+            } else {
+              document.getElementById('check1').value=false;
+          }
+        }
+        
+        function getValue() {
+             var  input = document.getElementById("in").value; 
+              
+              for (let joueur=0 ; joueur <input; joueur++)
+              {  let continuer=true ; let partie=0 ;let  score=0   ;
+                
+                  var dé_1 , dé_2 , dé_3 ; 
+                    while (partie <3 && continuer==true )  // chaque jouerus a le droit a 3 parties 
+                    {   dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
+                        dé_2= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
+                        dé_3= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
+                        continuer = document.getElementById('check1').value
+                        partie++; 
+                    }
+
+                    console.log ("le score du joueru '%d' est '%d' ", j ,  )
+
+                }
+         }
+
+
+
+
+ </script>
+          </body>
+
+</html>
