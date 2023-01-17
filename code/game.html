@@ -28,6 +28,34 @@
           }
         }
         
+        function getscore ( dé1 , dé2 , dé3)
+        {   
+          if (dé1==6 && dé2==6 &&  dé3==6 ){ return 6}
+          if (dé1==5 && dé2==5 &&  dé3==5) { return 5}
+          if (dé1==4 && dé2==4 &&  dé3==4) { return 4}
+          if (dé1==3 && dé2==3 &&  dé3==3) { return 3}
+          if (dé1==2 && dé2==2 &&  dé3==2) { return 2}
+          if (dé1==1 && dé2==1 &&  dé3==1) { return 7}
+
+        if (dé1==1 && dé2==1  )
+            {
+             if(dé3==6)  {return 6 }   else {  if(dé3==5)  {return 5 } else {  if(dé3==4)  {return 4 }else {if(dé3==3)  {return 3}else {if(dé3==2)  {return 2}}}  }  }   
+            }
+            if (dé2==1 && dé3==1  )
+            {
+                if(dé1==6)  {return 6 }   else {  if(dé1==5)  {return 5 } else {  if(dé1==4)  {return 4 }else {if(dé1==3)  {return 3}else {if(dé1==2)  {return 2}}}  }  }
+                
+            }
+            if (dé1==1 && dé3==1  )
+            {
+                if(dé2==6)  {return 6 }   else {  if(dé2==5)  {return 5 } else {  if(dé2==4)  {return 4 }else {if(dé2==3)  {return 3}else {if(dé2==2)  {return 2}}}  }  }
+                
+            }
+            return 1 ;
+
+        }
+
+
         function getValue() {
              var  input = document.getElementById("in").value; 
               
@@ -45,19 +73,16 @@
                     var val_dé1 = codage.indexOf(dé_1,0)+1;
                     var val_dé2 = codage.indexOf(dé_2,0)+1;
                     var val_dé3 = codage.indexOf(dé_3,0)+1;
-                    if (val_dé1==1 && val_dé2==1 && val_dé3==1 )  //3AS
-                    {
-                      score =7 ;
-                    }
+                    
+                    score = getscore (val_dé1 ,val_dé2 ,val_dé3);
+                    
                     //les autres cas 
                     alert ('score '+ score );; // affidche du dcore du jour "j"
               }
          }
 
 
-
-
  </script>
-          </body>
+ </body>
 
 </html>
