@@ -6,8 +6,12 @@
   </head>
   <body>
     <input type="text" placeholder="donner le nombre de joueur" id="in">
-    <button type="button" onclick="getValue();">Récupérer la valeur</button>
-    <input type="checkbox"  onclick="getchecked();"  id='check1'>
+    <button type="button" onclick="getValue();">commencer le jeu </button>
+    </body>
+  </br>
+    <input type="button"    id='check1'  value="Relancer">
+  </br>
+  <input type="button"    id='valider'  value="Valider le resultat">  
 
 <script>
         let codage= ["000","001","010", "011","100","101","110","111"]
@@ -15,19 +19,10 @@
         function  bit_aleatoir() {
             min = Math.ceil(0);
             max = Math.floor(1);
-        var random =Math.floor( Math.random() * (max-min+1))+ min; 
-        return random;
+            var random =Math.floor( Math.random() * (max-min+1))+ min; 
+            return random;
         }
 
-        function getchecked( ){
-          const checkBox = document.getElementById('check1').checked;
-          if (checkBox === true) {
-            document.getElementById('check1').value=true ;
-            } else {
-              document.getElementById('check1').value=false;
-          }
-        }
-        
         function getscore ( dé1 , dé2 , dé3)
         {   
           if (dé1==6 && dé2==6 &&  dé3==6 ){ return 6}
@@ -36,52 +31,69 @@
           if (dé1==3 && dé2==3 &&  dé3==3) { return 3}
           if (dé1==2 && dé2==2 &&  dé3==2) { return 2}
           if (dé1==1 && dé2==1 &&  dé3==1) { return 7}
-
         if (dé1==1 && dé2==1  )
             {
              if(dé3==6)  {return 6 }   else {  if(dé3==5)  {return 5 } else {  if(dé3==4)  {return 4 }else {if(dé3==3)  {return 3}else {if(dé3==2)  {return 2}}}  }  }   
             }
             if (dé2==1 && dé3==1  )
-            {
-                if(dé1==6)  {return 6 }   else {  if(dé1==5)  {return 5 } else {  if(dé1==4)  {return 4 }else {if(dé1==3)  {return 3}else {if(dé1==2)  {return 2}}}  }  }
-                
-            }
+            { if(dé1==6)  {return 6 }   else {  if(dé1==5)  {return 5 } else {  if(dé1==4)  {return 4 }else {if(dé1==3)  {return 3}else {if(dé1==2)  {return 2}}}  }  }
+             }
             if (dé1==1 && dé3==1  )
-            {
-                if(dé2==6)  {return 6 }   else {  if(dé2==5)  {return 5 } else {  if(dé2==4)  {return 4 }else {if(dé2==3)  {return 3}else {if(dé2==2)  {return 2}}}  }  }
-                
-            }
+            { if(dé2==6)  {return 6 }   else {  if(dé2==5)  {return 5 } else {  if(dé2==4)  {return 4 }else {if(dé2==3)  {return 3}else {if(dé2==2)  {return 2}}}  }  } }
             return 1 ;
-
         }
 
+    function calcul_valeur_de()
+    {   var dé_1 , dé_2 , dé_3 ; 
+      dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();   // le codage du du dé1 
+      dé_2= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
+      dé_3= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
+      var val_dé1 = codage.indexOf(dé_1,0)+1;
+      var val_dé2 = codage.indexOf(dé_2,0)+1;
+      var val_dé3 = codage.indexOf(dé_3,0)+1;
+      let liste=  [val_dé1 ,val_dé2, val_dé3];
+      return liste ;
+    }
 
-        function getValue() {
+    function getValue() {
              var  input = document.getElementById("in").value; 
-              
-              for (let joueur=0 ; joueur <input; joueur++)
-              {  let continuer=true ; let partie=0 ;let  score=0   ;
-                
-                  var dé_1 , dé_2 , dé_3 ; 
-                    while (partie <3 && continuer==true )  // chaque jouerus a le droit a 3 parties 
-                    {   dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();   // le codage du du dé1 
-                        dé_2= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
-                        dé_3= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
-                        continuer = document.getElementById('check1').value   // on verfie si le joeur veut continuer ou si il garde le resultat actuelle 
-                        partie++; 
+              let joueur=0 ;  
+              while ( joueur<input  && valider)
+              {     let continuer=true ; let  score=0   ;
+                    var dé_1 , dé_2 , dé_3 ; 
+                    var liste=calcul_valeur_de() ;
+                    dé_1=liste.at[1] ;     dé_2=liste.at[2]  ;  dé_3=liste.at[3] 
+                    console.log(liste) 
+                    var submitButton = document.getElementById('check1');
+                    let buttonClicked_2 = false;
+                    let buttonClicked_3 = false;  let buttonClicked_4 = false;
+                    submitButton.addEventListener('click', function handleClick() {
+                    if (buttonClicked_2 &&  buttonClicked_4==false) {
+                      buttonClicked_3 = true
+                         }else { if  (buttonClicked_2==false) {
+                          buttonClicked_2= true;
+                          liste=calcul_valeur_de() ;
+                          dé_1=liste.at[1] ;     dé_2=liste.at[2]  ;  dé_3=liste.at[3] 
+                         console.log(liste) ;console.log('il vous reste une seul chance');  }
+                          }
+                     if ( buttonClicked_3==true ) {   
+                          liste=calcul_valeur_de() ;
+                          dé_1=liste.at[1] ;     dé_2=liste.at[2]  ;  dé_3=liste.at[3] 
+                         console.log(liste)  ;  buttonClicked_3 = false ; 
+                         console.log('il vous reste  aucune chance ');  buttonClicked_4=true;
+                          }
+                    });
+                    var submitButton = document.getElementById('valider');
+                    let   valider=false;
+                    submitButton.addEventListener('click', function handleClick() {  valider=true});
+                    while (valider==false )
+                    {score =getscore(dé_1,dé_2,dé_3);console.log ("score "+ score );  valider=true ; joueur++;
+                    console.log("je suis la ");
                     }
-                    var val_dé1 = codage.indexOf(dé_1,0)+1;
-                    var val_dé2 = codage.indexOf(dé_2,0)+1;
-                    var val_dé3 = codage.indexOf(dé_3,0)+1;
-                    
-                    score = getscore (val_dé1 ,val_dé2 ,val_dé3);
-                    
-                    //les autres cas 
-                    alert ('score '+ score );; // affidche du dcore du jour "j"
+                    //problème a la gestion de plusieurs joueur 
+                    //affichage du score du joueur "j"
               }
          }
-
-
  </script>
  </body>
 
