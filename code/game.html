@@ -85,12 +85,11 @@
                     });
                     var submitButton = document.getElementById('valider');
                     let   valider=false;
-                    submitButton.addEventListener('click', function handleClick() {  valider=true});
-                    while (valider==false )
-                    {score =getscore(dé_1,dé_2,dé_3);console.log ("score "+ score );  valider=true ; joueur++;
+                    //problème au niveau de la gestion des joueurs
+                    submitButton.addEventListener('click', function handleClick() {score =getscore(dé_1,dé_2,dé_3);console.log ("score "+ score );  valider=true ;});
+                    joueur++;
+                    
                     console.log("je suis la ");
-                    }
-                    //problème a la gestion de plusieurs joueur 
                     //affichage du score du joueur "j"
               }
          }
