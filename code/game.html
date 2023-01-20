@@ -6,12 +6,21 @@
   </head>
   <body>
     <input type="text" placeholder="donner le nombre de joueur" id="in">
-    <button type="button" onclick="getValue();">commencer le jeu </button>
+    <button type="button" onclick="Jeu();"  id="nb_j">Nombre de joueur </button>
     </body>
   </br>
-    <input type="button"    id='check1'  value="Relancer">
+  <body>
+    <button type="button" onclick="getValue();"  value="start"  id="start" >Commencer </button>
+    </body>
   </br>
-  <input type="button"    id='valider'  value="Valider le resultat">  
+    <button type="button"    id='relancer'  value="Relancer" hidden>      Relancer         </button>
+  </br>
+  <button type="button"    id='valider'  value="Valider le resultat" hidden >  Valider le resultat     </button>
+</br>
+<body>
+  <button type="button" id="suivant" onclick="getValue();"    hidden>joeur suivant </button>
+  </body>
+</br>
 
 <script>
         let codage= ["000","001","010", "011","100","101","110","111"]
@@ -35,7 +44,7 @@
             {
              if(dé3==6)  {return 6 }   else {  if(dé3==5)  {return 5 } else {  if(dé3==4)  {return 4 }else {if(dé3==3)  {return 3}else {if(dé3==2)  {return 2}}}  }  }   
             }
-            if (dé2==1 && dé3==1  )
+       if (dé2==1 && dé3==1  )
             { if(dé1==6)  {return 6 }   else {  if(dé1==5)  {return 5 } else {  if(dé1==4)  {return 4 }else {if(dé1==3)  {return 3}else {if(dé1==2)  {return 2}}}  }  }
              }
             if (dé1==1 && dé3==1  )
@@ -55,44 +64,66 @@
       return liste ;
     }
 
+   var liste=[];
+   var bt_start = document.getElementById('nb_j');
+   var nb_j=0 ; var input ;
+   var partie_terminer =false ; 
+
     function getValue() {
-             var  input = document.getElementById("in").value; 
-              let joueur=0 ;  
-              while ( joueur<input  && valider)
-              {     let continuer=true ; let  score=0   ;
-                    var dé_1 , dé_2 , dé_3 ; 
-                    var liste=calcul_valeur_de() ;
-                    dé_1=liste.at[1] ;     dé_2=liste.at[2]  ;  dé_3=liste.at[3] 
-                    console.log(liste) 
-                    var submitButton = document.getElementById('check1');
-                    let buttonClicked_2 = false;
-                    let buttonClicked_3 = false;  let buttonClicked_4 = false;
-                    submitButton.addEventListener('click', function handleClick() {
-                    if (buttonClicked_2 &&  buttonClicked_4==false) {
-                      buttonClicked_3 = true
-                         }else { if  (buttonClicked_2==false) {
-                          buttonClicked_2= true;
-                          liste=calcul_valeur_de() ;
-                          dé_1=liste.at[1] ;     dé_2=liste.at[2]  ;  dé_3=liste.at[3] 
-                         console.log(liste) ;console.log('il vous reste une seul chance');  }
-                          }
-                     if ( buttonClicked_3==true ) {   
-                          liste=calcul_valeur_de() ;
-                          dé_1=liste.at[1] ;     dé_2=liste.at[2]  ;  dé_3=liste.at[3] 
-                         console.log(liste)  ;  buttonClicked_3 = false ; 
-                         console.log('il vous reste  aucune chance ');  buttonClicked_4=true;
-                          }
-                    });
-                    var submitButton = document.getElementById('valider');
-                    let   valider=false;
-                    //problème au niveau de la gestion des joueurs
-                    submitButton.addEventListener('click', function handleClick() {score =getscore(dé_1,dé_2,dé_3);console.log ("score "+ score );  valider=true ;});
-                    joueur++;
-                    
-                    console.log("je suis la ");
-                    //affichage du score du joueur "j"
+        nb_j++;
+      let continuer=true ; let  score=0   ;
+      var btn= document.getElementById("start").style.visibility="hidden";
+      var btn= document.getElementById("relancer").style.display = "block";
+      var btn= document.getElementById("valider").style.display = "block";
+      var dé_1 , dé_2 , dé_3 ; 
+        var liste=calcul_valeur_de() ;
+        dé_1=liste.at(0) ;  dé_2=liste.at(1)  ;  dé_3=liste.at(2) 
+        console.log(liste)  
+      var submitButton = document.getElementById('relancer');
+      let buttonClicked_2 = false;
+      let buttonClicked_3 = false;  let buttonClicked_4 = false;
+
+      submitButton.addEventListener('click', function handleClick() {   // fonction qui s'exute a chaque fois qu'un utilisateru veut relancer 
+      if (buttonClicked_2 &&  buttonClicked_4==false) {          
+      buttonClicked_3 = true
+      }else { if  (buttonClicked_2==false) {
+      buttonClicked_2= true;
+      liste=calcul_valeur_de() ;
+      dé_1=liste.at(0) ;     dé_2=liste.at(1)  ;  dé_3=liste.at(2)
+      console.log(liste) ;console.log('il vous reste une seul chance');  }
+      }
+      if ( buttonClicked_3==true ) {   
+      liste=calcul_valeur_de() ;
+      dé_1=liste.at(0) ;     dé_2=liste.at(1)  ;  dé_3=liste.at(2); 
+      console.log(liste)  ;  buttonClicked_3 = false ; 
+      console.log('il vous reste  aucune chance ');  buttonClicked_4=true;
+      }
+      });
+     
+      var valider = document.getElementById('valider');
+      valider.addEventListener('click', function valider() {  //une fois que le joueur valide on calcule son score et on passe au suivant 
+        if (nb_j !=input &&  partie_terminer ==false)
+        {  
+        score =getscore(dé_1,dé_2,dé_3);
+        console.log ("score "+ score );  console.log("joeur suivant")
+        var btn= document.getElementById("start").style.visibility="";
+        var btn= document.getElementById("relancer").style.display = "none";
+        var btn= document.getElementById("valider").style.display = "none";
+        nb_j++; 
+        }else { partie_terminer =true;    }
+      });  
+       }
+     
+     var buttonClicked_2 = false;
+      function Jeu()
+      {        input = document.getElementById("in").value;   //le nombre de joueurs 
+              if (buttonClicked_2) { consol.log("vous avez un nombre de joueur") ; } else 
+              {  buttonClicked_2 = true;
+                console.log("vous avez '%d' joueur ", input)
+                 var btn= document.getElementById("nb_j").style.visibility="hidden";
               }
-         }
+      }        
+
  </script>
  </body>
 
