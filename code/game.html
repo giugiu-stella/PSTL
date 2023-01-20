@@ -16,10 +16,7 @@
     <button type="button"    id='relancer'  value="Relancer" hidden>      Relancer         </button>
   </br>
   <button type="button"    id='valider'  value="Valider le resultat" hidden >  Valider le resultat     </button>
-</br>
-<body>
-  <button type="button" id="suivant" onclick="getValue();"    hidden>joeur suivant </button>
-  </body>
+
 </br>
 
 <script>
@@ -66,56 +63,59 @@
 
    var liste=[];
    var bt_start = document.getElementById('nb_j');
-   var nb_j=0 ; var input ;
-   var partie_terminer =false ; 
+   var nb_j=1; var input ;
+   var partie_terminer ;
+   var valider = document.getElementById('valider'); 
+   var submitButton = document.getElementById('relancer');
+   var dé_1 , dé_2 , dé_3 ; 
 
-    function getValue() {
-        nb_j++;
+   valider.addEventListener('click', function valider() {  //une fois que le joueur valide on calcule son score et on passe au suivant 
+              if (nb_j !=input  && partie_terminer==false  )
+              {  
+              score =getscore(dé_1,dé_2,dé_3);
+              console.log ("score "+ score );  console.log("joeur suivant")
+              var btn= document.getElementById("start").style.visibility="";
+              var btn= document.getElementById("relancer").style.display = "none";
+              var btn= document.getElementById("valider").style.display = "none";
+              nb_j++; 
+              }else { partie_terminer =true; 
+                     score =getscore(dé_1,dé_2,dé_3);
+                     console.log ("score "+ score );
+                     console.log("Fin de la partie ")  }
+        });  
+
+    submitButton.addEventListener('click', function relancer() {   // fonction qui s'exute a chaque fois qu'un utilisateru veut relancer (max 3 fois)
+          if (buttonClicked_2 &&  buttonClicked_4==false) {          
+          buttonClicked_3 = true
+          }else { if  (buttonClicked_2==false) {
+          buttonClicked_2= true;
+          liste=calcul_valeur_de() ;
+          dé_1=liste.at(0) ;     dé_2=liste.at(1)  ;  dé_3=liste.at(2)
+          console.log(liste) ;console.log('il vous reste une seul chance');  }
+          }
+          if ( buttonClicked_3==true ) {   
+          liste=calcul_valeur_de() ;
+          dé_1=liste.at(0) ;     dé_2=liste.at(1)  ;  dé_3=liste.at(2); 
+          console.log(liste)  ;  buttonClicked_3 = false ; 
+          console.log('il vous reste  aucune chance ');  buttonClicked_4=true;
+          }
+      });
+  var buttonClicked_2 , buttonClicked_3 , buttonClicked_4;
+  function getValue() {
       let continuer=true ; let  score=0   ;
       var btn= document.getElementById("start").style.visibility="hidden";
       var btn= document.getElementById("relancer").style.display = "block";
       var btn= document.getElementById("valider").style.display = "block";
-      var dé_1 , dé_2 , dé_3 ; 
-        var liste=calcul_valeur_de() ;
-        dé_1=liste.at(0) ;  dé_2=liste.at(1)  ;  dé_3=liste.at(2) 
-        console.log(liste)  
-      var submitButton = document.getElementById('relancer');
-      let buttonClicked_2 = false;
-      let buttonClicked_3 = false;  let buttonClicked_4 = false;
-
-      submitButton.addEventListener('click', function handleClick() {   // fonction qui s'exute a chaque fois qu'un utilisateru veut relancer 
-      if (buttonClicked_2 &&  buttonClicked_4==false) {          
-      buttonClicked_3 = true
-      }else { if  (buttonClicked_2==false) {
-      buttonClicked_2= true;
-      liste=calcul_valeur_de() ;
-      dé_1=liste.at(0) ;     dé_2=liste.at(1)  ;  dé_3=liste.at(2)
-      console.log(liste) ;console.log('il vous reste une seul chance');  }
-      }
-      if ( buttonClicked_3==true ) {   
-      liste=calcul_valeur_de() ;
-      dé_1=liste.at(0) ;     dé_2=liste.at(1)  ;  dé_3=liste.at(2); 
-      console.log(liste)  ;  buttonClicked_3 = false ; 
-      console.log('il vous reste  aucune chance ');  buttonClicked_4=true;
-      }
-      });
      
-      var valider = document.getElementById('valider');
-      valider.addEventListener('click', function valider() {  //une fois que le joueur valide on calcule son score et on passe au suivant 
-        if (nb_j !=input &&  partie_terminer ==false)
-        {  
-        score =getscore(dé_1,dé_2,dé_3);
-        console.log ("score "+ score );  console.log("joeur suivant")
-        var btn= document.getElementById("start").style.visibility="";
-        var btn= document.getElementById("relancer").style.display = "none";
-        var btn= document.getElementById("valider").style.display = "none";
-        nb_j++; 
-        }else { partie_terminer =true;    }
-      });  
-       }
+      var liste=calcul_valeur_de() ;
+      dé_1=liste.at(0) ;  dé_2=liste.at(1)  ;  dé_3=liste.at(2) 
+      console.log(liste)  
+       buttonClicked_2 = false;   buttonClicked_3 = false;   buttonClicked_4 = false;
+       if (nb_j==1) {partie_terminer=false ;}
+     }
      
-     var buttonClicked_2 = false;
-      function Jeu()
+  var buttonClicked_2 = false;
+  function Jeu()
       {        input = document.getElementById("in").value;   //le nombre de joueurs 
               if (buttonClicked_2) { consol.log("vous avez un nombre de joueur") ; } else 
               {  buttonClicked_2 = true;
@@ -123,7 +123,6 @@
                  var btn= document.getElementById("nb_j").style.visibility="hidden";
               }
       }        
-
  </script>
  </body>
 
