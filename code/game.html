@@ -57,32 +57,48 @@
       var val_dé1 = codage.indexOf(dé_1,0)+1;
       var val_dé2 = codage.indexOf(dé_2,0)+1;
       var val_dé3 = codage.indexOf(dé_3,0)+1;
-      let liste=  [val_dé1 ,val_dé2, val_dé3];
+      let liste=  [1 ,1, val_dé3];
       return liste ;
     }
 
-   var liste=[];
    var bt_start = document.getElementById('nb_j');
    var nb_j=1; var input ;
    var partie_terminer ;
    var valider = document.getElementById('valider'); 
    var submitButton = document.getElementById('relancer');
    var dé_1 , dé_2 , dé_3 ; 
+   resultat = [];
 
    valider.addEventListener('click', function valider() {  //une fois que le joueur valide on calcule son score et on passe au suivant 
               if (nb_j !=input  && partie_terminer==false  )
               {  
               score =getscore(dé_1,dé_2,dé_3);
-              console.log ("score "+ score );  console.log("joeur suivant")
+               console.log("joeur suivant")
               var btn= document.getElementById("start").style.visibility="";
               var btn= document.getElementById("relancer").style.display = "none";
               var btn= document.getElementById("valider").style.display = "none";
+              let element ={}
+              element.joueur=nb_j
+              element.score=score
+              resultat.push( element);
               nb_j++; 
+              console.log(resultat)
               }else { partie_terminer =true; 
                      score =getscore(dé_1,dé_2,dé_3);
-                     console.log ("score "+ score );
-                     console.log("Fin de la partie ")  }
-        });  
+                     let element ={}
+                      element.joueur=nb_j
+                      element.score=score
+                      resultat.push( element);
+                      resultat.sort(function compare(a, b) {  if (a.score < b.score)
+                                                                  return -1;
+                                                                if (a.score > b.score )
+                                                                  return 1;
+                                                                return 0;});
+                      console.log(resultat)
+                      console.log("le ganiant est ") ;console.log(resultat[input-1])
+                     console.log("Fin de la partie ") 
+                     }
+     });  
 
     submitButton.addEventListener('click', function relancer() {   // fonction qui s'exute a chaque fois qu'un utilisateru veut relancer (max 3 fois)
           if (buttonClicked_2 &&  buttonClicked_4==false) {          
@@ -101,6 +117,7 @@
           }
       });
   var buttonClicked_2 , buttonClicked_3 , buttonClicked_4;
+
   function getValue() {
       let continuer=true ; let  score=0   ;
       var btn= document.getElementById("start").style.visibility="hidden";
