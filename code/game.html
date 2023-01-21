@@ -2,13 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Récupérer la valeur d'un input texte</title>
+    <link rel="stylesheet" type="text/css" href="Game_style.css" /> 
+    <title>421</title>
   </head>
   <body>
-    <input type="text" placeholder="donner le nombre de joueur" id="in">
     <button type="button" onclick="Jeu();"  id="nb_j">Nombre de joueur </button>
+    <input type="text" placeholder="donner le nombre de joueur" id="in"  >
     </body>
   </br>
+</br>
+</br>
   <body>
     <button type="button" onclick="getValue();"  value="start"  id="start" >Commencer </button>
     </body>
@@ -56,7 +59,7 @@
             return 1 ;
         }
     var a_dé1 = document.createElement("img");        var a_dé2 = document.createElement("img");       var a_dé3 = document.createElement("img");
-
+    
     function calcul_valeur_de()
     {   var dé_1 , dé_2 , dé_3 ; 
       dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();   // le codage du du dé1 
@@ -98,8 +101,8 @@
               resultat.push( element);
               var resultat_output = document.getElementById("resultat_score")
               resultat_output.style.display='block'
-              resultat_output.value="{numero_joueur:"+element.joueur.toString()+ ","+ "score :"+element.score.toString() +"}";
-              resultat_output.style.display='none'
+              resultat_output.value="{numero_joueur:"+element.joueur.toString()+ ","+ "score :"+element.score.toString() +"} \n" +resultat_output.value;
+         
               nb_j++; 
               console.log(resultat)
               }else { partie_terminer =true; 
