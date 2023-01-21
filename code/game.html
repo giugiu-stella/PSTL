@@ -18,7 +18,7 @@
   </br>
     <button type="button"    id='relancer'  value="Relancer" hidden>      Relancer         </button>
   </br>
-  <button type="button"    id='valider'  value="Valider le resultat" hidden >  Valider le resultat     </button>
+  <button type="button"    id='valider'  value="Valider le resultat" hidden >  Valider le resultat et passer au jr suivant </button>
 </br>
 <body>
   <input type="text" value ="" id="resultat_score" hidden>
@@ -28,6 +28,9 @@
   <input type="text" value ="" id="winner" hidden>
 </body>
 </br>
+<div id="texte"></div>
+<button  id="aide" value="buttonA" onclick="affichertexte()"> Aide </button>
+
 <script>
         let codage= ["000","001","010", "011","100","101","110","111"]
         let image_dé= ['dice/dice1.png','dice/dice2.png','dice/dice3.png','dice/dice4.png','dice/dice5.png','dice/dice6.png']
@@ -58,20 +61,20 @@
             { if(dé2==6)  {return 6 }   else {  if(dé2==5)  {return 5 } else {  if(dé2==4)  {return 4 }else {if(dé2==3)  {return 3}else {if(dé2==2)  {return 2}}}  }  } }
             return 1 ;
         }
-    var a_dé1 = document.createElement("img");        var a_dé2 = document.createElement("img");       var a_dé3 = document.createElement("img");
+    var a_dé1 = document.createElement("img");var a_dé2 = document.createElement("img"); var a_dé3 = document.createElement("img");
     
     function calcul_valeur_de()
-    {   var dé_1 , dé_2 , dé_3 ; 
-      dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();   // le codage du du dé1 
-      dé_2= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
-      dé_3= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
-      var val_dé1 = codage.indexOf(dé_1,0)+1;   if (val_dé1==7) {val_dé1=1} ; if (val_dé1==8) {val_dé1=2} 
-      var val_dé2 = codage.indexOf(dé_2,0)+1;   if (val_dé2==7) {val_dé2=1}; if (val_dé2==8) {val_dé2=2}
-      var val_dé3 = codage.indexOf(dé_3,0)+1;   if (val_dé3==7) {val_dé3=1}; if (val_dé3==8) {val_dé3=2}
-      let liste=  [val_dé1 ,val_dé2, val_dé3];
-      a_dé1.src =image_dé[ liste[0]-1];  a_dé2.src =image_dé[ liste[1]-1];  a_dé3.src = image_dé [liste[2]-1]; 
-      document.body.appendChild(a_dé1); document.body.appendChild(a_dé2); document.body.appendChild(a_dé3);
-      return liste ;
+      {   var dé_1 , dé_2 , dé_3 ; 
+        dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();   // le codage du du dé1 
+        dé_2= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
+        dé_3= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
+        var val_dé1 = codage.indexOf(dé_1,0)+1;   if (val_dé1==7) {val_dé1=1} ; if (val_dé1==8) {val_dé1=2} 
+        var val_dé2 = codage.indexOf(dé_2,0)+1;   if (val_dé2==7) {val_dé2=1}; if (val_dé2==8) {val_dé2=2}
+        var val_dé3 = codage.indexOf(dé_3,0)+1;   if (val_dé3==7) {val_dé3=1}; if (val_dé3==8) {val_dé3=2}
+        let liste=  [val_dé1 ,val_dé2, val_dé3];
+        a_dé1.src =image_dé[ liste[0]-1];  a_dé2.src =image_dé[ liste[1]-1];  a_dé3.src = image_dé [liste[2]-1]; 
+        document.body.appendChild(a_dé1); document.body.appendChild(a_dé2); document.body.appendChild(a_dé3);
+        return liste ;
     }
 
    var bt_start = document.getElementById('nb_j');
@@ -162,13 +165,32 @@
      
   var buttonClicked_2 = false;
   function Jeu()
-      {        input = document.getElementById("in").value;   //le nombre de joueurs 
-              if (buttonClicked_2) { consol.log("vous avez un nombre de joueur") ; } else 
-              {  buttonClicked_2 = true;
-                console.log("vous avez '%d' joueur ", input)
-                 var btn= document.getElementById("nb_j").style.visibility="hidden";
-              }
-      }        
+  {  input = document.getElementById("in").value;   //le nombre de joueurs 
+     if (buttonClicked_2) { consol.log("vous avez un nombre de joueur") ; } else 
+         {  buttonClicked_2 = true;
+            console.log("vous avez '%d' joueur ", input)
+              var btn= document.getElementById("nb_j").style.visibility="hidden";
+          }
+   } 
+      
+
+// partie Aide
+//Pour faire diparaitre l'aide il faut cliquer sur le texte
+      function affichertexte() {
+        
+        document.getElementById("texte").innerHTML=`
+        <div class='affichage'> texte cliquable (clique sur le 1er texte pour fermer l'Aide)
+           <p style='texte-align:left;'   onclick='cacher();'> Chauqe Participant a le droit a 3 lancers \n Un participant a le droit de valider une seule fois, une fois la validation on passe au joueur svt </p></div>`;
+        }
+      
+      function cacher(){
+      document.getElementById("texte").innerHTML="";
+      }
+
+
+        
+
+
  </script>
  </body>
 
