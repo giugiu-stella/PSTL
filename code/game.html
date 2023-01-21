@@ -16,21 +16,27 @@
     <button type="button"    id='relancer'  value="Relancer" hidden>      Relancer         </button>
   </br>
   <button type="button"    id='valider'  value="Valider le resultat" hidden >  Valider le resultat     </button>
-
 </br>
-
+<body>
+  <input type="text" value ="" id="resultat_score" hidden>
+</body>
+</br>
+<body>
+  <input type="text" value ="" id="winner" hidden>
+</body>
+</br>
 <script>
         let codage= ["000","001","010", "011","100","101","110","111"]
         let image_dé= ['dice/dice1.png','dice/dice2.png','dice/dice3.png','dice/dice4.png','dice/dice5.png','dice/dice6.png']
        
-        function  bit_aleatoir() {
+    function  bit_aleatoir() {
             min = Math.ceil(0);
             max = Math.floor(1);
             var random =Math.floor( Math.random() * (max-min+1))+ min; 
             return random;
         }
 
-        function getscore ( dé1 , dé2 , dé3)
+    function getscore ( dé1 , dé2 , dé3)
         {   
           if (dé1==6 && dé2==6 &&  dé3==6 ){ return 6}
           if (dé1==5 && dé2==5 &&  dé3==5) { return 5}
@@ -72,9 +78,13 @@
    var submitButton = document.getElementById('relancer');
    var dé_1 , dé_2 , dé_3 ; 
    resultat = [];
+   var images = document.getElementsByTagName('img');
 
-   valider.addEventListener('click', function valider() {  //une fois que le joueur valide on calcule son score et on passe au suivant 
-          
+  valider.addEventListener('click', function valider() {  //une fois que le joueur valide on calcule son score et on passe au suivant 
+  
+          images[0].parentNode.removeChild(images[0]);
+          images[0].parentNode.removeChild(images[0]);
+          images[0].parentNode.removeChild(images[0]);
           if (nb_j !=input  && partie_terminer==false  )
               {  
               score =getscore(dé_1,dé_2,dé_3);
@@ -86,6 +96,10 @@
               element.joueur=nb_j
               element.score=score
               resultat.push( element);
+              var resultat_output = document.getElementById("resultat_score")
+              resultat_output.style.display='block'
+              resultat_output.value="{numero_joueur:"+element.joueur.toString()+ ","+ "score :"+element.score.toString() +"}";
+              resultat_output.style.display='none'
               nb_j++; 
               console.log(resultat)
               }else { partie_terminer =true; 
@@ -100,14 +114,18 @@
                                                                   return 1;
                                                                 return 0;});
                       console.log(resultat)
+                      
+                      var resultat_output = document.getElementById("winner")
+                      resultat_output.style.display='block'
+                      resultat_output.value="{numero_ganiant:"+resultat[input-1].joueur.toString()+ ","+ "score :"+resultat[input-1].score.toString() +"}";
                       console.log("le ganiant est ") ;console.log(resultat[input-1])
                      console.log("Fin de la partie ") 
                      }
      });  
 
     submitButton.addEventListener('click', function relancer() {   // fonction qui s'exute a chaque fois qu'un utilisateru veut relancer (max 3 fois)
-    var images = document.getElementsByTagName('img');
-    images[0].parentNode.removeChild(images[0]);
+    
+       images[0].parentNode.removeChild(images[0]);
 
        if (buttonClicked_2 &&  buttonClicked_4==false) {          
           buttonClicked_3 = true
@@ -124,7 +142,7 @@
           console.log('il vous reste  aucune chance ');  buttonClicked_4=true;
           }
       });
-  var buttonClicked_2 , buttonClicked_3 , buttonClicked_4;
+     var buttonClicked_2 , buttonClicked_3 , buttonClicked_4;
 
   function getValue() {
       let continuer=true ; let  score=0   ;
