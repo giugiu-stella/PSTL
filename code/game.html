@@ -21,7 +21,8 @@
 
 <script>
         let codage= ["000","001","010", "011","100","101","110","111"]
-
+        let image_dé= ['dice/dice1.png','dice/dice2.png','dice/dice3.png','dice/dice4.png','dice/dice5.png','dice/dice6.png']
+       
         function  bit_aleatoir() {
             min = Math.ceil(0);
             max = Math.floor(1);
@@ -48,16 +49,19 @@
             { if(dé2==6)  {return 6 }   else {  if(dé2==5)  {return 5 } else {  if(dé2==4)  {return 4 }else {if(dé2==3)  {return 3}else {if(dé2==2)  {return 2}}}  }  } }
             return 1 ;
         }
+    var a_dé1 = document.createElement("img");        var a_dé2 = document.createElement("img");       var a_dé3 = document.createElement("img");
 
     function calcul_valeur_de()
     {   var dé_1 , dé_2 , dé_3 ; 
       dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();   // le codage du du dé1 
       dé_2= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
       dé_3= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
-      var val_dé1 = codage.indexOf(dé_1,0)+1;
-      var val_dé2 = codage.indexOf(dé_2,0)+1;
-      var val_dé3 = codage.indexOf(dé_3,0)+1;
-      let liste=  [1 ,1, val_dé3];
+      var val_dé1 = codage.indexOf(dé_1,0)+1;   if (val_dé1==7) {val_dé1=1} ; if (val_dé1==8) {val_dé1=2} 
+      var val_dé2 = codage.indexOf(dé_2,0)+1;   if (val_dé2==7) {val_dé2=1}; if (val_dé2==8) {val_dé2=2}
+      var val_dé3 = codage.indexOf(dé_3,0)+1;   if (val_dé3==7) {val_dé3=1}; if (val_dé3==8) {val_dé3=2}
+      let liste=  [val_dé1 ,val_dé2, val_dé3];
+      a_dé1.src =image_dé[ liste[0]-1];  a_dé2.src =image_dé[ liste[1]-1];  a_dé3.src = image_dé [liste[2]-1]; 
+      document.body.appendChild(a_dé1); document.body.appendChild(a_dé2); document.body.appendChild(a_dé3);
       return liste ;
     }
 
@@ -70,7 +74,8 @@
    resultat = [];
 
    valider.addEventListener('click', function valider() {  //une fois que le joueur valide on calcule son score et on passe au suivant 
-              if (nb_j !=input  && partie_terminer==false  )
+          
+          if (nb_j !=input  && partie_terminer==false  )
               {  
               score =getscore(dé_1,dé_2,dé_3);
                console.log("joeur suivant")
@@ -101,7 +106,10 @@
      });  
 
     submitButton.addEventListener('click', function relancer() {   // fonction qui s'exute a chaque fois qu'un utilisateru veut relancer (max 3 fois)
-          if (buttonClicked_2 &&  buttonClicked_4==false) {          
+    var images = document.getElementsByTagName('img');
+    images[0].parentNode.removeChild(images[0]);
+
+       if (buttonClicked_2 &&  buttonClicked_4==false) {          
           buttonClicked_3 = true
           }else { if  (buttonClicked_2==false) {
           buttonClicked_2= true;
