@@ -6,8 +6,10 @@
     <title>421</title>
   </head>
   <body>
-    <button type="button" onclick="Jeu();"  id="nb_j">Nombre de joueur </button>
+    <input type="text" placeholder="donner le nombre de jeton" id="jt"  >
     <input type="text" placeholder="donner le nombre de joueur" id="in"  >
+  </br>
+    <button type="button" onclick="Jeu();"  id="nb_j">Jouer  </button>
     </body>
   </br>
 </br>
@@ -16,8 +18,15 @@
     <button type="button" onclick="getValue();"  value="start"  id="start" >Commencer </button>
     </body>
   </br>
-    <button type="button"    id='relancer'  value="Relancer" hidden>      Relancer         </button>
+  <body>
+    <input type="checkbox" id='relancer_dé1' name="relancer_dé1" hidden> Relancer de1 </input>  
+  </body>
   </br>
+  <input type="checkbox"    id='relancer_dé2' hidden name="relancer_dé2" >Relancer de2 </input>   
+ </br>
+    <input type="checkbox"  id='relancer_dé3' name="relancer_dé3"hidden>Relancer de3 </input>      
+ </br>
+ <button type="button"    id='relancer'  value="" hidden >  Relancer </button>
   <button type="button"    id='valider'  value="Valider le resultat" hidden >  Valider le resultat et passer au jr suivant </button>
 </br>
 <body>
@@ -30,19 +39,21 @@
 </br>
 <div id="texte"></div>
 <button  id="aide" value="buttonA" onclick="affichertexte()"> Aide </button>
-
+</br>
+<button type="button"    id='decharge'  value="" hidden > Décharge</button>
+</br>
 <script>
         let codage= ["000","001","010", "011","100","101","110","111"]
         let image_dé= ['dice/dice1.png','dice/dice2.png','dice/dice3.png','dice/dice4.png','dice/dice5.png','dice/dice6.png']
        
-    function  bit_aleatoir() {
+   function  bit_aleatoir() {  //En partique je pense qu'lle n'est pas nécessaire 
             min = Math.ceil(0);
             max = Math.floor(1);
             var random =Math.floor( Math.random() * (max-min+1))+ min; 
             return random;
         }
 
-    function getscore ( dé1 , dé2 , dé3)
+   function getscore ( dé1 , dé2 , dé3)
         {   
           if (dé1==6 && dé2==6 &&  dé3==6 ){ return 6}
           if (dé1==5 && dé2==5 &&  dé3==5) { return 5}
@@ -61,10 +72,10 @@
             { if(dé2==6)  {return 6 }   else {  if(dé2==5)  {return 5 } else {  if(dé2==4)  {return 4 }else {if(dé2==3)  {return 3}else {if(dé2==2)  {return 2}}}  }  } }
             return 1 ;
         }
-    var a_dé1 = document.createElement("img");var a_dé2 = document.createElement("img"); var a_dé3 = document.createElement("img");
+    var image_dé1 = document.createElement("img");var image_dé2 = document.createElement("img"); var image_dé3 = document.createElement("img");
     
-    function calcul_valeur_de()
-      {   var dé_1 , dé_2 , dé_3 ; 
+   function calcul_valeur_de()
+    {   var dé_1 , dé_2 , dé_3 ; 
         dé_1= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();   // le codage du du dé1 
         dé_2= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
         dé_3= bit_aleatoir().toString()+ bit_aleatoir().toString() +bit_aleatoir().toString();  
@@ -72,68 +83,73 @@
         var val_dé2 = codage.indexOf(dé_2,0)+1;   if (val_dé2==7) {val_dé2=1}; if (val_dé2==8) {val_dé2=2}
         var val_dé3 = codage.indexOf(dé_3,0)+1;   if (val_dé3==7) {val_dé3=1}; if (val_dé3==8) {val_dé3=2}
         let liste=  [val_dé1 ,val_dé2, val_dé3];
-        a_dé1.src =image_dé[ liste[0]-1];  a_dé2.src =image_dé[ liste[1]-1];  a_dé3.src = image_dé [liste[2]-1]; 
-        document.body.appendChild(a_dé1); document.body.appendChild(a_dé2); document.body.appendChild(a_dé3);
+        image_dé1.src =image_dé[ liste[0]-1];  image_dé2.src =image_dé[ liste[1]-1];  image_dé3.src = image_dé [liste[2]-1]; 
+        document.body.appendChild(image_dé1); document.body.appendChild(image_dé2); document.body.appendChild(image_dé3);
         return liste ;
     }
 
    var bt_start = document.getElementById('nb_j');
-   var nb_j=1; var input ;
+   var nb_j=1; var input ; var Jetons;
    var partie_terminer ;
    var valider = document.getElementById('valider'); 
-   var submitButton = document.getElementById('relancer');
+   var relancer= document.getElementById('relancer'); 
+   var submitButton_de1 = document.getElementById('relancer_dé1');
+   var submitButton_de2 = document.getElementById('relancer_dé2');
+   var submitButton_de3 = document.getElementById('relancer_dé3');
+
    var dé_1 , dé_2 , dé_3 ; 
    resultat = [];
    var images = document.getElementsByTagName('img');
 
   valider.addEventListener('click', function valider() {  //une fois que le joueur valide on calcule son score et on passe au suivant 
-  
           images[0].parentNode.removeChild(images[0]);
           images[0].parentNode.removeChild(images[0]);
           images[0].parentNode.removeChild(images[0]);
-          if (nb_j !=input  && partie_terminer==false  )
-              {  
+          if (Jetons>0  && partie_terminer==false  ) // Il reste encore des jetons alors on continue 
+           {  
               score =getscore(dé_1,dé_2,dé_3);
-               console.log("joeur suivant")
+              console.log("joeur suivant")
               var btn= document.getElementById("start").style.visibility="";
               var btn= document.getElementById("relancer").style.display = "none";
               var btn= document.getElementById("valider").style.display = "none";
-              let element ={}
-              element.joueur=nb_j
-              element.score=score
-              resultat.push( element);
+              resultat[nb_j-1].score=score
               var resultat_output = document.getElementById("resultat_score")
               resultat_output.style.display='block'
-              resultat_output.value="{numero_joueur:"+element.joueur.toString()+ ","+ "score :"+element.score.toString() +"} \n" +resultat_output.value;
-         
               nb_j++; 
+              if ( nb_j>input) {  //Si tous les utilsateurq ont joué mais il reste encore des jetons==> on va distribuer les jetons
+                                 resultat.sort(function compare(a, b) {  if (a.score < b.score)
+                                                                              return -1;
+                                                                            if (a.score > b.score )
+                                                                              return 1;
+                                                                            return 0;});
+                                  //Mise a jour des jetons le jours qui a le moins bon score recoi les jetons 
+                                  
+                                   resultat[0].jeton=resultat[nb_j-2].score+resultat[0].jeton
+                                  Jetons=Jetons-resultat[nb_j-2].score 
+                                 // resultat_output.style.display='block'
+                                 // resultat_output.value="{numero_ganiant:"+resultat[input-1].joueur.toString()+ ","+"Jeton :"+resultat[nb_j-1].score.toString()+ "score :"+resultat[input-1].score.toString() +"}";
+                                  for (let i=0; i<nb_j-1 ; i++) {resultat[i].score=0;}//Pour recomencer une nouvelle manche 
+                                  
+                                  if (Jetons<=0)  ///ON passse a la decharge 
+                                  { partie_terminer =true;  
+                                    console.log("Fin de la partie charge ") 
+                                    var btn= document.getElementById("start").style.display = "none";
+                                    var resultat_output = document.getElementById("decharge")
+                                    resultat_output.style.display='block'
+                                    var resultat_w= document.getElementById("winner")
+                                     for (let i=0; i<nb_j-1 ; i++) { resultat_w.value="{numero_joueur:"+resultat[i].joueur.toString()+ ","+"Jeton :"+resultat[i].jeton.toString()+"}"+resultat_w.value}
+                                     resultat_w.style.display='block'
+                                  }
+                                  nb_j=1; 
+                                }          
+              resultat_output.value="{numero_joueur:"+resultat[nb_j-1].joueur.toString()+ ","+"Jeton :"+resultat[nb_j-1].jeton.toString()+ ", score :"+resultat[nb_j-1].score.toString() +"} \n" 
               console.log(resultat)
-              }else { partie_terminer =true; 
-                     score =getscore(dé_1,dé_2,dé_3);
-                     let element ={}
-                      element.joueur=nb_j
-                      element.score=score
-                      resultat.push( element);
-                      resultat.sort(function compare(a, b) {  if (a.score < b.score)
-                                                                  return -1;
-                                                                if (a.score > b.score )
-                                                                  return 1;
-                                                                return 0;});
-                      console.log(resultat)
-                      
-                      var resultat_output = document.getElementById("winner")
-                      resultat_output.style.display='block'
-                      resultat_output.value="{numero_ganiant:"+resultat[input-1].joueur.toString()+ ","+ "score :"+resultat[input-1].score.toString() +"}";
-                      console.log("le ganiant est ") ;console.log(resultat[input-1])
-                     console.log("Fin de la partie ") 
-                     }
+              }
      });  
 
-    submitButton.addEventListener('click', function relancer() {   // fonction qui s'exute a chaque fois qu'un utilisateru veut relancer (max 3 fois)
-    
-       images[0].parentNode.removeChild(images[0]);
-
-       if (buttonClicked_2 &&  buttonClicked_4==false) {          
+relancer.addEventListener('click', function relancer() {   // fonction qui s'exute a chaque fois qu'un utilisateru veut relancer (max 3 fois)
+      
+     /* if (buttonClicked_2 &&  buttonClicked_4==false) {          
           buttonClicked_3 = true
           }else { if  (buttonClicked_2==false) {
           buttonClicked_2= true;
@@ -146,13 +162,39 @@
           dé_1=liste.at(0) ;     dé_2=liste.at(1)  ;  dé_3=liste.at(2); 
           console.log(liste)  ;  buttonClicked_3 = false ; 
           console.log('il vous reste  aucune chance ');  buttonClicked_4=true;
-          }
-      });
-     var buttonClicked_2 , buttonClicked_3 , buttonClicked_4;
+          }*/
+    if ( document.getElementById("relancer_dé1").checked )
+    { index_img0= images[0]
+      dé_1 =Math.floor( Math.random() * (6-1+1))+ 1; 
+      image_dé1.src =image_dé[ dé_1-1]
+      document.getElementById("relancer_dé1").checked=false
+      images[0]=index_img0
+    }
+    if ( document.getElementById("relancer_dé2").checked )
+    { index_img1= images[1]
+      dé_2 =Math.floor( Math.random() * (6-1+1))+ 1; 
+      image_dé2.src =image_dé[ dé_2-1]
+      var ch= document.getElementById("relancer_dé2").checked=false 
+      images[1]=index_img1
+    }
+    if ( document.getElementById("relancer_dé3").checked )
+    { index_img2= images[2]
+      dé_3 =Math.floor( Math.random() * (6-1+1))+ 1; 
+      image_dé3.src =image_dé[ dé_3-1]
+      document.getElementById("relancer_dé3").checked=false 
+      images[2]=index_img2
+    }
+  });
+
+
+  var buttonClicked_2 , buttonClicked_3 , buttonClicked_4;
 
   function getValue() {
       let continuer=true ; let  score=0   ;
       var btn= document.getElementById("start").style.visibility="hidden";
+      var btn= document.getElementById("relancer_dé1").style.display = "block";
+      var btn= document.getElementById("relancer_dé2").style.display = "block";
+      var btn= document.getElementById("relancer_dé3").style.display = "block";
       var btn= document.getElementById("relancer").style.display = "block";
       var btn= document.getElementById("valider").style.display = "block";
      
@@ -166,27 +208,37 @@
   var buttonClicked_2 = false;
   function Jeu()
   {  input = document.getElementById("in").value;   //le nombre de joueurs 
+     Jetons = document.getElementById("jt").value;
+     for (let i =1; i<=input ; i++ )
+     { let element ={}
+       element.joueur=i
+       element.jeton=0  //le nombre de jetons accumuler 
+       element.score=0  //Le nombre de jeton que va recevoir un joueur durant UN lancer 
+       resultat.push( element);
+     }
      if (buttonClicked_2) { consol.log("vous avez un nombre de joueur") ; } else 
          {  buttonClicked_2 = true;
             console.log("vous avez '%d' joueur ", input)
               var btn= document.getElementById("nb_j").style.visibility="hidden";
           }
-   } 
-      
+  } 
+//Décharge 
+
+
+
 
 // partie Aide
 //Pour faire diparaitre l'aide il faut cliquer sur le texte
-      function affichertexte() {
+function affichertexte() {
         document.getElementById("texte").innerHTML=`
         <div class='affichage'> texte cliquable (clique sur le 1er texte pour fermer l'Aide)
            <p style='texte-align:left;'   onclick='cacher();'> Chauqe Participant a le droit a 3 lancers \n Un participant a le droit de valider une seule fois, une fois la validation on passe au joueur svt </p></div>`;
         }
         
-      function cacher(){
+ function cacher(){
       document.getElementById("texte").innerHTML="";
       }
 
  </script>
  </body>
-
 </html>

@@ -4,16 +4,26 @@ input[id="in"  ] {
     margin-left: auto;
     margin-right: auto;
   }
+  input[id="jt"  ] {
+    padding:10px;
+    margin:10px 0; 
+    margin-left: auto;
+    margin-right: auto;
+  }
   input[id="resultat_score"  ] {
     padding:10px;
     margin:10px 0; 
-
+  
+    border: 3px solid  black;
+   
   }
 
   input[id="winner"  ] {
     padding:10px;
     margin:10px 0; 
     border: 4px solid  red;
+    width: 330px;
+
   }
 button {
     padding:10px;
