@@ -9,7 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JTextArea;
-
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
 public class Game extends JFrame 
 { HashMap<Integer, List<Integer >> joueurs = new HashMap<>();   //1er nb_j //2eme valeur dés //3eme nb_jeton
     ArrayList<Integer> Ordre = new ArrayList<Integer>();
@@ -18,8 +21,12 @@ public class Game extends JFrame
     private JButton but1,but2 ,Relancer,Sauvgarder; 
     private JCheckBox check_de1 ,check_de2,check_de3;
     public static JTextArea input_nb_joueur ;
+    private BufferedImage image;
+    //Le nombre de relances.
+    int nb_relancer=1;
     JPanel  pan ;
     int de_1 ,de_2, de_3 ;
+    int banque_jetons= 21;
     public Game( ArrayList<Integer> Ordre,  HashMap<Integer , List<Integer >> j)
     {   //titre de la fenetre
         super("421");  
@@ -37,7 +44,6 @@ public class Game extends JFrame
         
         //ajoute le boutton dans le panel
         pan.add(but1);
-       
         but2=new JButton("Commencer !");
         but2.addActionListener(new Commencer());
         pan.add(but2);
@@ -59,7 +65,7 @@ public class Game extends JFrame
 
      public  class   Commencer implements   ActionListener  //Pour lancer une premier fois les dés 
     {  public  void    actionPerformed(ActionEvent e)
-        {  
+        { 
           de_1= (int ) ( Math.random() * (6-1+1))+ 1; // psk Math.random renvoie un double 
           de_2= (int ) ( Math.random() * (6-1+1))+ 1;
           de_3= (int ) ( Math.random() * (6-1+1))+ 1;
@@ -99,7 +105,8 @@ public class Game extends JFrame
 
     public  class   Relancer implements   ActionListener  //Pour Relancer les dés (on doit verifier les cases qui sont cocher)
     { public  void    actionPerformed(ActionEvent e){
-         boolean state = check_de1.isSelected();
+        if (nb_relancer!=3) {
+        boolean state = check_de1.isSelected();
          if (state){de_1= (int ) ( Math.random() * (6-1+1))+ 1; } //si la case de dé1 est cocheé alors on calcule une nouvelle valeur 
          
          state = check_de2.isSelected();
@@ -111,6 +118,11 @@ public class Game extends JFrame
          System.out.println("la valeur du de1 " +String.valueOf(de_1));
          System.out.println("la valeur du de2 " +String.valueOf (de_2));
          System.out.println("la valeur du de3 " +String.valueOf ( de_3));
+         nb_relancer++;
+        }
+        else{ System.out.println("Impossible de Relancer");
+              //Hide les xheckbox et le bouton relancer 
+         }
         }
     }
     //sauvgarde le resultat du joueur courant et passe au suivant+ supprime les checkbox et relancer (car le prochaine joueur doit ne peut pas relancer directement)
@@ -118,28 +130,33 @@ public class Game extends JFrame
     public  class  sauvgarder implements   ActionListener  
     { public  void    actionPerformed(ActionEvent e){
        //Calcule la valeur des dés uen fois la validation
-        int [] liste = {de_1, de_2, de_3};
-        Arrays.sort(liste);
-        
-        valeur = de_1*100+de_2*10+de_3; 
-        System.out.print("\n valeur: "+String.valueOf(valeur));
-        //il reste encore des joueur
-        if (cpt_joueur <= nb_joueur){   
+        valeur = de_1*100+de_2*10+de_3;
+        //Il reste encore des jetons  
+        if(banque_jetons!=0)
+        { //il reste encore des joueurs
+          if (cpt_joueur <= nb_joueur){   
             joueurs.put(cpt_joueur,Arrays.asList(valeur ,0) );
             //Joueur_suivant
             cpt_joueur++;
-            //cacher les chechbox et relancer
-            check_de1.setVisible(false); check_de1.repaint();
-            check_de2.setVisible(false); check_de2.repaint();
-            check_de3.setVisible(false); check_de3.repaint();
-            Relancer.setVisible(false);  Relancer.repaint();
-            System.out.println(joueurs);
+            //Reinicialisation du nombre de Relanées pour le jr svt 
+            nb_relancer=1; 
+            System.out.println("Table des scores==>" +joueurs);
+            System.out.println("joueur suivant ");
+           }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
+            { cpt_joueur=1;
+              nb_relancer=1;
+              
 
-          }else  //Mise a jours des jetons 
-          {
-
-          }
             }
+          //Hide les chechbox et le bouton relancer
+          check_de1.setVisible(false); check_de1.repaint();
+          check_de2.setVisible(false); check_de2.repaint();
+          check_de3.setVisible(false); check_de3.repaint();
+          Relancer.setVisible(false);  Relancer.repaint();
+        }else{
+               //Decharge 
+              }  
+     }
     }
     public  static  void    main(String args[])
     {   ArrayList<Integer> Ordre = new ArrayList<Integer>();
