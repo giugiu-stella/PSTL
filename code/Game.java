@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.swing.JTextArea;
+
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
@@ -21,15 +21,17 @@ public class Game extends JFrame
     private JButton but1,but2 ,Relancer,Sauvgarder; 
     private JCheckBox check_de1 ,check_de2,check_de3;
     public static JTextArea input_nb_joueur ;
-    private BufferedImage image;
+    //Labels des images 
+    JLabel picLabel1, picLabel2, picLabel3,picLabel4,picLabel5,picLabel6;
+    List<JLabel> Labels ;
     //Le nombre de relances.
     int nb_relancer=1;
     JPanel  pan ;
     int de_1 ,de_2, de_3 ;
     int banque_jetons= 21;
-    public Game( ArrayList<Integer> Ordre,  HashMap<Integer , List<Integer >> j)
+    public Game( ArrayList<Integer> Ordre,  HashMap<Integer , List<Integer >> j) throws IOException
     {   //titre de la fenetre
-        super("421");  
+        super("421"); 
         this.Ordre=Ordre;
         this.joueurs=j;
         //panel
@@ -46,11 +48,17 @@ public class Game extends JFrame
         pan.add(but1);
         but2=new JButton("Commencer !");
         but2.addActionListener(new Commencer());
-        pan.add(but2);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pan.add(but2);        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(pan);
         pack(); //permet de mettre une bonne dimension a la fenetre
         setVisible(true);  
+        picLabel1 = new JLabel(new ImageIcon(ImageIO.read(new File("dice/dice1.png"))));
+        picLabel2 = new JLabel(new ImageIcon( ImageIO.read(new File("dice/dice2.png"))));
+        picLabel3 = new JLabel(new ImageIcon( ImageIO.read(new File("dice/dice3.png"))));
+        picLabel4 = new JLabel(new ImageIcon( ImageIO.read(new File("dice/dice4.png"))));
+        picLabel5 = new JLabel(new ImageIcon( ImageIO.read(new File("dice/dice5.png"))));
+        picLabel6 = new JLabel(new ImageIcon( ImageIO.read(new File("dice/dice6.png"))));
+        Labels= Arrays.asList(picLabel1 ,picLabel2,picLabel3,picLabel4,picLabel5,picLabel6);
     }
 
     public  class   Valider implements   ActionListener
@@ -63,15 +71,20 @@ public class Game extends JFrame
         }
     }
 
+
      public  class   Commencer implements   ActionListener  //Pour lancer une premier fois les dés 
     {  public  void    actionPerformed(ActionEvent e)
         { 
           de_1= (int ) ( Math.random() * (6-1+1))+ 1; // psk Math.random renvoie un double 
           de_2= (int ) ( Math.random() * (6-1+1))+ 1;
           de_3= (int ) ( Math.random() * (6-1+1))+ 1;
+                        
           System.out.println("la valeur du de1 " +String.valueOf(de_1));
           System.out.println("la valeur du de2 " +String.valueOf (de_2));
           System.out.println("la valeur du de3 " +String.valueOf ( de_3));
+          //Affichage d'un panel avec les iamges des dés 
+          //aficher_image_des(de_1, de_2, de_3);
+
           int Score = calculescore (de_1,de_2,de_3) ;  //[1........16]
           System.out.print("score"+String.valueOf (Score));
           //Sauvgrader ou relancer 
@@ -105,19 +118,21 @@ public class Game extends JFrame
 
     public  class   Relancer implements   ActionListener  //Pour Relancer les dés (on doit verifier les cases qui sont cocher)
     { public  void    actionPerformed(ActionEvent e){
-        if (nb_relancer!=3) {
+        if (nb_relancer!=3){ 
         boolean state = check_de1.isSelected();
-         if (state){de_1= (int ) ( Math.random() * (6-1+1))+ 1; } //si la case de dé1 est cocheé alors on calcule une nouvelle valeur 
+         if (state){de_1= (int ) ( Math.random() * (6-1+1))+ 1;} //si la case de dé1 est cocheé alors on calcule une nouvelle valeur 
          
          state = check_de2.isSelected();
          if (state){de_2= (int ) ( Math.random() * (6-1+1))+ 1; } 
 
-         state = check_de3.isSelected();
+         state=check_de3.isSelected();
          if (state){de_3= (int ) ( Math.random() * (6-1+1))+ 1; } 
          System.out.println(" \n la valeur des des apres la relance ");
          System.out.println("la valeur du de1 " +String.valueOf(de_1));
          System.out.println("la valeur du de2 " +String.valueOf (de_2));
          System.out.println("la valeur du de3 " +String.valueOf ( de_3));
+         //Affichage d'un panel avec les iamges des nouvelles valeurs 
+        // aficher_image_des(de_1, de_2, de_3);
          nb_relancer++;
         }
         else{ System.out.println("Impossible de Relancer");
@@ -145,7 +160,7 @@ public class Game extends JFrame
            }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
             { cpt_joueur=1;
               nb_relancer=1;
-              
+
 
             }
           //Hide les chechbox et le bouton relancer
@@ -157,8 +172,16 @@ public class Game extends JFrame
                //Decharge 
               }  
      }
-    }
-    public  static  void    main(String args[])
+   }
+
+   public void aficher_image_des (int de1,int de2,int de3)
+   {     this.add(Labels.get(de1-1));
+         this.add(Labels.get(de_2-1));
+         this.add(Labels.get(de_3-1));
+   }
+
+
+   public  static  void    main(String args[]) throws IOException
     {   ArrayList<Integer> Ordre = new ArrayList<Integer>();
         HashMap<Integer,List<Integer >> joueurs = new HashMap<>();  
         Ordre.add(421);
