@@ -25,7 +25,7 @@ public class Game extends JFrame
     //Labels des images 
     JLabel picLabel1, picLabel2, picLabel3,picLabel4,picLabel5,picLabel6;
     List<JLabel> Labels ;
-    int nb_relance_1j=3;
+    int nb_relance_1j=0;
     int max=3 ;
     //Le nombre de relances.
     int nb_relancer=0;
@@ -148,7 +148,7 @@ public class Game extends JFrame
     //ATTENTION: si le dérnier joueur qui valide il faut mettre a jours les jetons 
     public  class  sauvgarder implements   ActionListener  
     { public  void    actionPerformed(ActionEvent e){
-      if (cpt_joueur==1){max=nb_relance_1j; nb_relance_1j=0; System.out.print(("Impossible de jouer "));}
+      if (cpt_joueur==1){max=nb_relance_1j; nb_relance_1j=0;}
     
        //Calcule la valeur des dés uen fois la validation
         valeur = de_1*100+de_2*10+de_3;
@@ -156,7 +156,7 @@ public class Game extends JFrame
         if(banque_jetons!=0)
         { //il reste encore des joueurs
           if (cpt_joueur <= nb_joueur){   
-            joueurs.put(cpt_joueur,Arrays.asList(valeur ,0) );
+            joueurs.put(cpt_joueur,Arrays.asList(valeur ,0,0) );
             //Joueur_suivant
             cpt_joueur++;
             //Reinicialisation du nombre de Relanées pour le jr svt 
@@ -166,8 +166,67 @@ public class Game extends JFrame
            }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
             { cpt_joueur=1;
               nb_relancer=1;
+              int ordre1=(Ordre.get(1)).get(1);
+              int ordre2=(Ordre.get(2)).get(1);
+              int ordre3=(Ordre.get(3)).get(1);
+              int jgagnant;
+              int gagnant=0;
+              int jperdant;
 
+              if(ordre1!=-1 && ordre2!=-1 && ordre3!=-1){ // cas 1
+                int [] liste = {ordre1, ordre2, ordre3};
+                Arrays.sort(liste);
+                gagnant = liste[0];
+                int perdant= liste[2];
+                if(gagnant==ordre1){
+                  jgagnant=1;
+                }
+                if(gagnant==ordre2){
+                  jgagnant=2;
+                }
+                if(gagnant==ordre3){
+                  jgagnant=3;
+                }
+                if(perdant==ordre1){
+                  jperdant=1;
+                }
+                if(perdant==ordre2){
+                  jperdant=2;
+                }
+                if(perdant==ordre3){
+                  jperdant=3;
+                }
+              }
 
+              if(ordre1==-1 && ordre2==-1 && ordre3==-1){ //cas 2
+                int score1=somme((Ordre.get(1)).get(0));
+                int score2=somme((Ordre.get(2)).get(0));
+                int score3=somme((Ordre.get(3)).get(0));
+                int [] liste = {score1, score2, score3};
+                Arrays.sort(liste);
+                gagnant = liste[2];
+                int perdant= liste[0];
+                if(gagnant==score1){
+                  jgagnant=1;
+                }
+                if(gagnant==score2){
+                  jgagnant=2;
+                }
+                if(gagnant==score3){
+                  jgagnant=3;
+                }
+                if(perdant==score1){
+                  jperdant=1;
+                }
+                if(perdant==score2){
+                  jperdant=2;
+                }
+                if(perdant==score3){
+                  jperdant=3;
+                }
+               
+              }
+              update_jetons(jgagnant,jperdant,gagnant);
             }
           //Hide les chechbox et le bouton relancer
           check_de1.setVisible(false); check_de1.repaint();
@@ -178,6 +237,14 @@ public class Game extends JFrame
                //Decharge 
               }  
      }
+   }
+   public int somme(int score){
+    int total=0;
+    total=total+score/100;
+    int r = score%100;
+    total=total+r/10;
+    r=r%10;
+    return total+r;
    }
 
    public void aficher_image_des (int de1,int de2,int de3)
