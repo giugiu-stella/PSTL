@@ -21,11 +21,14 @@ public class Game extends JFrame
     private JButton but1,but2 ,Relancer,Sauvgarder; 
     private JCheckBox check_de1 ,check_de2,check_de3;
     public static JTextArea input_nb_joueur ;
+    int max_relancer=3;
     //Labels des images 
     JLabel picLabel1, picLabel2, picLabel3,picLabel4,picLabel5,picLabel6;
     List<JLabel> Labels ;
+    int nb_relance_1j=3;
+    int max=3 ;
     //Le nombre de relances.
-    int nb_relancer=1;
+    int nb_relancer=0;
     JPanel  pan ;
     int de_1 ,de_2, de_3 ;
     int banque_jetons= 21;
@@ -74,7 +77,7 @@ public class Game extends JFrame
 
      public  class   Commencer implements   ActionListener  //Pour lancer une premier fois les dés 
     {  public  void    actionPerformed(ActionEvent e)
-        { 
+        { nb_relance_1j++;
           de_1= (int ) ( Math.random() * (6-1+1))+ 1; // psk Math.random renvoie un double 
           de_2= (int ) ( Math.random() * (6-1+1))+ 1;
           de_3= (int ) ( Math.random() * (6-1+1))+ 1;
@@ -99,11 +102,10 @@ public class Game extends JFrame
           Relancer.addActionListener(new Relancer()); //ajouter une action au bouton Relancer //atention pas plus de 3fois 
           //2 Sauvgarder:
           // si on sauvgarde on passe au 2eme joueur 
-          
+          repaint();
           Sauvgarder=new JButton("sauvgarder !");
           pan.add(Sauvgarder);
           Sauvgarder.addActionListener(new sauvgarder());
-
          //  int Jeton = Update_jeton (score   ) ; ///le nombre de jetons 
          }
     }
@@ -118,7 +120,9 @@ public class Game extends JFrame
 
     public  class   Relancer implements   ActionListener  //Pour Relancer les dés (on doit verifier les cases qui sont cocher)
     { public  void    actionPerformed(ActionEvent e){
-        if (nb_relancer!=3){ 
+      if (cpt_joueur==1) {nb_relance_1j++;}
+      
+      if (nb_relancer!=max ){ 
         boolean state = check_de1.isSelected();
          if (state){de_1= (int ) ( Math.random() * (6-1+1))+ 1;} //si la case de dé1 est cocheé alors on calcule une nouvelle valeur 
          
@@ -144,6 +148,8 @@ public class Game extends JFrame
     //ATTENTION: si le dérnier joueur qui valide il faut mettre a jours les jetons 
     public  class  sauvgarder implements   ActionListener  
     { public  void    actionPerformed(ActionEvent e){
+      if (cpt_joueur==1){max=nb_relance_1j; nb_relance_1j=0; System.out.print(("Impossible de jouer "));}
+    
        //Calcule la valeur des dés uen fois la validation
         valeur = de_1*100+de_2*10+de_3;
         //Il reste encore des jetons  
