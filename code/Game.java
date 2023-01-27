@@ -16,8 +16,16 @@ public class Game extends JFrame
     public static JTextArea input_nb_joueur ;
     Boolean etape_decharge=false  ;
     int max_relancer=3;
+<<<<<<< HEAD
      JButton Sauvgarder_decharge;
     int nb_relance_1j=0,   max=3 ;
+=======
+    //Labels des images 
+    JLabel picLabel1, picLabel2, picLabel3,picLabel4,picLabel5,picLabel6;
+    List<JLabel> Labels ;
+    int nb_relance_1j=0;
+    int max=3 ;
+>>>>>>> 7ae634c6c1662a879eb773529f6210a6b185e538
     //Le nombre de relances.
     int nb_relancer=0,tour_j; 
     JPanel  pan ;
@@ -128,6 +136,7 @@ public class Game extends JFrame
     //ATTENTION: si le dérnier joueur qui valide il faut mettre a jours les jetons 
     public  class  sauvgarder implements   ActionListener  
     { public  void    actionPerformed(ActionEvent e){
+<<<<<<< HEAD
         int [] liste = {de_1, de_2, de_3};
         Arrays.sort(liste);
         int valeur = liste[2]*100+liste[1]*10+liste[0];
@@ -137,10 +146,23 @@ public class Game extends JFrame
           if (cpt_joueur <nb_joueur ){   
             joueurs.get(cpt_joueur).set(0,valeur);
             System.out.println("Table des scores==>" +joueurs);
+=======
+      if (cpt_joueur==1){max=nb_relance_1j; nb_relance_1j=0;}
+    
+       //Calcule la valeur des dés uen fois la validation
+        valeur = de_1*100+de_2*10+de_3;
+        //Il reste encore des jetons  
+        if(banque_jetons!=0)
+        { //il reste encore des joueurs
+          if (cpt_joueur <= nb_joueur){   
+            joueurs.put(cpt_joueur,Arrays.asList(valeur ,0,0) );
+            //Joueur_suivant
+>>>>>>> 7ae634c6c1662a879eb773529f6210a6b185e538
             cpt_joueur++;
             //Reinicialisation du nombre de Relanées pour le jr svt 
             nb_relancer=1; 
             System.out.println("joueur suivant ");
+<<<<<<< HEAD
           }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
             {  joueurs.get(cpt_joueur).set(0,valeur);
                cpt_joueur=1;
@@ -189,6 +211,80 @@ public class Game extends JFrame
               for (int i=1; i<=nb_joueur;i++)
               {  joueurs.get(i).set(0,0);
                  joueurs.get(i).set(1,0);
+=======
+           }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
+            { cpt_joueur=1;
+              nb_relancer=1;
+              int ordre1=(Ordre.get(1)).get(1);
+              int ordre2=(Ordre.get(2)).get(1);
+              int ordre3=(Ordre.get(3)).get(1);
+              int jgagnant;
+              int gagnant=0;
+              int jperdant;
+
+              if(ordre1!=-1 && ordre2!=-1 && ordre3!=-1){ // cas 1
+                int [] liste = {ordre1, ordre2, ordre3};
+                Arrays.sort(liste);
+                gagnant = liste[0];
+                int perdant= liste[2];
+                if(gagnant==ordre1){
+                  jgagnant=1;
+                }
+                if(gagnant==ordre2){
+                  jgagnant=2;
+                }
+                if(gagnant==ordre3){
+                  jgagnant=3;
+                }
+                if(perdant==ordre1){
+                  jperdant=1;
+                }
+                if(perdant==ordre2){
+                  jperdant=2;
+                }
+                if(perdant==ordre3){
+                  jperdant=3;
+                }
+              }
+
+              if(ordre1==-1 && ordre2==-1 && ordre3==-1){ //cas 2
+                int score1=somme((Ordre.get(1)).get(0));
+                int score2=somme((Ordre.get(2)).get(0));
+                int score3=somme((Ordre.get(3)).get(0));
+                int [] liste = {score1, score2, score3};
+                Arrays.sort(liste);
+                gagnant = liste[2];
+                int perdant= liste[0];
+                if(gagnant==score1){
+                  jgagnant=1;
+                }
+                if(gagnant==score2){
+                  jgagnant=2;
+                }
+                if(gagnant==score3){
+                  jgagnant=3;
+                }
+                if(perdant==score1){
+                  jperdant=1;
+                }
+                if(perdant==score2){
+                  jperdant=2;
+                }
+                if(perdant==score3){
+                  jperdant=3;
+                }
+               
+              }
+              update_jetons(jgagnant,jperdant,gagnant);
+            }
+          //Hide les chechbox et le bouton relancer
+          check_de1.setVisible(false); check_de1.repaint();
+          check_de2.setVisible(false); check_de2.repaint();
+          check_de3.setVisible(false); check_de3.repaint();
+          Relancer.setVisible(false);  Relancer.repaint();
+        }else{
+               //Decharge 
+>>>>>>> 7ae634c6c1662a879eb773529f6210a6b185e538
               }  
               if (banque_jetons==0) {Sauvgarder.setVisible(false);  
                                      commencer.setVisible(false);     
@@ -205,11 +301,22 @@ public class Game extends JFrame
         }
      }
    }
+<<<<<<< HEAD
    
   public int  calcule_ordre (int valeur){
     int index= Ordre.indexOf(valeur);
      return index;    
     }
+=======
+   public int somme(int score){
+    int total=0;
+    total=total+score/100;
+    int r = score%100;
+    total=total+r/10;
+    r=r%10;
+    return total+r;
+   }
+>>>>>>> 7ae634c6c1662a879eb773529f6210a6b185e538
 
   public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
   {  if (index_g==-1){joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
