@@ -69,7 +69,6 @@ public class Game extends JFrame
     {  public  void    actionPerformed(ActionEvent e)
         { //Inicialisation dela structure joueurs 
           if (Debut ) {iniciliastion_joueur() ; Debut=false;}
-          nb_relance_1j++;
           de_1= (int ) ( Math.random() * (6-1+1))+ 1;  
           de_2= (int ) ( Math.random() * (6-1+1))+ 1;
           de_3= (int ) ( Math.random() * (6-1+1))+ 1;
@@ -194,6 +193,7 @@ public class Game extends JFrame
                                      commencer.setVisible(false);     
                                      Decharge=new JButton("Dechrger !");
                                      pan.add(Decharge);
+                                     nb_relance_1j++;
                                      etape_decharge=true ;//pour dire que on traite la decharge 
                                      cpt_joueur=1; //pour caculer les joueurq quit ont deja jouer 
                                      tour_j=jperdant;//Joueur qui commence la Decharge 
@@ -254,6 +254,7 @@ public class Game extends JFrame
                   joueurs.get(i).set(1,ordre_table);
                 }
                 System.out.println("Table des scores==>" +joueurs);
+                System.out.println("Update Jetons ");
                 //Update jetons (le perdant recoi les jetons du ganiant suivant les score)
                 //Verifier si a la fin de la manche il existe un joueur sans Jetons 
                 //if(il existe un joueur avec 0 jeton on arrete )
