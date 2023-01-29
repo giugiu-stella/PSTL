@@ -215,7 +215,7 @@ public class Game extends JFrame
                                      nb_relance_1j++;
                                      etape_decharge=true ;//pour dire que on traite la decharge 
                                      cpt_joueur=1; //pour caculer les joueurq quit ont deja jouer 
-                                     tour_j=jperdant;//Joueur qui commence la Decharge 
+                                     tour_j=perdant;//Joueur qui commence la Decharge 
                                      Decharge.addActionListener(new Commencer());
                                      System.out.println("Decharge"); 
                                     }
@@ -256,7 +256,7 @@ public class Game extends JFrame
 
    public int[] liste_ordre(int nb_joueur){
     int []liste=new int[nb_joueur];
-    for(i=0;i<nb_joueur;i++){
+    for(int i=0;i<nb_joueur;i++){
       liste[i]=(joueurs.get(i+1)).get(1);
     }
     return liste;
@@ -266,7 +266,7 @@ public class Game extends JFrame
     int []liste=new int[nb_joueur];
     for(int i=0;i<nb_joueur;i++){
       if(liste_ordre[i]==-1){
-        liste[i]=somme((joueur.get(i+1)).get(0));
+        liste[i]=somme((joueurs.get(i+1)).get(0));
       }
       else{
         liste[i]=0;//on s'en fout !
@@ -275,10 +275,21 @@ public class Game extends JFrame
     return liste;
    }
 
+   public boolean recherche_atleast(int [] liste, int valeur){
+    for(int i=0;i<liste.length;i++){
+      if(liste[i]!=-1){
+        return true;
+      }
+    }
+    return false;
+   }
+
    public int[] trouver_gagnant(int[] liste_ordre){
     int jgagnant=0;
     int igagnant=0;
-    boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x!=-1);
+    //boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x!=-1);
+    //pb avec Arrays.steam donc on fait une fonction
+    boolean found = recherche_atleast(liste_ordre,-1);
     if(found==true){
       for(int i=0;i<liste_ordre.length;i++){
         if(liste_ordre[i]>igagnant){
@@ -301,8 +312,18 @@ public class Game extends JFrame
     return res;
    }
 
+   public boolean recherche_any(int [] liste, int valeur){
+    for(int i=0;i<liste.length;i++){
+      if(liste[i]==-1){
+        return true;
+      }
+    }
+    return false;
+   }
    public int trouver_perdant(int[] liste_ordre){
-    boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x==-1);
+    //boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x==-1);
+    //pb avec Arrays.steam donc on fait une fonction
+    boolean found = recherche_any(liste_ordre,-1);
     int jperdant=0;
     int iperdant=17;
     if(found ==true){
@@ -325,12 +346,12 @@ public class Game extends JFrame
     }
     return jperdant;
    }
-
-   public void aficher_image_des (int de1,int de2,int de3)
+   // il n'y a pas de variables Labels
+   /*public void aficher_image_des (int de1,int de2,int de3)
    {     this.add(Labels.get(de1-1));
          this.add(Labels.get(de_2-1));
          this.add(Labels.get(de_3-1));
-   }
+   }*/
 
 
    //La fonction sauvrgarder lors de la decharge verifie si un joueru n'a plus de jetons et 
