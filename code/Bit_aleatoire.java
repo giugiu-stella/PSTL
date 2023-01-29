@@ -70,11 +70,18 @@ public class Bit_aleatoire {
   public static void main(String args[]) throws IOException{ 
     Bit_aleatoire rn= new Bit_aleatoire();
     String entier="";
+    PrintWriter writer ;
+    writer = new PrintWriter("Output.txt");
+    for (int j=0; j<21; j++) {
     for(int i=0;i<3;i++){
       entier=rn.bit_aleatoire() + entier;
     }
     System.out.println(entier);
     int faces=rn.valeur_des(entier);
     System.out.println(faces);
+    writer.println( String.valueOf(faces));
+    entier="" ;
   }
+  writer.close();
+}
 }
