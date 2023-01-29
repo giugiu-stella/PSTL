@@ -199,9 +199,9 @@ public class Game extends JFrame
                 gagnant=-1;
               }*/
               int [] tabbis = liste_ordre(nb_joueur);
-              int [] gagant=trouver_gagnant(tabbis);
+              int [] gagnant=trouver_gagnant(tabbis);
               int perdant=trouver_perdant(tabbis);
-              update_jetons(gagant[0],perdant, gagnant[1]);   
+              update_jetons(gagnant[0],perdant, gagnant[1]);   
               //update_jetons(jgagnant,jperdant,gagnant); ///le nombre de jetons 
               System.out.println("Table des scores==>" +joueurs);
               for (int i=1; i<=nb_joueur;i++)
