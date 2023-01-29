@@ -166,67 +166,7 @@ public class Game extends JFrame
            }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
             { cpt_joueur=1;
               nb_relancer=1;
-              int ordre1=(Ordre.get(1)).get(1);
-              int ordre2=(Ordre.get(2)).get(1);
-              int ordre3=(Ordre.get(3)).get(1);
-              int jgagnant;
-              int gagnant=0;
-              int jperdant;
-
-              if(ordre1!=-1 && ordre2!=-1 && ordre3!=-1){ // cas 1
-                int [] liste = {ordre1, ordre2, ordre3};
-                Arrays.sort(liste);
-                gagnant = liste[0];
-                int perdant= liste[2];
-                if(gagnant==ordre1){
-                  jgagnant=1;
-                }
-                if(gagnant==ordre2){
-                  jgagnant=2;
-                }
-                if(gagnant==ordre3){
-                  jgagnant=3;
-                }
-                if(perdant==ordre1){
-                  jperdant=1;
-                }
-                if(perdant==ordre2){
-                  jperdant=2;
-                }
-                if(perdant==ordre3){
-                  jperdant=3;
-                }
-              }
-
-              if(ordre1==-1 && ordre2==-1 && ordre3==-1){ //cas 2
-                int score1=somme((Ordre.get(1)).get(0));
-                int score2=somme((Ordre.get(2)).get(0));
-                int score3=somme((Ordre.get(3)).get(0));
-                int [] liste = {score1, score2, score3};
-                Arrays.sort(liste);
-                gagnant = liste[2];
-                int perdant= liste[0];
-                if(gagnant==score1){
-                  jgagnant=1;
-                }
-                if(gagnant==score2){
-                  jgagnant=2;
-                }
-                if(gagnant==score3){
-                  jgagnant=3;
-                }
-                if(perdant==score1){
-                  jperdant=1;
-                }
-                if(perdant==score2){
-                  jperdant=2;
-                }
-                if(perdant==score3){
-                  jperdant=3;
-                }
-               
-              }
-              update_jetons(jgagnant,jperdant,gagnant);
+                          
             }
           //Hide les chechbox et le bouton relancer
           check_de1.setVisible(false); check_de1.repaint();
@@ -245,6 +185,72 @@ public class Game extends JFrame
     total=total+r/10;
     r=r%10;
     return total+r;
+   }
+
+   /*public int[] liste_triee(int ordre1, int ordre2,int ordre3){
+    int []list = {ordre1, ordre2, ordre3};
+    Arrays.sort(list);
+    return list;
+   }*/
+
+   public int[] liste_ordre(int nb_joueur){
+    int []liste=new int[nb_joueur];
+    for(i=0;i<nb_joueur;i++){
+      liste[i]=(joueurs.get(i+1)).get(1);
+    }
+    return liste;
+   }
+   
+   public int[] liste_somme(int[] liste_ordre, int nb_joueur){
+    int []liste=new int[nb_joueur];
+    for(int i=0;i<nb_joueur;i++){
+      if(liste_ordre[i]==-1){
+        liste[i]=somme((joueur.get(i+1)).get(0));
+      }
+      else{
+        liste[i]=0;//on s'en fout !
+      }
+    }
+    return liste;
+   }
+
+   public int[] trouver_gagnant(int[] liste_ordre){
+    int jgagnant=0;
+    int igagnant=0;
+    for(int i=0;i<liste_ordre.length;i++){
+      if(liste_ordre[i]>igagnant){
+        igagnant=liste_ordre[i];
+        jgagnant=i+1;
+      }
+    }
+    int [] res={jgagnant,igagnant};
+    return res;
+   }
+
+   public int trouver_perdant(int[] liste_ordre){
+    boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x==-1);
+    int jperdant=0;
+    int iperdant=0;
+    if(found ==true){
+      int [] liste=liste_somme(liste_ordre, liste_ordre.length);
+      
+      for(int i=0;i<liste.length;i++){
+        if(liste[i]>iperdant){
+          iperdant=liste[i];
+          jperdant=i+1;
+        }
+      }
+    }
+    else{
+      iperdant=17;
+      for(int i=0;i<liste_ordre.length;i++){
+        if(liste_ordre[i]<iperdant){
+          iperdant=liste_ordre[i];
+          jperdant=i+1;
+        }
+      }
+    }
+    return jperdant;
    }
 
    public void aficher_image_des (int de1,int de2,int de3)
