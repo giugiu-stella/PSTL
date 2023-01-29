@@ -140,82 +140,34 @@ public class Game extends JFrame
             //Reinicialisation du nombre de Relanées pour le jr svt 
             nb_relancer=1; 
             System.out.println("joueur suivant ");
-           }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
-            { cpt_joueur=1;
-              nb_relancer=1;
-              int [] tab = liste_ordre(nb_joueur);
-              int [] winner=trouver_gagnant(tab);
-              int looser=trouver_perdant(tab);
-              update_jetons(winner[0],looser, winner[1]);         
-            }
-          //Hide les chechbox et le bouton relancer
-          check_de1.setVisible(false); check_de1.repaint();
-          check_de2.setVisible(false); check_de2.repaint();
-          check_de3.setVisible(false); check_de3.repaint();
-          Relancer.setVisible(false);  Relancer.repaint();
-        }else{
-               //Decharge 
-          //Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
+          }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
             {  joueurs.get(cpt_joueur).set(0,valeur);
                cpt_joueur=1;
-                /*for (int i=1; i<=nb_joueur;i++)
+                for (int i=1; i<=nb_joueur;i++)
                 { int ordre_table=calcule_ordre(joueurs.get(i).get(0));
                   joueurs.get(i).set(1,ordre_table);
                 }
               System.out.println("Table des scores==>" +joueurs);
 
-              int ordre1=(joueurs.get(1)).get(1);
-              int ordre2=(joueurs.get(2)).get(1);
-              int ordre3=(joueurs.get(3)).get(1);
-              int jgagnant=0;
-              int gagnant=0;
-              int jperdant=0;
-              if(ordre1!=-1 && ordre2!=-1 && ordre3!=-1){ // cas 1
-                int [] liste_ordre = {ordre1, ordre2, ordre3};
-                Arrays.sort(liste_ordre);
-                gagnant = liste_ordre[0];
-                int perdant= liste_ordre[2];
-                if(gagnant==ordre1){    jgagnant=1;  }
-                if(gagnant==ordre2){jgagnant=2;  }
-                if(gagnant==ordre3){ jgagnant=3; }
-                if(perdant==ordre1){  jperdant=1;   }
-                if(perdant==ordre2){  jperdant=2;  }
-                if(perdant==ordre3){ jperdant=3; }
-              }
-              if(ordre1==-1 && ordre2==-1 && ordre3==-1){ //cas 2
-                int score1=somme((joueurs.get(1)).get(0));
-                int score2=somme((joueurs.get(2)).get(0));
-                int score3=somme((joueurs.get(3)).get(0));
-                int [] liste_score = {score1, score2, score3};
-                Arrays.sort(liste_score);
-                gagnant = liste_score[2];
-                int perdant= liste_score[0];
-                if(gagnant==score1){   jgagnant=1;  }
-                if(gagnant==score2){  jgagnant=2; }
-                if(gagnant==score3){    jgagnant=3;   }
-                if(perdant==score1){    jperdant=1; }
-                if(perdant==score2){  jperdant=2; }
-                if(perdant==score3){   jperdant=3;  }
-                gagnant=-1;
-              }*/
-              int [] tabbis = liste_ordre(nb_joueur);
-              int [] gagnant=trouver_gagnant(tabbis);
-              int perdant=trouver_perdant(tabbis);
-              update_jetons(gagnant[0],perdant, gagnant[1]);   
-              //update_jetons(jgagnant,jperdant,gagnant); ///le nombre de jetons 
+              int [] tab = liste_ordre(nb_joueur);
+              int [] winner=trouver_gagnant(tab);
+              int looser=trouver_perdant(tab);
+
+              update_jetons(winner[0],looser, winner[1]); 
+
               System.out.println("Table des scores==>" +joueurs);
               for (int i=1; i<=nb_joueur;i++)
               {  joueurs.get(i).set(0,0);
                  joueurs.get(i).set(1,0);
               }  
-              if (banque_jetons==0) {Sauvgarder.setVisible(false);  
+              if (banque_jetons<=0) {Sauvgarder.setVisible(false);  
                                      commencer.setVisible(false);     
                                      Decharge=new JButton("Dechrger !");
                                      pan.add(Decharge);
                                      nb_relance_1j++;
                                      etape_decharge=true ;//pour dire que on traite la decharge 
                                      cpt_joueur=1; //pour caculer les joueurq quit ont deja jouer 
-                                     tour_j=perdant;//Joueur qui commence la Decharge 
+                                     tour_j=looser;//Joueur qui commence la Decharge 
                                      Decharge.addActionListener(new Commencer());
                                      System.out.println("Decharge"); 
                                     }
@@ -231,8 +183,11 @@ public class Game extends JFrame
     }
 
   public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
-  {  if (index_g==-1){joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
-                      banque_jetons--;}
+  {  System.out.println(index_g);
+     if (j_g==-1){ 
+                      joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
+                      banque_jetons--;
+                    }
     else{ joueurs.get(jp).set(2 ,Table_Jetons[index_g]+joueurs.get(jp).get(2));
           banque_jetons=banque_jetons-Table_Jetons[index_g];
     }
@@ -246,13 +201,6 @@ public class Game extends JFrame
     r=r%10;
     return total+r;
    }
-
-
-   /*public int[] liste_triee(int ordre1, int ordre2,int ordre3){
-    int []list = {ordre1, ordre2, ordre3};
-    Arrays.sort(list);
-    return list;
-   }*/
 
    public int[] liste_ordre(int nb_joueur){
     int []liste=new int[nb_joueur];
@@ -283,7 +231,6 @@ public class Game extends JFrame
     }
     return false;
    }
-
    public int[] trouver_gagnant(int[] liste_ordre){
     int jgagnant=0;
     int igagnant=0;
@@ -312,14 +259,6 @@ public class Game extends JFrame
     return res;
    }
 
-   public boolean recherche_any(int [] liste, int valeur){
-    for(int i=0;i<liste.length;i++){
-      if(liste[i]==-1){
-        return true;
-      }
-    }
-    return false;
-   }
    public int trouver_perdant(int[] liste_ordre){
     //boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x==-1);
     //pb avec Arrays.steam donc on fait une fonction
@@ -346,14 +285,16 @@ public class Game extends JFrame
     }
     return jperdant;
    }
-   // il n'y a pas de variables Labels
-   /*public void aficher_image_des (int de1,int de2,int de3)
-   {     this.add(Labels.get(de1-1));
-         this.add(Labels.get(de_2-1));
-         this.add(Labels.get(de_3-1));
-   }*/
-
-
+ 
+   public boolean recherche_any(int [] liste, int valeur){
+    for(int i=0;i<liste.length;i++){
+      if(liste[i]==-1){
+        return true;
+      }
+    }
+    return false;
+   }
+  
    //La fonction sauvrgarder lors de la decharge verifie si un joueru n'a plus de jetons et 
    public  class   sauvgarder_decharge implements   ActionListener 
    { public  void    actionPerformed(ActionEvent e){
