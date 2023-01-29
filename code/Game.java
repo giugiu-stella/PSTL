@@ -143,7 +143,10 @@ public class Game extends JFrame
            }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
             { cpt_joueur=1;
               nb_relancer=1;
-                          
+              int [] tab = liste_ordre(nb_joueur);
+              int [] winner=trouver_gagnant(tab);
+              int looser=trouver_perdant(tab);
+              update_jetons(winner[0],looser, winner[1]);         
             }
           //Hide les chechbox et le bouton relancer
           check_de1.setVisible(false); check_de1.repaint();
@@ -152,10 +155,10 @@ public class Game extends JFrame
           Relancer.setVisible(false);  Relancer.repaint();
         }else{
                //Decharge 
-          }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
+          //Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
             {  joueurs.get(cpt_joueur).set(0,valeur);
                cpt_joueur=1;
-                for (int i=1; i<=nb_joueur;i++)
+                /*for (int i=1; i<=nb_joueur;i++)
                 { int ordre_table=calcule_ordre(joueurs.get(i).get(0));
                   joueurs.get(i).set(1,ordre_table);
                 }
@@ -194,8 +197,12 @@ public class Game extends JFrame
                 if(perdant==score2){  jperdant=2; }
                 if(perdant==score3){   jperdant=3;  }
                 gagnant=-1;
-              }
-              update_jetons(jgagnant,jperdant,gagnant); ///le nombre de jetons 
+              }*/
+              int [] tabbis = liste_ordre(nb_joueur);
+              int [] gagant=trouver_gagnant(tabbis);
+              int perdant=trouver_perdant(tabbis);
+              update_jetons(gagant[0],perdant, gagnant[1]);   
+              //update_jetons(jgagnant,jperdant,gagnant); ///le nombre de jetons 
               System.out.println("Table des scores==>" +joueurs);
               for (int i=1; i<=nb_joueur;i++)
               {  joueurs.get(i).set(0,0);
@@ -271,11 +278,24 @@ public class Game extends JFrame
    public int[] trouver_gagnant(int[] liste_ordre){
     int jgagnant=0;
     int igagnant=0;
-    for(int i=0;i<liste_ordre.length;i++){
-      if(liste_ordre[i]>igagnant){
-        igagnant=liste_ordre[i];
-        jgagnant=i+1;
+    boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x!=-1);
+    if(found==true){
+      for(int i=0;i<liste_ordre.length;i++){
+        if(liste_ordre[i]>igagnant){
+          igagnant=liste_ordre[i];
+          jgagnant=i+1;
+        }
       }
+    }
+    else{
+      int [] liste=liste_somme(liste_ordre, liste_ordre.length);
+      for(int i=0;i<liste.length;i++){
+        if(liste[i]!=0 && liste[i]>igagnant){
+          igagnant=liste[i];
+          jgagnant=i+1;
+        }
+      }
+
     }
     int [] res={jgagnant,igagnant};
     return res;
@@ -284,19 +304,18 @@ public class Game extends JFrame
    public int trouver_perdant(int[] liste_ordre){
     boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x==-1);
     int jperdant=0;
-    int iperdant=0;
+    int iperdant=17;
     if(found ==true){
       int [] liste=liste_somme(liste_ordre, liste_ordre.length);
       
       for(int i=0;i<liste.length;i++){
-        if(liste[i]>iperdant){
+        if(liste[i]!=0 && liste[i]<iperdant){
           iperdant=liste[i];
           jperdant=i+1;
         }
       }
     }
     else{
-      iperdant=17;
       for(int i=0;i<liste_ordre.length;i++){
         if(liste_ordre[i]<iperdant){
           iperdant=liste_ordre[i];
