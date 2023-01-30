@@ -33,7 +33,7 @@ public class Game extends JFrame
           pan=new JPanel();
         //Input 
         input_nb_joueur = new JTextArea("Indiquer le nombre de jrs ");
-        pan.add(input_nb_joueur );
+        pan.add(input_nb_joueur);
         //bouton ici
         but1=new JButton("Valider le nombre de jrs ");
         //ajoute un listener : ici le listener est cette classe (une action a But1 )
@@ -58,7 +58,7 @@ public class Game extends JFrame
     public  class   Valider implements   ActionListener
     { public  void    actionPerformed(ActionEvent e)
         { 
-        nb_joueur = Integer.parseInt(input_nb_joueur.getText());
+        nb_joueur = Integer.parseInt(input_nb_joueur.getText().trim());
         System.out.println( nb_joueur);
         but1.setVisible(false);
         input_nb_joueur.setVisible(false);
