@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List; 
 import java.io.IOException;
-public class Game extends JFrame 
-{ HashMap<Integer, List<Integer >> joueurs = new HashMap<>();   //1er nb_j //2eme valeur dés //3eme nb_jeton
+
+public class Game extends JFrame{ 
+    HashMap<Integer, List<Integer >> joueurs = new HashMap<>();   //1er nb_j //2eme valeur dés //3eme nb_jeton
     ArrayList<Integer> Ordre = new ArrayList<Integer>();
     int  nb_joueur, cpt_joueur=1,valeur;
     Boolean Debut =true ;
@@ -80,13 +81,15 @@ public class Game extends JFrame
           //1 Relancer: 
           //Uniquement lors de la Decharge:Le joueur devra choisir les dés qu'il veu relancer puis sur le bouton Relancer 
           if (etape_decharge) {
-            check_de1 = new JCheckBox("Relancer de1"); 
-            check_de2 = new JCheckBox("Relancer de2"); 
-            check_de3= new JCheckBox("Relancer de3"); 
-            pan.add(check_de1); pan.add(check_de2); pan.add(check_de3);
-            Relancer=new JButton("Relancer !");
-            pan.add(Relancer);
-            Relancer.addActionListener(new Relancer()); //ajouter une action au bouton Relancer //atention pas plus de 3fois 
+            if((nb_relancer<nb_relance_1j)|| cpt_joueur ==1){
+              check_de1 = new JCheckBox("Relancer de1"); 
+              check_de2 = new JCheckBox("Relancer de2"); 
+              check_de3= new JCheckBox("Relancer de3"); 
+              pan.add(check_de1); pan.add(check_de2); pan.add(check_de3);
+              Relancer=new JButton("Relancer !");
+              pan.add(Relancer);
+              Relancer.addActionListener(new Relancer());
+            } //ajouter une action au bouton Relancer //atention pas plus de 3fois 
           }
           //2 Sauvgarder:
           // si on sauvgarde on passe au 2eme joueur 
@@ -183,6 +186,7 @@ public class Game extends JFrame
      return index;    
     }
 
+
   public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
 
   { System.out.println("jr_g "+j_g);
@@ -236,6 +240,7 @@ public class Game extends JFrame
     }
     return false;
    }
+
    public int[] trouver_gagnant(int[] liste_ordre){
     int jgagnant=0;
     int igagnant=0;
@@ -362,6 +367,7 @@ public class Game extends JFrame
       Relancer.setVisible(false);  Relancer.repaint();
       Sauvgarder_decharge.setVisible(false);
   }}
+  
   public void update_jetons_decharge(int j_g,int jp,int index_g)
   {  System.out.println(index_g);
      if (joueurs.get(j_g).get(1)==-1){ 
