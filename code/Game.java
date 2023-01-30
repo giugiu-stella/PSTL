@@ -344,8 +344,6 @@ public class Game extends JFrame
                 System.out.println("Table des scores==>" +joueurs);
                 System.out.println("Update Jetons ");
 
-                update_jetons_decharge(winner[0], valeur, winner[1]);
-
                 int [] tab = liste_ordre(nb_joueur);
                 int [] winner=trouver_gagnant(tab);
                 int looser=trouver_perdant(tab);
