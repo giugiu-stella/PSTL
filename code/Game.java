@@ -11,11 +11,10 @@ public class Game extends JFrame
     int  nb_joueur, cpt_joueur=1,valeur;
     Boolean Debut =true ;
     int[] Table_Jetons= {10,7,6,6,5,5,4,4,3,3,2,2,2,2,2,2};  //les autres cas sont des 1 
-    private JButton but1,commencer ,Relancer,Sauvgarder,Decharge,NewPartie ; 
+    private JButton but1,commencer ,Relancer,Sauvgarder,Decharge ; 
     private JCheckBox check_de1 ,check_de2,check_de3;
     public static JTextArea input_nb_joueur ;
     Boolean etape_decharge=false  ;
-    Boolean debut=true;
     int max_relancer=3;
      JButton Sauvgarder_decharge;
     int nb_relance_1j=0,   max=3 ;
@@ -92,13 +91,11 @@ public class Game extends JFrame
           // si on sauvgarde on passe au 2eme joueur 
           //La sauvgarde lors de la charge et la decharge ne sont pas les mm (cause gestion joueur + condition d'arret )
           if (!etape_decharge) {
-            if(debut){
-              Sauvgarder=new JButton("sauvegarder !");
-              pan.add(Sauvgarder);
-              Sauvgarder.addActionListener(new sauvgarder());
-            }
+          Sauvgarder=new JButton("sauvgarder !");
+          pan.add(Sauvgarder);
+          Sauvgarder.addActionListener(new sauvgarder());
           }else {
-            Sauvgarder_decharge=new JButton("sauvegarder decharge!");
+            Sauvgarder_decharge=new JButton("sauvgarder decharge!");
             pan.add(Sauvgarder_decharge);
             Sauvgarder_decharge.addActionListener(new sauvgarder_decharge());
           }
@@ -140,10 +137,10 @@ public class Game extends JFrame
             joueurs.get(cpt_joueur).set(0,valeur);
             System.out.println("Table des scores==>" +joueurs);
             cpt_joueur++;
-            //Reinicialisation du nombre de Relancées pour le jr svt 
+            //Reinicialisation du nombre de Relanées pour le jr svt 
             nb_relancer=1; 
             System.out.println("joueur suivant ");
-          }else//Mise a jours des jetons Avec la fonction update jetons + recommencer le jeu a partir du 1er  jr 
+          }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
             {  joueurs.get(cpt_joueur).set(0,valeur);
                cpt_joueur=1;
                 for (int i=1; i<=nb_joueur;i++)
@@ -155,27 +152,25 @@ public class Game extends JFrame
               int [] tab = liste_ordre(nb_joueur);
               int [] winner=trouver_gagnant(tab);
               int looser=trouver_perdant(tab);
-            
+
               update_jetons(winner[0],looser, winner[1]); 
-              
 
               System.out.println("Table des scores==>" +joueurs);
               for (int i=1; i<=nb_joueur;i++)
               {  joueurs.get(i).set(0,0);
                  joueurs.get(i).set(1,0);
               }  
-              if (banque_jetons<=0) {
-                Sauvgarder.setVisible(false);  
-                commencer.setVisible(false);     
-                Decharge=new JButton("Decharger !");
-                pan.add(Decharge);
-                nb_relance_1j++;
-                etape_decharge=true ;//pour dire que on traite la decharge 
-                cpt_joueur=1; //pour caculer les joueurs qui ont deja joués
-                tour_j=looser;//Joueur qui commence la Decharge 
-                Decharge.addActionListener(new Commencer());
-                System.out.println("Decharge"); 
-              }
+              if (banque_jetons<=0) {Sauvgarder.setVisible(false);  
+                                     commencer.setVisible(false);     
+                                     Decharge=new JButton("Dechrger !");
+                                     pan.add(Decharge);
+                                     nb_relance_1j++;
+                                     etape_decharge=true ;//pour dire que on traite la decharge 
+                                     cpt_joueur=1; //pour caculer les joueurq quit ont deja jouer 
+                                     tour_j=looser;//Joueur qui commence la Decharge 
+                                     Decharge.addActionListener(new Commencer());
+                                     System.out.println("Decharge"); 
+                                    }
             }
           Sauvgarder.setVisible(false); 
         }
@@ -188,6 +183,7 @@ public class Game extends JFrame
     }
 
   public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
+
   {  
     System.out.println(index_g);
      if (index_g==-1){ 
@@ -197,20 +193,6 @@ public class Game extends JFrame
     else{ 
       joueurs.get(jp).set(2 ,Table_Jetons[index_g]+joueurs.get(jp).get(2));
       banque_jetons=banque_jetons-Table_Jetons[index_g];
-    }
-  }
-
-  public void update_jetons_decharge(int j_g,int jp,int index_g)
-  {  
-    System.out.println(index_g);
-     if (index_g==-1){ 
-      joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
-      joueurs.get(j_g).set(2,joueurs.get(j_g).get(2)-1);
-    }
-
-    else{ 
-      joueurs.get(jp).set(2 ,Table_Jetons[index_g]+joueurs.get(jp).get(2));
-      joueurs.get(j_g).set(2 ,joueurs.get(j_g).get(2)-Table_Jetons[index_g]);
     }
   }
 
@@ -252,7 +234,6 @@ public class Game extends JFrame
     }
     return false;
    }
-
    public int[] trouver_gagnant(int[] liste_ordre){
     int jgagnant=0;
     int igagnant=0;
@@ -344,6 +325,7 @@ public class Game extends JFrame
                 System.out.println("Table des scores==>" +joueurs);
                 System.out.println("Update Jetons ");
 
+
                 int [] tab = liste_ordre(nb_joueur);
                 int [] winner=trouver_gagnant(tab);
                 int looser=trouver_perdant(tab);
@@ -372,6 +354,7 @@ public class Game extends JFrame
                   NewPartie.addActionListener(new Commencer());
                   System.out.println("Fin de partie"); 
               }
+
                 //Update jetons (le perdant recoi les jetons du ganiant suivant les score)
                 //Verifier si a la fin de la manche il existe un joueur sans Jetons 
                 //if(il existe un joueur avec 0 jeton on arrete )
