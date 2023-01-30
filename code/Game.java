@@ -19,7 +19,7 @@ public class Game extends JFrame{
     Boolean etape_decharge=false  ;
     int max_relancer=3;
      JButton Sauvgarder_decharge;
-    int nb_relance_1j=0,   max=3 ;
+    int nb_relance_1j=1,   max=3 ;
     //Le nombre de relances.
     int nb_relancer=0,tour_j; 
     JPanel  pan ;
@@ -168,7 +168,7 @@ public class Game extends JFrame{
                                      commencer.setVisible(false);     
                                      Decharge=new JButton("Commencer  Dechrger !");
                                      pan.add(Decharge);
-                                     nb_relance_1j++;
+                                     
                                      etape_decharge=true ;//pour dire que on traite la decharge 
                                      cpt_joueur=1; //pour caculer les joueurq quit ont deja jouer 
                                      tour_j=looser;//Joueur qui commence la Decharge 
@@ -314,6 +314,7 @@ public class Game extends JFrame{
     if (cpt_joueur <nb_joueur ){   
         joueurs.get(tour_j).set(0,valeur);
         System.out.println("Table des scores==>" +joueurs);
+        if (cpt_joueur==1) {max=nb_relance_1j;} 
         cpt_joueur++;
         //Joueur suivant 
         tour_j++;
