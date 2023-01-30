@@ -195,6 +195,20 @@ public class Game extends JFrame
     }
   }
 
+  public void update_jetons_decharge(int j_g,int jp,int index_g)
+  {  
+    System.out.println(index_g);
+     if (index_g==-1){ 
+      joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
+      joueurs.get(j_g).set(2,joueurs.get(j_g).get(2)-1);
+    }
+
+    else{ 
+      joueurs.get(jp).set(2 ,Table_Jetons[index_g]+joueurs.get(jp).get(2));
+      joueurs.get(j_g).set(2 ,joueurs.get(j_g).get(2)-Table_Jetons[index_g]);
+    }
+  }
+
   public int somme(int score){
     int total=0;
     total=total+score/100;
