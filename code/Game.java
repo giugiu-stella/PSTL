@@ -330,7 +330,9 @@ public class Game extends JFrame
                 int [] tab = liste_ordre(nb_joueur);
                 int [] winner=trouver_gagnant(tab);
                 int looser=trouver_perdant(tab);
-                 update_jetons_decharge(winner[0], looser, winner[1]);
+                update_jetons_decharge(winner[0], looser, winner[1]);
+                 System.out.println("Table des scores==>" +joueurs);
+
                  Boolean sortie =false;
                  int grand_gagnant=0;
                  for (int i=1; i<=nb_joueur;i++)
@@ -362,7 +364,7 @@ public class Game extends JFrame
   }}
   public void update_jetons_decharge(int j_g,int jp,int index_g)
   {  System.out.println(index_g);
-     if (index_g==-1){ 
+     if (joueurs.get(j_g).get(1)==-1){ 
       joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
       joueurs.get(j_g).set(2,joueurs.get(j_g).get(2)-1);
     } 
