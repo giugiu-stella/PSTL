@@ -80,6 +80,7 @@ public class Game extends JFrame
           //1 Relancer: 
           //Uniquement lors de la Decharge:Le joueur devra choisir les dés qu'il veu relancer puis sur le bouton Relancer 
           if (etape_decharge) {
+            
             if((nb_relancer<nb_relance_1j)|| cpt_joueur ==1){
               check_de1 = new JCheckBox("Relancer de1"); 
               check_de2 = new JCheckBox("Relancer de2"); 
@@ -184,6 +185,7 @@ public class Game extends JFrame
     int index= Ordre.indexOf(valeur);
      return index;    
     }
+
 
   public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
 
