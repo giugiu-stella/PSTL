@@ -185,9 +185,10 @@ public class Game extends JFrame
 
   public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
 
-  {  
-    System.out.println(index_g);
-     if (index_g==-1){ 
+  { System.out.println("jr_g "+j_g);
+    System.out.println("jr_p "+jp);
+    System.out.println("index_g "+index_g);
+     if (joueurs.get(j_g).get(1)  ==-1){ 
       joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
       banque_jetons--;
     }
@@ -340,6 +341,8 @@ public class Game extends JFrame
                      grand_gagnant=i;
                    }
                  }
+                  //Verifier si a la fin de la manche il existe un joueur sans Jetons 
+                 //if(il existe un joueur avec 0 jeton on arrete )
                  if (sortie) {
                   Sauvgarder.setVisible(false);  
                   commencer.setVisible(false);    
@@ -350,8 +353,6 @@ public class Game extends JFrame
                   NewPartie.addActionListener(new Commencer());
                   System.out.println("Fin de partie"); 
               }
-                //Verifier si a la fin de la manche il existe un joueur sans Jetons 
-                //if(il existe un joueur avec 0 jeton on arrete )
            }
       check_de1.setVisible(false); check_de1.repaint();
       check_de2.setVisible(false); check_de2.repaint();
