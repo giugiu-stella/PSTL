@@ -11,7 +11,8 @@ public class Game extends JFrame
     int  nb_joueur, cpt_joueur=1,valeur;
     Boolean Debut =true ;
     int[] Table_Jetons= {10,7,6,6,5,5,4,4,3,3,2,2,2,2,2,2};  //les autres cas sont des 1 
-    private JButton but1,commencer ,Relancer,Sauvgarder,Decharge ; 
+    private JButton but1,commencer ,Relancer,Sauvgarder,Decharge ,NewPartie ;
+    Boolean debut=true;; 
     private JCheckBox check_de1 ,check_de2,check_de3;
     public static JTextArea input_nb_joueur ;
     Boolean etape_decharge=false  ;
@@ -162,7 +163,7 @@ public class Game extends JFrame
               }  
               if (banque_jetons<=0) {Sauvgarder.setVisible(false);  
                                      commencer.setVisible(false);     
-                                     Decharge=new JButton("Dechrger !");
+                                     Decharge=new JButton("Commencer  Dechrger !");
                                      pan.add(Decharge);
                                      nb_relance_1j++;
                                      etape_decharge=true ;//pour dire que on traite la decharge 
@@ -356,6 +357,30 @@ public class Game extends JFrame
               }
 
                 //Update jetons (le perdant recoi les jetons du ganiant suivant les score)
+                int [] tab = liste_ordre(nb_joueur);
+                int [] winner=trouver_gagnant(tab);
+                int looser=trouver_perdant(tab);
+                 update_jetons_decharge(winner[0], looser, winner[1]);
+                 Boolean sortie =false;
+                 int grand_gagnant=0;
+                 for (int i=1; i<=nb_joueur;i++)
+                 {  joueurs.get(i).set(0,0);
+                   joueurs.get(i).set(1,0);
+                   if(joueurs.get(i).get(2)<=0){
+                     sortie=true;
+                     grand_gagnant=i;
+                   }
+                 }
+                 if (sortie) {
+                  Sauvgarder.setVisible(false);  
+                  commencer.setVisible(false);    
+                  System.out.println("Le joueur numero "+grand_gagnant+ "a gagne la partie !"); 
+                  NewPartie=new JButton("Nouvelle Partie");
+                  pan.add(NewPartie);
+                  etape_decharge=false;
+                  NewPartie.addActionListener(new Commencer());
+                  System.out.println("Fin de partie"); 
+              }
                 //Verifier si a la fin de la manche il existe un joueur sans Jetons 
                 //if(il existe un joueur avec 0 jeton on arrete )
            }
@@ -365,6 +390,17 @@ public class Game extends JFrame
       Relancer.setVisible(false);  Relancer.repaint();
       Sauvgarder_decharge.setVisible(false);
   }}
+  public void update_jetons_decharge(int j_g,int jp,int index_g)
+  {  System.out.println(index_g);
+     if (index_g==-1){ 
+      joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
+      joueurs.get(j_g).set(2,joueurs.get(j_g).get(2)-1);
+    } 
+    else{ 
+      joueurs.get(jp).set(2 ,Table_Jetons[index_g]+joueurs.get(jp).get(2));
+      joueurs.get(j_g).set(2 ,joueurs.get(j_g).get(2)-Table_Jetons[index_g]);
+      }
+  }
 
    public  static  void    main(String args[]) throws IOException
     {   ArrayList<Integer> Ordre = new ArrayList<Integer>();
