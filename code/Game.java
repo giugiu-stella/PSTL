@@ -183,13 +183,16 @@ public class Game extends JFrame
     }
 
   public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
-  { 
+
+  {  
+    System.out.println(index_g);
      if (index_g==-1){ 
-                      joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
-                      banque_jetons--;
-                    }
-    else{ joueurs.get(jp).set(2 ,Table_Jetons[index_g]+joueurs.get(jp).get(2));
-          banque_jetons=banque_jetons-Table_Jetons[index_g];
+      joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
+      banque_jetons--;
+    }
+    else{ 
+      joueurs.get(jp).set(2 ,Table_Jetons[index_g]+joueurs.get(jp).get(2));
+      banque_jetons=banque_jetons-Table_Jetons[index_g];
     }
   }
 
