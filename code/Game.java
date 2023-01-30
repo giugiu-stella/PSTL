@@ -355,34 +355,6 @@ public class Game extends JFrame
                   NewPartie.addActionListener(new Commencer());
                   System.out.println("Fin de partie"); 
               }
-
-                //Update jetons (le perdant recoi les jetons du ganiant suivant les score)
-                int [] tab = liste_ordre(nb_joueur);
-                int [] winner=trouver_gagnant(tab);
-                int looser=trouver_perdant(tab);
-                 update_jetons_decharge(winner[0], looser, winner[1]);
-                 Boolean sortie =false;
-                 int grand_gagnant=0;
-                 for (int i=1; i<=nb_joueur;i++)
-                 {  joueurs.get(i).set(0,0);
-                   joueurs.get(i).set(1,0);
-                   if(joueurs.get(i).get(2)<=0){
-                     sortie=true;
-                     grand_gagnant=i;
-                   }
-                 }
-                 if (sortie) {
-                  Sauvgarder.setVisible(false);  
-                  commencer.setVisible(false);    
-                  System.out.println("Le joueur numero "+grand_gagnant+ "a gagne la partie !"); 
-                  NewPartie=new JButton("Nouvelle Partie");
-                  pan.add(NewPartie);
-                  etape_decharge=false;
-                  NewPartie.addActionListener(new Commencer());
-                  System.out.println("Fin de partie"); 
-              }
-                //Verifier si a la fin de la manche il existe un joueur sans Jetons 
-                //if(il existe un joueur avec 0 jeton on arrete )
            }
       check_de1.setVisible(false); check_de1.repaint();
       check_de2.setVisible(false); check_de2.repaint();
