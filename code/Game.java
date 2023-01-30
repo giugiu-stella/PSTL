@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List; 
 import java.io.IOException;
-public class Game extends JFrame 
-{ HashMap<Integer, List<Integer >> joueurs = new HashMap<>();   //1er nb_j //2eme valeur dés //3eme nb_jeton
+
+public class Game extends JFrame{ 
+    HashMap<Integer, List<Integer >> joueurs = new HashMap<>();   //1er nb_j //2eme valeur dés //3eme nb_jeton
     ArrayList<Integer> Ordre = new ArrayList<Integer>();
     int  nb_joueur, cpt_joueur=1,valeur;
     Boolean Debut =true ;
@@ -239,6 +240,7 @@ public class Game extends JFrame
     }
     return false;
    }
+
    public int[] trouver_gagnant(int[] liste_ordre){
     int jgagnant=0;
     int igagnant=0;
@@ -363,6 +365,7 @@ public class Game extends JFrame
       Relancer.setVisible(false);  Relancer.repaint();
       Sauvgarder_decharge.setVisible(false);
   }}
+  
   public void update_jetons_decharge(int j_g,int jp,int index_g)
   {  System.out.println(index_g);
      if (index_g==-1){ 
