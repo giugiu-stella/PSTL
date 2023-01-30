@@ -11,7 +11,7 @@ public class Game extends JFrame
     int  nb_joueur, cpt_joueur=1,valeur;
     Boolean Debut =true ;
     int[] Table_Jetons= {10,7,6,6,5,5,4,4,3,3,2,2,2,2,2,2};  //les autres cas sont des 1 
-    private JButton but1,commencer ,Relancer,Sauvgarder,Decharge ;
+    private JButton but1,commencer ,Relancer,Sauvgarder,Decharge ,NewPartie ;
     Boolean debut=true;; 
     private JCheckBox check_de1 ,check_de2,check_de3;
     public static JTextArea input_nb_joueur ;
@@ -33,7 +33,7 @@ public class Game extends JFrame
           pan=new JPanel();
         //Input 
         input_nb_joueur = new JTextArea("Indiquer le nombre de jrs ");
-        pan.add(input_nb_joueur);
+        pan.add(input_nb_joueur );
         //bouton ici
         but1=new JButton("Valider le nombre de jrs ");
         //ajoute un listener : ici le listener est cette classe (une action a But1 )
@@ -58,7 +58,7 @@ public class Game extends JFrame
     public  class   Valider implements   ActionListener
     { public  void    actionPerformed(ActionEvent e)
         { 
-        nb_joueur = Integer.parseInt(input_nb_joueur.getText().trim());
+        nb_joueur = Integer.parseInt(input_nb_joueur.getText());
         System.out.println( nb_joueur);
         but1.setVisible(false);
         input_nb_joueur.setVisible(false);
@@ -80,7 +80,6 @@ public class Game extends JFrame
           //1 Relancer: 
           //Uniquement lors de la Decharge:Le joueur devra choisir les dés qu'il veu relancer puis sur le bouton Relancer 
           if (etape_decharge) {
-            
             if((nb_relancer<nb_relance_1j)|| cpt_joueur ==1){
               check_de1 = new JCheckBox("Relancer de1"); 
               check_de2 = new JCheckBox("Relancer de2"); 
@@ -189,9 +188,10 @@ public class Game extends JFrame
 
   public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
 
-  {  
-    System.out.println(index_g);
-     if (index_g==-1){ 
+  { System.out.println("jr_g "+j_g);
+    System.out.println("jr_p "+jp);
+    System.out.println("index_g "+index_g);
+     if (joueurs.get(j_g).get(1)  ==-1){ 
       joueurs.get(jp).set(2,1+joueurs.get(jp).get(2));
       banque_jetons--;
     }
@@ -329,30 +329,31 @@ public class Game extends JFrame
                 }
                 System.out.println("Table des scores==>" +joueurs);
                 System.out.println("Update Jetons ");
-
-
+                //Update jetons (le perdant recoi les jetons du ganiant suivant les score)
                 int [] tab = liste_ordre(nb_joueur);
                 int [] winner=trouver_gagnant(tab);
                 int looser=trouver_perdant(tab);
-                
-                update_jetons_decharge(winner[0], looser, winner[1]);
-
-                System.out.println("Table des scores==>" +joueurs);
-                Boolean sortie =false;
-                int grand_gagnant=0;
-                for (int i=1; i<=nb_joueur;i++)
-                {  joueurs.get(i).set(0,0);
-                  joueurs.get(i).set(1,0);
-                  if(joueurs.get(i).get(2)<=0){
-                    sortie=true;
-                    grand_gagnant=i;
-                  }
-                }
-
-                if (sortie) {
+                 update_jetons_decharge(winner[0], looser, winner[1]);
+                 Boolean sortie =false;
+                 int grand_gagnant=0;
+                 for (int i=1; i<=nb_joueur;i++)
+                 {  joueurs.get(i).set(0,0);
+                   joueurs.get(i).set(1,0);
+                   if(joueurs.get(i).get(2)<=0){
+                     sortie=true;
+                     grand_gagnant=i;
+                   }
+                 }
+                  //Verifier si a la fin de la manche il existe un joueur sans Jetons 
+                 //if(il existe un joueur avec 0 jeton on arrete )
+                 if (sortie) {
                   Sauvgarder.setVisible(false);  
                   commencer.setVisible(false);    
-                  System.out.println("Le joueur numéro "+grand_gagnant+ "a gagné la partie !");
+                  System.out.println("Le joueur numero "+grand_gagnant+ "a gagne la partie !"); 
+                  NewPartie=new JButton("Nouvelle Partie");
+                  pan.add(NewPartie);
+                  etape_decharge=false;
+                  NewPartie.addActionListener(new Commencer());
                   System.out.println("Fin de partie"); 
               }
            }
