@@ -168,7 +168,6 @@ public class Game extends JFrame{
                                      commencer.setVisible(false);     
                                      Decharge=new JButton("Commencer  Dechrger !");
                                      pan.add(Decharge);
-                                     
                                      etape_decharge=true ;//pour dire que on traite la decharge 
                                      cpt_joueur=1; //pour caculer les joueurq quit ont deja jouer 
                                      tour_j=looser;//Joueur qui commence la Decharge 

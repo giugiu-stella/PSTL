@@ -67,7 +67,6 @@ for cpt in range(11,23):
                 for j in  range (len(liste_x1)): 
                         liste_x1.append(binaire(line)[1]+liste_x1[j])
                         liste_x1 [j]=binaire(line)[0]+liste_x1[j]
- 
 
 #construction des couples 
 couple =[]
