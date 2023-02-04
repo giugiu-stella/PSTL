@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Random;
 
 import javax.naming.spi.DirStateFactory.Result; 
 
@@ -72,7 +75,7 @@ public class Bit_aleatoire {
     String entier="";
     PrintWriter writer ;
     writer = new PrintWriter("Output.txt");
-    for (int j=0; j<21; j++) {
+    for (int j=0; j<23; j++) {
     for(int i=0;i<3;i++){
       entier=rn.bit_aleatoire() + entier;
     }
