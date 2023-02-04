@@ -90,7 +90,6 @@ def couple_to_random(couple):
     XO=0
     X1=0
     x1_essai=""
-    cpt=0
     a =25214903917
     m = 2 ** 48
     c =11
@@ -107,8 +106,6 @@ def couple_to_random(couple):
             
             if(x1_essai==x1):
                 return XO
-            
-            
 
     return -1
 
