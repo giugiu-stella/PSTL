@@ -31,12 +31,12 @@ for cpt in range(11):
     else : #juste 2 bit le 3 eme c'est un bit de x1 
         if len(binaire(line))==1:
             for i in  range (len(liste_x0)): 
-                liste_x0 [i]=(binaire(line)[0])[0:2]+liste_x0[i]
+                liste_x0 [i]=(binaire(line)[0])[1:3]+liste_x0[i]
         
         if len(binaire(line))==2 :    
             for j in  range (len(liste_x0)): 
-                    liste_x0.append((binaire(line)[1])[0:2]+liste_x0[j])
-                    liste_x0 [j]=(binaire(line)[0])[0:2]+liste_x0[j]
+                    liste_x0.append((binaire(line)[1])[1:3]+liste_x0[j])
+                    liste_x0 [j]=(binaire(line)[0])[1:3]+liste_x0[j]
 
 
 #Calcule de x1
@@ -45,20 +45,20 @@ for cpt in range(11,23):
     if cpt==11 : #uniquement 1 bit 
         if len(binaire(line))==1:
             for i in  range (len(liste_x1)): 
-                liste_x1 [i]=binaire(line)[0][1:2]+liste_x1[i]
+                liste_x1 [i]=binaire(line)[0][0:1]+liste_x1[i]
         if len(binaire(line))==2 : 
             for j in  range (len(liste_x1)): 
-                    liste_x1.append(binaire(line)[1][1:2]+liste_x1[j])
-                    liste_x1 [j]=binaire(line)[0][1:2]+liste_x1[j]
+                    liste_x1.append(binaire(line)[1][0:1]+liste_x1[j])
+                    liste_x1 [j]=binaire(line)[0][0:1]+liste_x1[j]
     else :
         if cpt==22:#uniquement 1 bit daonc on aura 2 bits inutiles 
             if len(binaire(line))==1:
                 for i in  range (len(liste_x1)): 
-                    liste_x1 [i]=binaire(line)[0][0:1]+liste_x1[i]
+                    liste_x1 [i]=binaire(line)[0][2:3]+liste_x1[i]
             if len(binaire(line))==2 : 
                 for j in  range (len(liste_x1)): 
-                        liste_x1.append(binaire(line)[1][0:1]+liste_x1[j])
-                        liste_x1 [j]=binaire(line)[0][0:1]+liste_x1[j]
+                        liste_x1.append(binaire(line)[1][2:3]+liste_x1[j])
+                        liste_x1 [j]=binaire(line)[0][2:3]+liste_x1[j]
         else : 
             if len(binaire(line))==1:
                 for i in  range (len(liste_x1)): 
