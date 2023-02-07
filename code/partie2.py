@@ -78,14 +78,14 @@ for  c in couple :
    print(c ,len(c[0]) ,len(c[1]) )
 
 def completexo(xo,cpt):
-    new_xo=xo+ str(0)*(16-len(str(format(cpt,"b"))))+format(cpt,"b")
+    new_xo= str(0)*(16-len(str(format(cpt,"b"))))+format(cpt,"b") +xo
     return new_xo
 
 #print(completexo("11001111111110010000111100110001",11))
 #print(int(completexo("1010",11), 2))
 #print(len(completexo("",11)))
 #couple=[("11001111111110010000111100110001","11010111010110111000101010010100")]  #Je sais que c'est mon couple il fait partie de la liste des tuples 
-test_simple=[("00000000000000000000000000000001", format(25214903928,"b")[0:32])]
+test_simple=[("00000000000000000000000000000001", format(25214903928,"b")[16:47])]
 def couple_to_random(liste_couple):
     XO=0
     X1=0
@@ -97,8 +97,8 @@ def couple_to_random(liste_couple):
             XO=int(completexo(couple[0],cpt), 2)
             print(XO)
             X1=(a*XO+c)%m
-            print(int(format((X1),"b")[0:32],2) ,int(couple[1],2) )
-            if(int(format((X1),"b")[0:32],2)==int(couple[1],2)):
+            print(int(format((X1),"b")[16:47],2), int(couple[1],2))
+            if(int(format((X1),"b")[16:47],2)==int(couple[1],2)):
                 return XO
 
     return -1
