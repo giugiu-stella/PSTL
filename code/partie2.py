@@ -21,7 +21,6 @@ sauvgarder=""
 for cpt in range(11):
     line = file1.readline() 
     if cpt !=10:
-        
         if len(binaire(line))==1:
             sauvgarder=binaire(line)[0][0:2]
             for i in  range (len(liste_x0)): 
@@ -76,38 +75,33 @@ for x0 in liste_x0:
         couple.append((x0,x1) )
     
 for  c in couple :
-    print(c ,len(c[0]) ,len(c[1]) )
+   print(c ,len(c[0]) ,len(c[1]) )
 
 def completexo(xo,cpt):
-    new_xo= xo+str(0)*(16-len(str(format(cpt,"b"))))+str(format(cpt,"b"))
+    new_xo=xo+ str(0)*(16-len(str(format(cpt,"b"))))+format(cpt,"b")
     return new_xo
 
-#print(completexo("",11))
+#print(completexo("11001111111110010000111100110001",11))
 #print(int(completexo("1010",11), 2))
 #print(len(completexo("",11)))
-
-def couple_to_random(couple):
+#couple=[("11001111111110010000111100110001","11010111010110111000101010010100")]  #Je sais que c'est mon couple il fait partie de la liste des tuples 
+test_simple=[("00000000000000000000000000000001", format(25214903928,"b")[0:32])]
+def couple_to_random(liste_couple):
     XO=0
     X1=0
-    x1_essai=""
     a =25214903917
     m = 2 ** 48
     c =11
-
-    for (xo,x1) in couple :
+    for couple in liste_couple :
         for cpt in range(2**16):
-            XO=int(completexo(xo,cpt), 2)
+            XO=int(completexo(couple[0],cpt), 2)
+            print(XO)
             X1=(a*XO+c)%m
-            X1=format(X1,"b")
-            x1_essai=str(X1)
-            if (len(x1_essai)!=48):
-                x1_essai=str(0)*(48-len(x1_essai))+x1_essai
-            x1_essai=x1_essai[0:32]
-            
-            if(x1_essai==x1):
+            print(int(format((X1),"b")[0:32],2) ,int(couple[1],2) )
+            if(int(format((X1),"b")[0:32],2)==int(couple[1],2)):
                 return XO
 
     return -1
 
-print(couple_to_random(couple))
+print(couple_to_random(test_simple))
 
