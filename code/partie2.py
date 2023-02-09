@@ -94,10 +94,9 @@ def couple_to_random(liste_couple):
             XO=completexo(couple[0],cpt)
             X1=(a*XO+c)%m
             X1=format(X1,"b")
-            print(X1)
-            if(int((X1)[0:16],2)==int(couple[1][0:16],2)):
+            if(int((X1)[0:16],2)==int(couple[1][0:16],2)):  #on cherche les 16 bits de poid fort 
                 return XO
     return -1
 
-print(couple_to_random(couple ))
-
+val=couple_to_random(test_simple )
+print (int( format( val ,"b")[0:16] ,2), int ( "1101001001100011",2) )
