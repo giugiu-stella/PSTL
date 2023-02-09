@@ -99,5 +99,5 @@ def couple_to_random(liste_couple):
                 return XO
     return -1
 
-print(couple_to_random(test_simple))
+print(couple_to_random(couple ))
 
