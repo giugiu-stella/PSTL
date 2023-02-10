@@ -1,5 +1,7 @@
+from bitstring import BitArray
 file1 = open('Output.txt', 'r')
 valeur_d=["000","001","010","011","100","101","110","111"]
+
 
 def binaire (x):
    if (int (x)==1) : 
@@ -71,32 +73,38 @@ def liste_couple ():
             couple.append((x0,x1) )
     return couple 
 
-#Affichage de la liste 
-couple =liste_couple()
-for  c in couple :
-   print(c ,len(c[0]) ,len(c[1]) )
 
 def completexo(xo,cpt):
-    new_xo=int ( xo+ str(0)*(10) ,2)+cpt
+    k=1
+    if (xo[0] ==str(1)) :
+         k=-1
+    xo=int (xo[1::],2)<<16   #11101000100000000111110111100100000000000000000   c'est ok 
+    new_xo=xo*k+cpt #c'est ok 
     return  new_xo
-#print(completexo("11001111111110010000111100110001",11))
 
-#couple=[("11001111111110010000111100110001","11010111010110111000101010010100")]  #Je sais que c'est mon couple il fait partie de la liste des tuples 
-test_simple=[("11010010011000110110001110100100", "1010111001100110000000111111010")]
+test_simple=[("01100110001101110011110010111100", "00111000110101001100100001000010")]
 
 
 def couple_to_random(liste_couple):
     a =25214903917
-    m = 2 ** 48
+    m = (2 ** 48) -1
     c =11
     for couple in liste_couple :
+        k=1
+        if (couple[1][0]==str(1)):
+                 k=-1
         for cpt in range(2**16):
-            XO=completexo(couple[0],cpt)
-            X1=(a*XO+c)%m
-            X1=format(X1,"b")
-            if(int((X1)[0:16],2)==int(couple[1][0:16],2)):  #on cherche les 16 bits de poid fort 
+            XO=completexo(couple[0],cpt)            
+            X1=(a*XO+c)% m
+            #print(X1)
+            if(X1//2**16==int(couple[1],2)*k):    #couple[1]===>11010011100010011000010100011  
                 return XO
     return -1
 
+
+#test
+couple =liste_couple()
 val=couple_to_random(test_simple )
-print (int( format( val ,"b")[0:16] ,2), int ( "1101001001100011",2) )
+print (val )
+val1=format(151289423513//2**16 , "b")
+print(val1)
