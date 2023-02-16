@@ -17,7 +17,7 @@ public class Bit_aleatoire {
      int valeur =r.nextInt();
      String result = Integer.toBinaryString(valeur);
      String resultWithPadding = String.format("%32s", result).replaceAll(" ", "0");
-    
+     System.out.println(valeur +" " +result +  " " +resultWithPadding );
     return resultWithPadding;
  }
 
@@ -74,9 +74,7 @@ public class Bit_aleatoire {
     for(int i=0;i<3;i++){
       entier=rn.bit_aleatoire() + entier;
     }
-    System.out.println(entier);
     int faces=rn.valeur_des(entier);
-    System.out.println(faces);
     writer.println( String.valueOf(faces));
     entier="" ;
   }

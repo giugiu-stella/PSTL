@@ -74,37 +74,39 @@ def liste_couple ():
     return couple 
 
 
-def completexo(xo,cpt):
-    k=1
-    if (xo[0] ==str(1)) :
-         k=-1
-    xo=int (xo[1::],2)<<16   #11101000100000000111110111100100000000000000000   c'est ok 
-    new_xo=xo*k+cpt #c'est ok 
+def completexo(xo,cpt):                  
+    xo=int (xo,2)<<16   #11101000100000000111110111100100000000000000000  c'est ok 
+    #print("avant " + bin (xo))
+    new_xo=cpt+xo #c'est ok  
+   # print("apres "+bin(new_xo) )
     return  new_xo
 
-test_simple=[("01100110001101110011110010111100", "00111000110101001100100001000010")]
-
+                  #u                                   #v
+test_simple=[("01000010000001010011100010011101", "01101010010011111101000000100111")]
+   
 
 def couple_to_random(liste_couple):
     a =25214903917
-    m = (2 ** 48) -1
-    c =11
+    m = pow(2,48)     
+    c =11       
     for couple in liste_couple :
-        k=1
-        if (couple[1][0]==str(1)):
-                 k=-1
         for cpt in range(2**16):
-            XO=completexo(couple[0],cpt)            
+            XO=completexo(couple[0],cpt)     
+            #print("retour fontion "+bin(XO))
             X1=(a*XO+c)% m
-            #print(X1)
-            if(X1//2**16==int(couple[1],2)*k):    #couple[1]===>11010011100010011000010100011  
+            #  print("48 X1 " + bin(X1))
+            #  print("32 X1"+bin((X1)//2**16) )
+            #  print(X1//2**16)
+            if((X1)//2**16==int(couple[1],2)):    #couple[1]===>11010011100010011000010100011  
+                print("ok")
                 return XO
     return -1
 
-
 #test
 couple =liste_couple()
-val=couple_to_random(test_simple )
+for  c in couple : 
+     print(c[0], c[1])
+
+val=couple_to_random( test_simple )
 print (val )
-val1=format(151289423513//2**16 , "b")
-print(val1)
+
