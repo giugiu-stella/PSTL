@@ -11,7 +11,15 @@ public class Bit_aleatoire {
   private String[] valeur_d={"000","001","010","011","100","101","110","111"};
   public Bit_aleatoire(){
   }
+  public void srand48(long seedval) {
+    this.seed = seedval & 0xFFFFFFFF;
+    this.seed = (this.seed << 16) | 0x330E;
+  }
 
+  public double drand48() {
+    this.seed = (0x5DEECE66DL * this.seed + 0xBL) & ((1L << 48) - 1);
+    return (double)this.seed / (1L << 48);
+}
   public String generate(){
      Random r = new Random();
      int valeur =r.nextInt();    //
