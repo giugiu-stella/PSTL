@@ -82,7 +82,7 @@ def completexo(xo,cpt):
     return  new_xo
 
                   #u                                   #v
-test_simple=[("01000010000001010011100010011101", "01101010010011111101000000100111")]
+test_simple=[("01110100111101000001101101001000", "00011010110100011011000010111001")]
    
 
 def couple_to_random(liste_couple):

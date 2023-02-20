@@ -14,7 +14,7 @@ public class Bit_aleatoire {
 
   public String generate(){
      Random r = new Random();
-     int valeur =r.nextInt();
+     int valeur =r.nextInt();    //
      String result = Integer.toBinaryString(valeur);
      String resultWithPadding = String.format("%32s", result).replaceAll(" ", "0");
      System.out.println(valeur +" " +result +  " " +resultWithPadding );
