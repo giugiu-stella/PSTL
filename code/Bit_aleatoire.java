@@ -19,20 +19,20 @@ public class Bit_aleatoire {
   }
 
        
-  public long  Rand48() {
+  public int  Rand48() {
     if (seed ==null )
     {  this.seed= new AtomicLong();
       this.seed.set(seedUniquifier.get());
-      return (long) ((seed.get( ))/Math.pow(2,16));   //revoir le calcule de seed 
+      return (int)(this.seed.get() >>> (48 - 32)) ;    //revoir le calcule de seed 
     }
     this.seed.set((long) ((0x5DEECE66DL * this.seed.get() + 11) % (Math.pow(2, 48)))); 
-    long valeur = (long) (this.seed.get() /Math.pow(2,16));   //atention bit de signe 
+    int valeur =   (int)(this.seed.get() >>> (48 - 32)) ;  //atention bit de signe 
     return valeur ;
 }
 
 public String generate(){   
-     long valeur=  Rand48();    
-     String result = Integer.toBinaryString((int) valeur);
+     int  valeur=  Rand48();    
+     String result = Integer.toBinaryString( valeur);
      String resultWithPadding = String.format("%32s", result).replaceAll(" ", "0");
      System.out.println(valeur +" " +result +  " " +resultWithPadding );
     return resultWithPadding;
@@ -88,7 +88,7 @@ public String generate(){
     PrintWriter writer ;
     writer = new PrintWriter("Output.txt");
     //On a besoins que de 22 ligne pour trouver X0
-    for (int j=0; j<20; j++) {
+    for (int j=0; j<22; j++) {
     for(int i=0;i<3;i++){
       entier=rn.bit_aleatoire() + entier;
     }

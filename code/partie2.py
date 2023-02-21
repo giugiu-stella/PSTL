@@ -75,42 +75,44 @@ def liste_couple ():
 
 
 def completexo(xo,cpt): 
-    k=1  
-    #if xo[0]==-1 :
-    #     k=-1               
-    xo=int (xo,2)<<16   #11101000100000000111110111100100000000000000000  c'est ok 
-    #print("avant " + bin (xo))
-    new_xo=cpt+xo*k #c'est ok  
-   # print("apres "+bin(new_xo) )
+                  
+    xo=xo<<16   #11101000100000000111110111100100000000000000000  c'est ok 
+    new_xo=cpt+xo  
     return  new_xo
 
-                  #u                                   #v
-test_simple=[("00000000000000000000000000000000", "11101111011101100111001100110110")]
-   
+def conversion_neg(valeur ):
+     resultat=""
+     for i in range (len(valeur)):
+          if valeur[i]=="1" :
+               resultat=resultat+"0"
+          else :
+               resultat=resultat+"1"
+     return int (resultat,2)+1
+               
+          
+     
 
 def couple_to_random(liste_couple):
     a =25214903917
     m = pow(2,48)     
     c =11       
     for couple in liste_couple :
-        k=1
-        #if couple[1][0]==-1:
-            # k=-1
+        x0=int (couple[0],2)
+        x1=int (couple[1],2)
+        if couple[0][0]==1:
+             x0=conversion_neg(couple[0])*-1
+        if  couple[1][0]==1:
+             x1=conversion_neg(couple[1])*-1
         for cpt in range(2**16+1):
-            XO=completexo(couple[0],cpt)     
-            #print("retour fontion "+bin(XO))
+            XO=completexo(x0,cpt)     
             X1=(a*XO+c)% m
-            #  print("48 X1 " + bin(X1))
-            #  print("32 X1"+bin((X1)//2**16) )
-            #  print(X1//2**16)
-            if((X1)//2**16==int(couple[1][0:],2)*k):    #couple[1]===>11010011100010011000010100011  
+            if((X1)//2**16==x1):   
                 print("ok")
                 return XO
     return -1
 
-#test
+#Test
 couple =liste_couple()
-
 val=couple_to_random( couple )
 print (val )
 
