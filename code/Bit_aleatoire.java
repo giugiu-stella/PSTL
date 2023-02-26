@@ -15,10 +15,8 @@ public class Bit_aleatoire {
 
   
   public Bit_aleatoire(){
-         
-  }
-
-       
+   }
+     
   public int  Rand48() {
     if (seed ==null )
     {  this.seed= new AtomicLong();
@@ -48,15 +46,6 @@ public String generate(){
   String res=""+c;
   return res;
  }
- /*public string bit_aleatoire(){
-  if(valeur_random.equals("")){
-    valeur_random=generate();
-  }
-  int idernier=valeur_random.length()-1;
-  char c=valeur_random.charAt(idernier);
-  valeur_random= valeur_random.substring(0,idernier);
-  return c;
- } */
 
  public String getValeur_random(){
   return valeur_random;
@@ -81,20 +70,24 @@ public String generate(){
   }
   return 0;
  }
+ public int getde ()
+{String entier="";
+  
+  for(int i=0;i<3;i++){
+    entier=bit_aleatoire() + entier;
+  }
+  int faces=valeur_des(entier);
+  return faces;
+}
 
   public static void main(String args[]) throws IOException{ 
     Bit_aleatoire rn= new Bit_aleatoire();
-    String entier="";
     PrintWriter writer ;
     writer = new PrintWriter("Output.txt");
     //On a besoins que de 22 ligne pour trouver X0
     for (int j=0; j<22; j++) {
-    for(int i=0;i<3;i++){
-      entier=rn.bit_aleatoire() + entier;
-    }
-    int faces=rn.valeur_des(entier);
+    int faces=rn.getde();
     writer.println( String.valueOf(faces));
-    entier="" ;
   }
   writer.close();
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List; 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Game extends JFrame{ 
     HashMap<Integer, List<Integer >> joueurs = new HashMap<>();   //1er nb_j //2eme valeur dés //3eme nb_jeton
@@ -24,18 +25,19 @@ public class Game extends JFrame{
     int nb_relancer=0,tour_j; 
     JPanel  pan ;
     int de_1 ,de_2, de_3 ;  int banque_jetons= 1;
-    
+    Bit_aleatoire generateur ; 
+    //fichier 
+    PrintWriter writer ;
     public Game( ArrayList<Integer> Ordre,  HashMap<Integer , List<Integer >> j) throws IOException
-    {   //titre de la fenetre
+    {   
         super("421"); 
+        generateur=new Bit_aleatoire();
+        writer = new PrintWriter("Output.txt");
         this.Ordre=Ordre;
         this.joueurs=j;
-        //panel
-          pan=new JPanel();
-        //Input 
+        pan=new JPanel();
         input_nb_joueur = new JTextArea("Indiquer le nombre de jrs ");
         pan.add(input_nb_joueur );
-        //bouton ici
         but1=new JButton("Valider le nombre de jrs ");
         //ajoute un listener : ici le listener est cette classe (une action a But1 )
         but1.addActionListener(new Valider());     
@@ -71,9 +73,12 @@ public class Game extends JFrame{
     {  public  void    actionPerformed(ActionEvent e)
         { //Inicialisation dela structure joueurs 
           if (Debut ) {iniciliastion_joueur() ; Debut=false;}
-          de_1= (int ) ( Math.random() * (6-1+1))+ 1;  
-          de_2= (int ) ( Math.random() * (6-1+1))+ 1;
-          de_3= (int ) ( Math.random() * (6-1+1))+ 1;
+          de_1=generateur.getde();
+           writer.println( String.valueOf(de_1));
+          de_2= generateur.getde(); 
+          writer.println( String.valueOf(de_2));
+          de_3=generateur.getde();
+          writer.println( String.valueOf(de_3));
           System.out.println("la valeur du de1 " +String.valueOf(de_1));
           System.out.println("la valeur du de2 " +String.valueOf (de_2));
           System.out.println("la valeur du de3 " +String.valueOf ( de_3));
@@ -112,11 +117,11 @@ public class Game extends JFrame{
       if (cpt_joueur==1) {nb_relance_1j++;} 
       
       if (nb_relancer!=max ){ 
-         if (check_de1.isSelected()){de_1= (int ) ( Math.random() * (6-1+1))+ 1;} //si la case de dé1 est cocheé alors on calcule une nouvelle valeur 
+         if (check_de1.isSelected()){de_1= generateur.getde();writer.println( String.valueOf(de_1));} //si la case de dé1 est cocheé alors on calcule une nouvelle valeur 
          
-         if (check_de2.isSelected()){de_2= (int ) ( Math.random() * (6-1+1))+ 1; } 
+         if (check_de2.isSelected()){de_2= generateur.getde();writer.println( String.valueOf(de_2)); } 
 
-         if (check_de3.isSelected()){de_3= (int ) ( Math.random() * (6-1+1))+ 1; } 
+         if (check_de3.isSelected()){de_3=generateur.getde(); writer.println( String.valueOf(de_3));} 
          System.out.println("\nla valeur des des apres la relance ");
          System.out.println("la valeur du de1 " +String.valueOf(de_1));
          System.out.println("la valeur du de2 " +String.valueOf (de_2));
@@ -359,6 +364,8 @@ public class Game extends JFrame{
                   etape_decharge=false;
                   NewPartie.addActionListener(new Commencer());
                   System.out.println("Fin de partie"); 
+                  //Ferme le fichier 
+                  writer.close();
               }
            }
       check_de1.setVisible(false); check_de1.repaint();
