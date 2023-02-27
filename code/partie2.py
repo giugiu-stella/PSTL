@@ -1,4 +1,4 @@
-from bitstring import BitArray
+
 file1 = open('Output.txt', 'r')
 valeur_d=["000","001","010","011","100","101","110","111"]
 
@@ -71,6 +71,8 @@ def liste_couple ():
     for x0 in liste_x0:
         for x1 in liste_x1:
             couple.append((x0,x1) )
+    
+    file1.close()
     return couple 
 
 def completexo(xo,cpt):                  
@@ -106,6 +108,55 @@ def couple_to_random(liste_couple):
     return -1
 
 
+def verifoutput(X1,X2,numero):
+    filetest = open('Output.txt', 'r')
+    line = filetest.readlines() 
+    entier=31
+
+    ValX2=f'{X2:08b}'
+    if(len(ValX2)<32):
+        ValX2='0'+ValX2
+
+    ValX1=f'{X1:08b}'
+    if(len(ValX1)<32):
+        ValX1='0'+ValX1
+
+    for i in range(numero,32):
+        valOutput=(line[i])[0]
+        
+        if(i==21):
+            valXi=ValX2[entier-1] + ValX2[entier] +ValX1[0]
+            entier =entier-2
+    
+        else : 
+            valXi=ValX2[entier-2] + ValX2[entier-1] +ValX2[entier]
+            entier=entier-3
+
+        print(valXi)
+        print("valeur = " + str(valOutput)+ " ligne "+str(i+1))
+        valIntXi = valeur_d.index(valXi) +1
+        if(valIntXi == 7):
+             valIntXi=1
+        
+        if(valIntXi == 8):
+             valIntXi=2
+        if(int (valOutput) != valIntXi):
+            return False
+        
+    return True
+
+
+def testdes(liste):
+    a =25214903917
+    m = pow(2,48)     
+    c =11  
+    numero=21
+    XO=couple_to_random(liste)
+    X1=(a*XO+c)% m
+    X2=(a*X1+c)% m
+    vrai=verifoutput(X1//2**16,X2//2**16,numero)
+    return vrai
+
 #genérer le reste des dés + rapport 
 
 
@@ -113,8 +164,9 @@ def couple_to_random(liste_couple):
 
 #Test
 couple =liste_couple()
-for c in couple :
-     print (c[0]+" "+c[1])
+#for c in couple :
+     #print (c[0]+" "+c[1])
 
-val=couple_to_random( couple )
-print (val )
+#val=couple_to_random( couple )
+#print (val )
+print( testdes(couple))

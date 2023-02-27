@@ -86,7 +86,7 @@ public String generate(){
     PrintWriter writer ;
     writer = new PrintWriter("Output.txt");
     //On a besoins que de 22 ligne pour trouver X0
-    for (int j=0; j<22; j++) {
+    for (int j=0; j<40; j++) {
     int faces=rn.getde();
     writer.println( String.valueOf(faces));
   }
