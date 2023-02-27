@@ -11,13 +11,15 @@ public class Bit_aleatoire {
   private String valeur_random="";
   private String[] valeur_d={"000","001","010","011","100","101","110","111"};
    AtomicLong seed;
+   Random rn ;
    private static final AtomicLong seedUniquifier= new AtomicLong(181783497276652981L*System.nanoTime());
 
   
   public Bit_aleatoire(){
+    rn=new Random();
    }
      
-  public int  Rand48() {
+/*public int  Rand48() {
     if (seed ==null )
     {  this.seed= new AtomicLong();
       this.seed.set(seedUniquifier.get());
@@ -26,10 +28,10 @@ public class Bit_aleatoire {
     this.seed.set((long) ((0x5DEECE66DL * this.seed.get() + 11) % (Math.pow(2, 48)))); 
     int valeur =   (int)(this.seed.get() >>> (48 - 32)) ;  //atention bit de signe 
     return valeur ;
-}
+}*/
 
 public String generate(){   
-     int  valeur=  Rand48();    
+     int  valeur=  rn.nextInt()  ;  
      String result = Integer.toBinaryString( valeur);
      String resultWithPadding = String.format("%32s", result).replaceAll(" ", "0");
      System.out.println(valeur +" " +result +  " " +resultWithPadding );
@@ -71,8 +73,7 @@ public String generate(){
   return 0;
  }
  public int getde ()
-{String entier="";
-  
+{ String entier="";
   for(int i=0;i<3;i++){
     entier=bit_aleatoire() + entier;
   }

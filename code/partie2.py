@@ -73,9 +73,7 @@ def liste_couple ():
             couple.append((x0,x1) )
     return couple 
 
-
-def completexo(xo,cpt): 
-                  
+def completexo(xo,cpt):                  
     xo=xo<<16   #11101000100000000111110111100100000000000000000  c'est ok 
     new_xo=cpt+xo  
     return  new_xo
@@ -99,11 +97,7 @@ def couple_to_random(liste_couple):
     for couple in liste_couple :
         x0=int (couple[0],2)
         x1=int (couple[1],2)
-        if couple[0][0]==1:
-             x0=conversion_neg(couple[0])*-1
-        if  couple[1][0]==1:
-             x1=conversion_neg(couple[1])*-1
-        for cpt in range(2**16+1):
+        for cpt in range(2**16): # fonction 
             XO=completexo(x0,cpt)     
             X1=(a*XO+c)% m
             if((X1)//2**16==x1):   
@@ -111,8 +105,16 @@ def couple_to_random(liste_couple):
                 return XO
     return -1
 
+
+#genérer le reste des dés + rapport 
+
+
+
+
 #Test
 couple =liste_couple()
+for c in couple :
+     print (c[0]+" "+c[1])
+
 val=couple_to_random( couple )
 print (val )
-
