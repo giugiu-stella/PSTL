@@ -2,7 +2,6 @@
 file1 = open('Output.txt', 'r')
 valeur_d=["000","001","010","011","100","101","110","111"]
 
-
 def binaire (x):
    if (int (x)==1) : 
       return ["000", "110"] 
@@ -90,8 +89,6 @@ def conversion_neg(valeur ):
      return int (resultat,2)+1
                
           
-     
-
 def couple_to_random(liste_couple):
     a =25214903917
     m = pow(2,48)     
@@ -102,13 +99,12 @@ def couple_to_random(liste_couple):
         for cpt in range(2**16): # fonction 
             XO=completexo(x0,cpt)     
             X1=(a*XO+c)% m
-            if((X1)//2**16==x1):   
-                print("ok")
+            if((X1)//2**16==x1):
                 return XO
     return -1
 
 
-def verifoutput(X1,X2,numero):
+def verifoutput(X1,X2,numero,numerofin):
     filetest = open('Output.txt', 'r')
     line = filetest.readlines() 
     entier=31
@@ -121,7 +117,7 @@ def verifoutput(X1,X2,numero):
     if(len(ValX1)<32):
         ValX1='0'+ValX1
 
-    for i in range(numero,32):
+    for i in range(numero,numerofin):
         valOutput=(line[i])[0]
         
         if(i==21):
@@ -132,8 +128,6 @@ def verifoutput(X1,X2,numero):
             valXi=ValX2[entier-2] + ValX2[entier-1] +ValX2[entier]
             entier=entier-3
 
-        print(valXi)
-        print("valeur = " + str(valOutput)+ " ligne "+str(i+1))
         valIntXi = valeur_d.index(valXi) +1
         if(valIntXi == 7):
              valIntXi=1
@@ -145,7 +139,6 @@ def verifoutput(X1,X2,numero):
         
     return True
 
-
 def testdes(liste):
     a =25214903917
     m = pow(2,48)     
@@ -154,8 +147,11 @@ def testdes(liste):
     XO=couple_to_random(liste)
     X1=(a*XO+c)% m
     X2=(a*X1+c)% m
-    vrai=verifoutput(X1//2**16,X2//2**16,numero)
-    return vrai
+    X3=(a*X2+c)% m
+    vrai=verifoutput(X1//2**16,X2//2**16,numero,32)
+    numero=32
+    true=verifoutput(X2//2**16,X3//2**16,numero,40)
+    return (vrai and true)
 
 #genérer le reste des dés + rapport 
 

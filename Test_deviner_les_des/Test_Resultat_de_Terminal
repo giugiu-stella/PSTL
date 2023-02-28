@@ -1,0 +1,66 @@
+(base) MacBook-Air-de-Giuliani:code giulianicarla$ python partie2.py
+
+valeur de X0 = 1000011100110101101011011100101
+valeur de X1 = 1010011000001000010000001110000
+valeur de X2 = 10000100000001111100001111110011
+valeur de X3 = 1011010111001001111010000000010
+
+valeur = 1 ligne 22
+valeur avec Xi = 110
+
+valeur = 5 ligne 23
+valeur avec Xi = 100
+
+valeur = 2 ligne 24
+valeur avec Xi = 111
+
+valeur = 4 ligne 25
+valeur avec Xi = 011
+
+valeur = 1 ligne 26
+valeur avec Xi = 000
+
+valeur = 2 ligne 27
+valeur avec Xi = 111
+
+valeur = 4 ligne 28
+valeur avec Xi = 011
+
+valeur = 1 ligne 29
+valeur avec Xi = 000
+
+valeur = 1 ligne 30
+valeur avec Xi = 000
+
+valeur = 2 ligne 31
+valeur avec Xi = 001
+
+valeur = 5 ligne 32
+valeur avec Xi = 100
+
+valeur = 3 ligne 33
+valeur avec Xi = 010
+
+valeur = 1 ligne 34
+valeur avec Xi = 000
+
+valeur = 1 ligne 35
+valeur avec Xi = 000
+
+valeur = 3 ligne 36
+valeur avec Xi = 010
+
+valeur = 2 ligne 37
+valeur avec Xi = 111
+
+valeur = 2 ligne 38
+valeur avec Xi = 001
+
+valeur = 2 ligne 39
+valeur avec Xi = 001
+
+valeur = 2 ligne 40
+valeur avec Xi = 111
+
+True
+(base) MacBook-Air-de-Giuliani:code giulianicarla$ 
