@@ -1,7 +1,6 @@
 # PSTL
 Projet 421
 
-À FAIRE = 
+# RAPPORT DU PROJET =
+https://fr.overleaf.com/project/63f4e8aa9aa9dd814da6559c
 
-- Table des probabilités pour 2 et 3 dés 
-- Fonction qui renvoie 1 bit aléatoire -> appel à random 
