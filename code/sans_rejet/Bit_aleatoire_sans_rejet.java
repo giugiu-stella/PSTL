@@ -16,70 +16,63 @@ public class Bit_aleatoire_sans_rejet {
 
   
   public Bit_aleatoire_sans_rejet(){
+  
     rn=new Random();
-   }
-     
-/*public int  Rand48() {
-    if (seed ==null )
-    {  this.seed= new AtomicLong();
-      this.seed.set(seedUniquifier.get());
-      return (int)(this.seed.get() >>> (48 - 32)) ;    //revoir le calcule de seed 
-    }
-    this.seed.set((long) ((0x5DEECE66DL * this.seed.get() + 11) % (Math.pow(2, 48)))); 
-    int valeur =   (int)(this.seed.get() >>> (48 - 32)) ;  //atention bit de signe 
-    return valeur ;
-}*/
+  }
 
-public String generate(){   
-     int  valeur=  rn.nextInt()  ;  
-     String result = Integer.toBinaryString( valeur);
-     String resultWithPadding = String.format("%32s", result).replaceAll(" ", "0");
-     System.out.println(valeur +" " +result +  " " +resultWithPadding );
+  public String generate(){   
+    int  valeur=  rn.nextInt()  ;  
+    String result = Integer.toBinaryString( valeur);
+    String resultWithPadding = String.format("%32s", result).replaceAll(" ", "0");
+    System.out.println(valeur +" " +result +  " " +resultWithPadding );
     return resultWithPadding;
- }
-
- public String bit_aleatoire(){
-  if(cpt==-1){
-    valeur_random=generate();
-    cpt=31;
   }
-  char c=valeur_random.charAt(cpt);
-  cpt=cpt-1;
-  String res=""+c;
-  return res;
- }
 
- public String getValeur_random(){
-  return valeur_random;
- }
- public int getcpt(){
-  return cpt;
- }
+  public String bit_aleatoire(){
+    if(cpt==-1){
+      valeur_random=generate();
+      cpt=31;
+    }
+    char c=valeur_random.charAt(cpt);
+    cpt=cpt-1;
+    String res=""+c;
+    return res;
+  }
 
- public int valeur_des(String valeur){
-  for(int i=0;i<valeur_d.length;i++){
-    if(valeur.equals(valeur_d[i])){
-      if(i==6){
-        return 1;
-      }
-      if(i==7){
-        return 2;
-      }
-      else{
-        return i+1;
+  public String getValeur_random(){
+    return valeur_random;
+  }
+
+  public int getcpt(){
+    return cpt;
+  }
+
+  public int valeur_des(String valeur){
+    for(int i=0;i<valeur_d.length;i++){
+      if(valeur.equals(valeur_d[i])){
+        if(i==6){
+          return 1;
+        }
+        if(i==7){
+          return 2;
+        }
+        else{
+          return i+1;
+        }
       }
     }
+    return 0;
   }
-  return 0;
- }
- public int getde ()
-{ String entier="";
-  for(int i=0;i<3;i++){
-    entier=bit_aleatoire() + entier;
+
+
+  public int getde (){
+    String entier="";
+    for(int i=0;i<3;i++){
+      entier=bit_aleatoire() + entier;
+    }
+    int faces=valeur_des(entier);
+    return faces;
   }
-  int faces=valeur_des(entier);
-  return faces;
-}
 
   public static void main(String args[]) throws IOException{ 
     Bit_aleatoire_sans_rejet rn= new Bit_aleatoire_sans_rejet();
@@ -90,6 +83,6 @@ public String generate(){
     int faces=rn.getde();
     writer.println( String.valueOf(faces));
   }
-  writer.close();
-}
+    writer.close();
+  }
 }
