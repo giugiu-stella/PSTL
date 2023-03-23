@@ -25,13 +25,13 @@ public class Game extends JFrame{
     int nb_relancer=0,tour_j; 
     JPanel  pan ;
     int de_1 ,de_2, de_3 ;  int banque_jetons= 1;
-    Bit_aleatoire_sans_reget generateur ; 
+    Bit_aleatoire_sans_rejet generateur ; 
     //fichier 
     PrintWriter writer ;
     public Game( ArrayList<Integer> Ordre,  HashMap<Integer , List<Integer >> j) throws IOException
     {   
         super("421"); 
-        generateur=new Bit_aleatoire_sans_reget();
+        generateur=new Bit_aleatoire_sans_rejet();
         writer = new PrintWriter("Output.txt");
         this.Ordre=Ordre;
         this.joueurs=j;

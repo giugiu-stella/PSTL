@@ -1,5 +1,5 @@
 from bitstring import BitArray
-file1 = open('Output_avec_reget.txt', 'r')
+file1 = open('Output_avec_rejet.txt', 'r')
 valeur_d=["000","001","010","011","100","101"]
 
 

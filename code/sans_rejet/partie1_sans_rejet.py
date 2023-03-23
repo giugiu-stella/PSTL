@@ -1,7 +1,4 @@
-from bitstring import BitArray
 file1 = open('Output_sans_rejet.txt', 'r')
-
-file1 = open('Output.txt', 'r')
 valeur_d=["000","001","010","011","100","101","110","111"]
 
 def binaire (x):
@@ -71,10 +68,8 @@ def liste_couple ():
     for x0 in liste_x0:
         for x1 in liste_x1:
             couple.append((x0,x1) )
-    file1.close
-
     
-   
+    file1.close()
     return couple 
 
 def completeX0(xo,cpt):                  
@@ -116,7 +111,7 @@ def Valeur_to_int(val):
     return x
 
 def verifoutput(X1,X2,numero,numerofin):
-    filetest = open('Output.txt', 'r')
+    filetest = open('Output_sans_rejet.txt', 'r')
     line = filetest.readlines() 
     entier=31
 
