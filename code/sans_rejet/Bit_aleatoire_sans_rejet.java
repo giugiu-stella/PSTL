@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
 
-public class Bit_aleatoire {
+public class Bit_aleatoire_sans_rejet {
   private int cpt=-1 ;
   private String valeur_random="";
   private String[] valeur_d={"000","001","010","011","100","101","110","111"};
@@ -15,7 +15,7 @@ public class Bit_aleatoire {
    private static final AtomicLong seedUniquifier= new AtomicLong(181783497276652981L*System.nanoTime());
 
   
-  public Bit_aleatoire(){
+  public Bit_aleatoire_sans_rejet(){
     rn=new Random();
    }
      
@@ -82,11 +82,11 @@ public String generate(){
 }
 
   public static void main(String args[]) throws IOException{ 
-    Bit_aleatoire rn= new Bit_aleatoire();
+    Bit_aleatoire_sans_rejet rn= new Bit_aleatoire_sans_rejet();
     PrintWriter writer ;
-    writer = new PrintWriter("Output.txt");
+    writer = new PrintWriter("Output_sans_rejet.txt");
     //On a besoins que de 22 ligne pour trouver X0
-    for (int j=0; j<22; j++) {
+    for (int j=0; j<40; j++) {
     int faces=rn.getde();
     writer.println( String.valueOf(faces));
   }

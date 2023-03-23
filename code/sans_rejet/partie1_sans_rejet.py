@@ -1,5 +1,5 @@
 from bitstring import BitArray
-file1 = open('Output.txt', 'r')
+file1 = open('Output_sans_rejet.txt', 'r')
 valeur_d=["000","001","010","011","100","101","110","111"]
 
 
@@ -71,6 +71,7 @@ def liste_couple ():
     for x0 in liste_x0:
         for x1 in liste_x1:
             couple.append((x0,x1) )
+    file1.close
     return couple 
 
 def completexo(xo,cpt):                  
