@@ -1,4 +1,4 @@
-file1 = open('Output_sans_rejet.txt', 'r')
+file1 = open('Output.txt', 'r')
 valeur_d=["000","001","010","011","100","101","110","111"]
 
 def binaire (x):
@@ -127,7 +127,7 @@ def Valeur_to_int(val):
     return x
 
 def verifoutput(X1,X2,numero,numerofin):
-    filetest = open('Output_sans_rejet.txt', 'r')
+    filetest = open('Output.txt', 'r')
     line = filetest.readlines() 
     entier=31
 
