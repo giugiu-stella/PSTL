@@ -3,7 +3,7 @@ valeur_d=["000","001","010","011","100","101","110","111"]
 
 def binaire (x):
    if (int (x)==1) : 
-      return ["000", "110"] 
+     return ["000", "110"] 
    if (int (x)==2) : 
       return ["001", "111"] 
    return  [valeur_d  [int (x)-1]]
@@ -25,15 +25,15 @@ def liste_couple ():
                     liste_x0 [i]=binaire(line)[0]+liste_x0[i]
             
             if len(binaire(line))==2 :   # si la liste [000,001]  alors on devra rajouter dans chaque element le premier et le 2eme 
+                val=binaire(line)
+                print(line +" "+str ( binaire(line)[0]))
                 sauvgarder=binaire(line)[0][0:2]
                 for j in  range (len(liste_x0)): 
+                        liste_x0.append(val[0]+liste_x0[j])
                         liste_x0.append(binaire(line)[1]+liste_x0[j])
-                        liste_x0 [j]=binaire(line)[0]+liste_x0[j]
         else : #juste 2 bit le 3 eme c'est un bit de x1 
             sauvgarder=(binaire(line)[0][0:1])
-            
             if len(binaire(line))==1:
-                
                 for i in  range (len(liste_x0)): 
                     liste_x0 [i]=(binaire(line)[0])[1:3]+liste_x0[i]
             
@@ -58,8 +58,8 @@ def liste_couple ():
                             liste_x1 [i]=binaire(line)[0]+liste_x1[i]
                     if len(binaire(line))==2 : 
                         for j in  range (len(liste_x1)): 
+                                liste_x1.append(binaire(line)[0]+liste_x1[j])
                                 liste_x1.append(binaire(line)[1]+liste_x1[j])
-                                liste_x1 [j]=binaire(line)[0]+liste_x1[j]
 
     for j in range (len (liste_x1)):
         liste_x1 [j]=liste_x1[j]+sauvgarder
@@ -67,7 +67,8 @@ def liste_couple ():
     couple =[]
     for x0 in liste_x0:
         for x1 in liste_x1:
-            couple.append((x0,x1) )
+            if (len(x1)==32 and len(x0)==32):
+                couple.append((x0,x1) )
     
     file1.close()
     return couple 
@@ -156,4 +157,7 @@ def testdes(liste): # test pour les 40 lancés de dés
 
 #Test
 couple =liste_couple()
+for c in couple :
+     print(c[0]+" "+c[1])
+print(recuperer_X0(couple))
 print(testdes(couple))
