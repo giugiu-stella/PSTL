@@ -1,10 +1,10 @@
-file1 = open('Output_sans_rejet.txt', 'r')
+file1 = open('Output.txt', 'r')
 valeur_d=["000","001","010","011","100","101","110","111"]
 
 def binaire (x):
    if (int (x)==1) : 
       return ["000", "110"] 
-   if (int(x)==2) : 
+   if (int (x)==2) : 
       return ["001", "111"] 
    return  [valeur_d  [int (x)-1]]
 
@@ -17,7 +17,10 @@ def liste_couple ():
     #calcul de x0 
     sauvgarder=""
     cas_spe=False
-    ligne11=" "
+    ligne11=""
+    ligne=file1.readlines()[11]
+    if(ligne=="1" or ligne=="2" ):
+        cas_spe=True
     
     for cpt in range(11):
         line = file1.readline()
@@ -34,6 +37,7 @@ def liste_couple ():
                         liste_x0 [j]=binaire(line)[0]+liste_x0[j]
         else : #juste 2 bit le 3 eme c'est un bit de x1 
             sauvgarder=(binaire(line)[0][0:1])
+            
             if len(binaire(line))==1:
                 for i in  range (len(liste_x0)): 
                     liste_x0 [i]=(binaire(line)[0])[1:3]+liste_x0[i]
@@ -46,8 +50,6 @@ def liste_couple ():
     for cpt in range(11):
                 line = file1.readline()
                 if cpt==10:
-                    if(int (line)==1 or int(line)==2 ):
-                         cas_spe=True
                     if len(binaire(line))==1:
                         for i in  range (len(liste_x1)): 
                             liste_x1 [i]=binaire(line)[0][2:3]+liste_x1[i]
@@ -65,9 +67,9 @@ def liste_couple ():
                                 liste_x1 [j]=binaire(line)[0]+liste_x1[j]
 
     for j in range (len (liste_x1)):
-        if(cas_spe ):
-            liste_x1.append(liste_x1[j]+"1")
-            liste_x1[j]=liste_x1[j]+"0"
+        if(cas_spe):
+            liste_x1 [j]=liste_x1[j]+"1"
+            liste_x1.append(liste_x1[j]+"0")
         else :
             liste_x1 [j]=liste_x1[j]+sauvgarder
     
@@ -125,7 +127,7 @@ def Valeur_to_int(val):
     return x
 
 def verifoutput(X1,X2,numero,numerofin):
-    filetest = open('Output_sans_rejet.txt', 'r')
+    filetest = open('Output.txt', 'r')
     line = filetest.readlines() 
     entier=31
 
@@ -182,5 +184,4 @@ def testdes(liste): # test pour les 40 lancés de dés
 
 #Test
 couple =liste_couple()
-print(recuperer_X0(couple))
 print(testdes(couple))
