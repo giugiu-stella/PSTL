@@ -1,4 +1,5 @@
 from bitstring import BitArray
+from construction import liste_couple_rejet ,liste_couple_rejet_deux,liste_couple_rejet_trois
 file1 = open('Output_avec_rejet.txt', 'r')
 valeur_d=["000","001","010","011","100","101"]
 
@@ -65,9 +66,40 @@ def liste_couple ():
     file1.close
     return couple 
 
+def completeX0(xo,cpt):                  
+    xo=xo<<16  
+    new_xo=cpt+xo  
+    return  new_xo
+             
+def equation_X(X):
+    a =25214903917
+    m = pow(2,48)     
+    c =11
+    return (a*X+c)%m
+
+def recuperer_X0(liste_couple):
+    for couple in liste_couple :
+        x0=int (couple[0],2)
+        x1=int (couple[1],2)
+        for cpt in range(2**16): 
+            X0=completeX0(x0,cpt)     
+            X1=equation_X(X0)
+            if((X1)//2**16==x1):
+                return X0
+    return -1
+
 
 
 #Test
 couple =liste_couple()
 for c in couple :
      print (c[0]+" "+c[1])
+    
+couplenew=liste_couple_rejet(couple)
+#construction des couples 
+fichier = open("data.txt", "a")
+for (x0 ,x1 ) in couplenew:
+        couple.append((x0,x1) )
+        fichier.write("( "+str(x0) + " , "+ str(x1)+ " )")
+        fichier.write("\n")
+
