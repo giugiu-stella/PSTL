@@ -65,6 +65,70 @@ def liste_couple ():
     file1.close
     return couple 
 
+def liste_couple_rejet_un(listecouple):
+    couple =[]
+    rejet0="110"
+    rejet1="111"
+    for i in range(0, 64, 3):
+        for (xo,x1) in listecouple:
+            chaine=xo+x1
+            if(i==0):
+                newchaine0=rejet0+chaine
+                newchaine1=rejet1+chaine
+            else:
+                newchaine0=chaine[0:(i-1)]+rejet0+chaine[i::]
+                newchaine1=chaine[0:(i-1)]+rejet1+chaine[i::]
+
+            newx0_0=newchaine0[0:31]
+            newx0_1=newchaine1[0:31]
+
+            newx1_0=newchaine0[32:63]
+            newx1_1=newchaine1[32:63]
+            couple.append((newx0_0,newx1_0))
+            couple.append((newx1_0,newx1_1))
+
+    return couple
+
+def liste_couple_rejet_deux(listecouples):
+    couple=[]
+    
+    return couple
+def completeX0(xo,cpt):                  
+    xo=xo<<16  
+    new_xo=cpt+xo  
+    return  new_xo
+             
+def equation_X(X):
+    a =25214903917
+    m = pow(2,48)     
+    c =11
+    return (a*X+c)%m
+
+def Recuperer_X0(listecouple):
+    for couple in listecouple :
+        x0=int (couple[0],2)
+        x1=int (couple[1],2)
+        for cpt in range(2**16): 
+            X0=completeX0(x0,cpt)     
+            X1=equation_X(X0)
+            if((X1)//2**16==x1):
+                return X0
+    return -1
+
+def deviner_X0(couple):
+    listecouple=couple
+    sortie=False
+    rejet=1
+    max=22
+    while(not sortie or rejet==max):
+        X0=Recuperer_X0(listecouple)
+        if(X0 !=-1):
+            return X0
+        else:
+            listecouple=liste_couple_rejet(listecouple,rejet)
+            rejet=rejet+1
+
+    return -1
 
 
 #Test

@@ -17,7 +17,6 @@ def liste_couple ():
     #calcul de x0 
     sauvgarder=""
     cas_spe=False
-    ligne11=" "
     
     for cpt in range(11):
         line = file1.readline()
@@ -39,6 +38,7 @@ def liste_couple ():
                     liste_x0 [i]=(binaire(line)[0])[1:3]+liste_x0[i]
             
             if len(binaire(line))==2 : 
+                cas_spe=True
                 for j in  range (len(liste_x0)): 
                         liste_x0.append((binaire(line)[1])[1:3]+liste_x0[j])
                         liste_x0 [j]=(binaire(line)[0])[1:3]+liste_x0[j]
@@ -46,8 +46,6 @@ def liste_couple ():
     for cpt in range(11):
                 line = file1.readline()
                 if cpt==10:
-                    if(int (line)==1 or int(line)==2 ):
-                         cas_spe=True
                     if len(binaire(line))==1:
                         for i in  range (len(liste_x1)): 
                             liste_x1 [i]=binaire(line)[0][2:3]+liste_x1[i]
