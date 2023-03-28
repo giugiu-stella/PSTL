@@ -1,7 +1,9 @@
+
+
 def aux(chaine,i,couple):
     max=len(chaine)
-    chaine_110=chaine[0:max-(i+1)]+"110"+chaine[max-i::]
-    chaine_111=chaine[0:max-(i+1)]+"111"+chaine[max-i::]
+    chaine_110=chaine[0:max-(i+1)]+"___"+chaine[max-i::]
+    chaine_111=chaine[0:max-(i+1)]+"..."+chaine[max-i::]
     taille=len(chaine_110)
 
     x0_110=chaine_110[taille-32:taille]
@@ -57,6 +59,23 @@ def liste_couple_rejet_trois(listecouple):
                     aux(fixe,i,couple)
 
     return couple
+
+
+def liste_couple_rejet_general(listecouples):
+    resultat_couple =[]
+    resultat_final=[]
+    for i in range (4):
+        ##i==0 donc un seul rejet 
+        if i==0:
+            resultat_couple=liste_couple_rejet(listecouples)
+            resultat_final=resultat_couple
+        else :
+            #pour czlculer le rejet i il nous faut la liste de rejet (i-1)
+            listecouples=resultat_couple
+            resultat_couple=liste_couple_rejet(listecouples)
+            resultat_final=resultat_final+resultat_couple
+    return resultat_final 
+
 
 
 # utilisation de _ _ _ et . . . pour le visuel
