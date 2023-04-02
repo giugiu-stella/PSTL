@@ -84,6 +84,23 @@ def liste_couple_rejet_n(rejets,listecouple):
         return couples
 
 
+def liste_couple_rejet_general(listecouples):
+    resultat_couple =[]
+    resultat_final=[]
+    for i in range (4):
+        ##i==0 donc un seul rejet 
+        if i==0:
+            resultat_couple=liste_couple_rejet(listecouples)
+            resultat_final=resultat_couple
+        else :
+            #pour czlculer le rejet i il nous faut la liste de rejet (i-1)
+            listecouples=resultat_couple
+            resultat_couple=liste_couple_rejet(listecouples)
+            resultat_final=resultat_final+resultat_couple
+    return resultat_final 
+
+
+
 # utilisation de _ _ _ et . . . pour le visuel
 # ___ => 110
 # ... => 111
