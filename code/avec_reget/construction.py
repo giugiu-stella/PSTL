@@ -7,15 +7,15 @@ def check(c,couple):
 
 def aux(chaine,i,couple):
     max=len(chaine)
-    chaine_110=chaine[0:max-i]+"_"+chaine[max-i::]
-    chaine_111=chaine[0:max-i]+"."+chaine[max-i::]
+    chaine_110=chaine[0:max-i]+"110"+chaine[max-i::]
+    chaine_111=chaine[0:max-i]+"111"+chaine[max-i::]
     taille=len(chaine_110)
 
-    x0_110=chaine_110[taille-4:taille]
-    x1_110=chaine_110[taille-8:taille-4]
+    x0_110=chaine_110[taille-16:taille]
+    x1_110=chaine_110[taille-32:taille-16]
 
-    x0_111=chaine_111[taille-4:taille]
-    x1_111=chaine_111[taille-8:taille-4]
+    x0_111=chaine_111[taille-16:taille]
+    x1_111=chaine_111[taille-32:taille-16]
     c1=(x0_110,x1_110)
     c2=(x0_111,x1_111)
     if(check(c1,couple)):

@@ -1,4 +1,4 @@
-from construction import liste_couple_rejet ,liste_couple_rejet_deux,liste_couple_rejet_trois
+from construction import liste_couple_rejet_n
 file1 = open('Output_avec_rejet.txt', 'r')
 valeur_d=["000","001","010","011","100","101"]
 
@@ -91,10 +91,19 @@ def recuperer_X0(liste_couple):
 
 #Test
 couple =liste_couple()
+print("couple_liste finie\n")
 for c in couple :
      print (c[0]+" "+c[1])
-    
-couplenew=liste_couple_rejet_deux(couple)
+
+rejets=1
+while(recuperer_X0(couple)==-1):
+    print("nbr de rejets : ")
+    print(rejets)
+    print(" \n")
+    couplenew=liste_couple_rejet_n(rejets,couple)
+    couple=couplenew
+    rejets=rejets+1
+
 #construction des couples 
 fichier = open("data.txt", "a")
 for (x0 ,x1 ) in couplenew:
