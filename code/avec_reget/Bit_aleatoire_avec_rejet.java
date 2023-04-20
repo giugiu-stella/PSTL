@@ -2,6 +2,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -56,36 +58,64 @@ public class Bit_aleatoire_avec_rejet {
         return -1;
        }
 
-       public int getde ()
+       /**
+       * @return
+       */
+      public List<Integer> getde ()
        { String entier="";
          int val=-1;
          boolean fin=false ;
+         int cpt=0 ;
          //while faces==- c'est a dire while on des rejets on recomance 
+         List<Integer>list = new ArrayList<Integer > () ;
          while (! fin) 
-         {  for(int i=0;i<3;i++){
+         {list = new ArrayList<Integer > () ;
+          for(int i=0;i<3;i++){
                 entier=bit_aleatoire() + entier;
                }
             val=valeur_des(entier);
             entier="";
-            if(val!=-1){
+            if(val!=-1){ 
               fin=true;
-              return val;
+              list.add(val);
+              list.add(cpt);
+              return list ;
             }
+            cpt=cpt+1;
          }
-         return val;
+         return list;
        }
 
     public static void main(String args[]) throws IOException{ 
-        Bit_aleatoire_avec_rejet rn= new Bit_aleatoire_avec_rejet();
         PrintWriter writer ;
         writer = new PrintWriter("Output_avec_rejet.txt");
         //On a besoins que de 22 ligne pour trouver X0
-        for (int j=0; j<22; j++) {
-        int faces=rn.getde();
-        writer.println( String.valueOf(faces));
-      }
-      writer.close();
-    }
+        boolean rejet2 = false ;
+        List <Integer> faces =new ArrayList<Integer>();
+        while (!rejet2)
+        { Bit_aleatoire_avec_rejet rn= new Bit_aleatoire_avec_rejet();
+          int cpt = 0;
+          faces.clear();
+          for (int j=0; j<22; j++) {
+          List<Integer> val =rn.getde();
+          System.out.println(val);
+          faces.add (val.get(0));
+          cpt =cpt + val.get(1);
+          if (cpt >2) { break ;}
+       
+          }
+        if (cpt ==2)
+        {
+          rejet2=true ;
+          for (int j=0; j<faces.size(); j++)
+          {
+            writer.println( String.valueOf(faces.get(j)));
+          }
+          writer.close();
+        }
+        }
+
+        }
 
 
       
