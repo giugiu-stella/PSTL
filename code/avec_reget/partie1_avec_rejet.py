@@ -95,19 +95,22 @@ print("couple_liste finie\n")
 for c in couple :
      print (c[0]+" "+c[1])
 
-rejets=1
-while(recuperer_X0(couple)==-1):
-    print("nbr de rejets : ")
-    print(rejets)
-    print(" \n")
+rejets=0
+val_X0=-1
+while(val_X0==-1):
+    val_X0=recuperer_X0(couple)
+    print("la valeur de x0 "+ str ( val_X0))
+    print("nbr de rejets : " +str (rejets)+ "\n ")
     couplenew=liste_couple_rejet_n(rejets,couple)
     couple=couplenew
     rejets=rejets+1
-
+print ("j'ai touvé x0 :"+ str(val_X0))
 #construction des couples 
-fichier = open("data.txt", "a")
-for (x0 ,x1 ) in couplenew:
-        couple.append((x0,x1) )
-        fichier.write("( "+str(x0) + " , "+ str(x1)+ " )")
-        fichier.write("\n")
+#fichier = open("essay.txt", "a")
+#for (x0 ,x1 ) in couplenew:
+        #couple.append((x0,x1) )
+       # fichier.write("( "+str(x0) + " , "+ str(x1)+ " )")
+       # fichier.write("\n")
 
+
+#attention fichier essay trop volumineaux

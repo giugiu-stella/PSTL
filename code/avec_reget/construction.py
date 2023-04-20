@@ -5,23 +5,24 @@ def check(c,couple):
             return False
     return True
 
-def aux(chaine,i,couple):
+def aux(chaine,i,couple,rejets):
     max=len(chaine)
+   # print (chaine[max-i::])
     chaine_110=chaine[0:max-i]+"110"+chaine[max-i::]
     chaine_111=chaine[0:max-i]+"111"+chaine[max-i::]
     taille=len(chaine_110)
 
-    x0_110=chaine_110[taille-16:taille]
-    x1_110=chaine_110[taille-32:taille-16]
+    x0_110=chaine_110[taille-32:taille]
+    x1_110=chaine_110[taille-64:taille-32]
 
-    x0_111=chaine_111[taille-16:taille]
-    x1_111=chaine_111[taille-32:taille-16]
+    x0_111=chaine_111[taille-32:taille]
+    x1_111=chaine_111[taille-64:taille-32]
     c1=(x0_110,x1_110)
     c2=(x0_111,x1_111)
-    if(check(c1,couple)):
-        couple.append((x0_110,x1_110))
-    if(check(c2,couple)):
-        couple.append((x0_111,x1_111))
+    # if(check(c1,couple)):
+    #if(check(c2,couple)):
+    couple.append((x0_111,x1_111))
+    couple.append(c1)
     return couple
 
 def liste_couple_rejet(listecouple):
@@ -71,15 +72,16 @@ def liste_couple_rejet_trois(listecouple):
 
 def liste_couple_rejet_n(rejets,listecouple):
     if rejets == 0:
-        return listecouple
-   
+        return listecouple 
     else:
         couples = []
+        #oublie la liste des couples
         listecouplenew=liste_couple_rejet_n(rejets-1,listecouple)
-        for i in range(0,64):
+        #print (listecouplenew)
+        for i in range(0,65,3):
             for (xo, x1) in listecouplenew:
                 chaine=x1+xo
-                aux(chaine,i,couples)
+                aux(chaine,i,couples,rejets)
         
         return couples
 
@@ -107,14 +109,12 @@ def liste_couple_rejet_general(listecouples):
 # 18 => 64
 # 9 => 32
 #test
-couple=[("1234","abcd")]
-couplenew=liste_couple_rejet_n(10,couple)
+couple=[("01000101011011010001000011011010","10101010110010010011000111000111")]
+#couplenew=liste_couple_rejet_n(2,couple)
+#fichier = open("essay.txt", "a")
+#for (x0 ,x1 ) in couplenew:
+      # couple.append((x0,x1) )
+ #      fichier.write("( "+str(x0) + " , "+ str(x1)+ " )")
+  #     fichier.write("\n")
 
-fichier = open("essay.txt", "a")
-for (x0 ,x1 ) in couplenew:
-        couple.append((x0,x1) )
-        fichier.write("( "+str(x0) + " , "+ str(x1)+ " )")
-        fichier.write("\n")
 
-
-    
