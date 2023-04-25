@@ -97,26 +97,28 @@ public class Bit_aleatoire_avec_rejet {
           int cpt = 0;
           faces.clear();
           for (int j=0; j<22; j++) {
-          List<Integer> val =rn.getde();
-          System.out.println(val);
-          faces.add (val.get(0));
-          cpt =cpt + val.get(1);
-          if (cpt >2) { break ;}
-       
+              List<Integer> val =rn.getde();
+              System.out.println(val);
+              faces.add (val.get(0));
+              cpt =cpt + val.get(1);
+              if (cpt >3) { break ;}
           }
-        if (cpt ==2)
-        {
-          rejet2=true ;
-          for (int j=0; j<faces.size(); j++)
-          {
-            writer.println( String.valueOf(faces.get(j)));
-          }
-          writer.close();
-        }
-        }
+          if (cpt ==3)
+          {   rejet2=true ;
+              for (int j=0; j<faces.size(); j++)
+              {
+                writer.println( String.valueOf(faces.get(j)));
+              }
+              // writer.close();
+              for (int j=0; j<22; j++) {
+                List<Integer> val =rn.getde();
+                writer.println( String.valueOf(val.get(0)));
+                }
+              writer.close();
+            }
 
         }
 
 
-      
+      }    
 }

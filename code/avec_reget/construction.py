@@ -78,7 +78,7 @@ def liste_couple_rejet_n(rejets,listecouple):
         #oublie la liste des couples
         listecouplenew=liste_couple_rejet_n(rejets-1,listecouple)
         #print (listecouplenew)
-        for i in range(0,65,3):
+        for i in range(0,64,3):
             for (xo, x1) in listecouplenew:
                 chaine=x1+xo
                 aux(chaine,i,couples,rejets)
@@ -109,7 +109,7 @@ def liste_couple_rejet_general(listecouples):
 # 18 => 64
 # 9 => 32
 #test
-couple=[("01000101011011010001000011011010","10101010110010010011000111000111")]
+#couple=[("01000101011011010001000011011010","10101010110010010011000111000111")]
 #couplenew=liste_couple_rejet_n(2,couple)
 #fichier = open("essay.txt", "a")
 #for (x0 ,x1 ) in couplenew:
