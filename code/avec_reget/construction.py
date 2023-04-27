@@ -95,7 +95,7 @@ def liste_couple_rejet_general(listecouples):
             resultat_couple=liste_couple_rejet(listecouples)
             resultat_final=resultat_couple
         else :
-            #pour czlculer le rejet i il nous faut la liste de rejet (i-1)
+            #pour calculer le rejet i il nous faut la liste de rejet (i-1)
             listecouples=resultat_couple
             resultat_couple=liste_couple_rejet(listecouples)
             resultat_final=resultat_final+resultat_couple

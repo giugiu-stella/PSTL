@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List; 
 import java.io.IOException;
 import java.io.PrintWriter;
+import code.sans_rejet.Bit_aleatoire_sans_rejet;
 
 public class Game extends JFrame{ 
     HashMap<Integer, List<Integer >> joueurs = new HashMap<>();   //1er nb_j //2eme valeur dés //3eme nb_jeton
@@ -398,14 +399,14 @@ public class Game extends JFrame{
         Ordre.add(555);
         Ordre.add(411);
         Ordre.add(444);
-        Ordre.add(511);
-        Ordre.add(555);
-        Ordre.add(411);
-        Ordre.add(444);
         Ordre.add(311);
         Ordre.add(333);
         Ordre.add(211);
         Ordre.add(222);
+        Ordre.add(654);
+        Ordre.add(543);
+        Ordre.add(432);
+        Ordre.add(321);
         new Game(Ordre , joueurs);
     }
 }

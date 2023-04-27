@@ -140,10 +140,10 @@ def verifoutput(X0,X1,X2,X3,numero,numerofin):
             valIntXi = Valeur_to_int(valXi)
             while  (valIntXi==-1):  #si rejet alors on avance dans la lecture de la chaine 
                   valXi=chaine[entier-2] + chaine[entier-1] +chaine[entier]
-                  print ("je uis la ")
+                  print ("je suis là ")
                   valIntXi = Valeur_to_int(valXi)
                   entier=entier-3
-            print ("valeur ligne="+ str (i+1)+" valeur output:"+ valOutput+ " valeur calcule:"+ str(valIntXi))
+            print ("valeur ligne="+ str (i+1)+" valeur output:"+ valOutput+ " valeur calcul:"+ str(valIntXi))
             if(int (valOutput) != valIntXi):
                     return False    
     return True
@@ -170,4 +170,4 @@ couple =liste_couple()
 for c in couple :
      print ("couple_liste : "+c[0]+" "+c[1]+ "\n" )
 #calcul_X0_avec_rejet(couple)
-print ("la prediction est elle corecte==>" + str (testdes(couple)))
+print ("la prediction est correcte ==>" + str (testdes(couple)))
