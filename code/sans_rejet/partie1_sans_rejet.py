@@ -8,7 +8,7 @@ def binaire (x):
       return ["001", "111"] 
    return  [valeur_d  [int (x)-1]]
 
-# Fonction de  reconstruction de la liste des couples a partir des faces qui se trouve dans output_sans_rejet
+# Fonction de reconstruction de la liste des couples à partir des faces qui se trouve dans output_sans_rejet
 def liste_couple ():
     x0=""
     x1=""
@@ -83,7 +83,7 @@ def liste_couple ():
     file1.close()
     return couple 
 
-#Remet un x0 (32 bits) sur 48 bits avec un decalage <<16
+#Remet un x0 (32 bits) sur 48 bits avec un décalage <<16
 def completeX0(xo,cpt):                  
     xo=xo<<16  
     new_xo=cpt+xo  
@@ -96,7 +96,7 @@ def equation_X(X):
     c =11
     return (a*X+c)%m
 
-#Fonction qui retrouve X0(48 bits) a partir de la liste des couples 
+#Fonction qui retrouve X0(48 bits) à partir de la liste des couples 
 def recuperer_X0(liste_couple):
     for couple in liste_couple :
         x0=int (couple[0],2)
@@ -108,7 +108,7 @@ def recuperer_X0(liste_couple):
                 return X0
     return -1
 
-#Fonction qui verfie si x est sur 32bits 
+#Fonction qui vérfie si x est sur 32bits 
 def verificationTailleX(X):
     if(len(X)<32):
         while(len(X)<32):
@@ -125,7 +125,7 @@ def Valeur_to_int(val):
         x=2
     return x
 
-#Prédiction: Fonction qui verifie si les faces >22 du output sont compatible aux valeur de X2 et X3 (X2 X3 valeurs calculé grace a la gaire et l'équation)
+#Prédiction: Fonction qui vérifie si les faces >22 du output_sans_rejet sont compatiblees aux valeurs de X2 et X3 (X2 X3 valeurs calculé grace à la gaire et l'équation)
 def verifoutput(X1,X2,numero,numerofin):
     filetest = open('Output_sans_rejet.txt', 'r')
     line = filetest.readlines() 
@@ -159,7 +159,7 @@ def verifoutput(X1,X2,numero,numerofin):
         
     return True
 
-#Prediction: fonction qui fait appel a verifoutput
+#Prediction: fonction qui fait appel à verifoutput
 def testdes(liste): # test pour les 40 lancés de dés
 
     # calcul des couples : 

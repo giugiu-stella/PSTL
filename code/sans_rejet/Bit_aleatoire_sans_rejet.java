@@ -15,7 +15,7 @@ public class Bit_aleatoire_sans_rejet {
     rn=new Random();
   }
 
-  //Apppel la fonction nextInt() et renvoie une chaine de caractère de 32 bits 
+  //Appelle la fonction nextInt() et renvoie une chaine de caractère de 32 bits 
   public String generate(){   
     int  valeur=  rn.nextInt()  ;  
     String result = Integer.toBinaryString( valeur);
@@ -24,7 +24,7 @@ public class Bit_aleatoire_sans_rejet {
     return resultWithPadding;
   }
 
-  //Renvoie un bit a partir de la suite de 32bits 
+  //Renvoie un bit à partir de la suite de 32bits 
   public String bit_aleatoire(){
       if(cpt==-1){
         valeur_random=generate();
@@ -44,7 +44,7 @@ public class Bit_aleatoire_sans_rejet {
     return cpt;
   }
 
-  //Fonction qui traduit une suite de 3 bits en une face 
+  //Fonction qui traduit une suite de 3 bits en une face(..6) 
   public int valeur_des(String valeur){
     for(int i=0;i<valeur_d.length;i++){
       if(valeur.equals(valeur_d[i])){
