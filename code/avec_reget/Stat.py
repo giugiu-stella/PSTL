@@ -11,7 +11,23 @@ largeur_barre=0.2
 #plt.hist(x,6 ,edgecolor = 'white')
 #plt.show()
 #file.close()
-#Histogramme  pour les rejets 
+
+#Histogramme  pour les rejets
+file= open('data.txt', 'r')
+
+values=file.readlines()
+
+print(len(values))
+x=[0,0,0,0,0,0]
+param=[1,2,3,4,5,6]
+for v in values:
+    
+    x[int(v)-1]=x[int(v)-1]+1
+    
+#graphe disstribution uniforme 
+plt.bar(param, x, width = largeur_barre, color = 'blue', edgecolor = 'black', linewidth = 2)
+plt.show()
+
 file= open('data.txt', 'r')
 
 values=file.readlines()
