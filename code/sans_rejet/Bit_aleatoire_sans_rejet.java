@@ -44,7 +44,7 @@ public class Bit_aleatoire_sans_rejet {
     return cpt;
   }
 
-  //Fonction qui traduit une suite de 3 bits en une face(..6) 
+  //Fonction qui traduit une suite de 3 bits en une face(1..6) 
   public int valeur_des(String valeur){
     for(int i=0;i<valeur_d.length;i++){
       if(valeur.equals(valeur_d[i])){
@@ -62,7 +62,7 @@ public class Bit_aleatoire_sans_rejet {
     return 0;
   }
 
- //Fonction qui renvoie une face a partir du générateur rn 
+ //Fonction qui renvoie une face à partir du générateur rn 
   public int getde (){
     String entier="";
     for(int i=0;i<3;i++){

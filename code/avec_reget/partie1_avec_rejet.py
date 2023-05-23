@@ -10,7 +10,7 @@ def binaire (x):
       return ["001"] 
    return  [valeur_d  [int (x)-1]]
 
-#on sait que on aura un unique couple 
+# Fonction de reconstruction du couple qui corespond aux faces dans le Output_avec_rejet
 def liste_couple ():
     x0=""
     x1=""
@@ -63,17 +63,21 @@ def liste_couple ():
     file1.close
     return couple 
 
+
+#Remet un x0 (32 bits) sur 48 bits avec un décalage <<16
 def completeX0(xo,cpt):                  
     xo=xo<<16  
     new_xo=cpt+xo  
     return  new_xo
-             
+
+#Equation (a*X+c)mod m            
 def equation_X(X):
     a =25214903917
     m = pow(2,48)     
     c =11
     return (a*X+c)%m
 
+#Fonction qui retrouve X0(48 bits) à partir de la liste des couples 
 def recuperer_X0(liste_couple):
     for couple in liste_couple :
         x0=int (couple[0],2)
@@ -86,6 +90,7 @@ def recuperer_X0(liste_couple):
     return -1
 
 
+#Fonction récurssive qui construit les couples et fait appel à "recuperer_X0" pour rejet==(1...22) pour retrouver X0
 def calcul_X0_avec_rejet(couple):
     rejets=0
     val_X0=-1
@@ -108,18 +113,20 @@ def calcul_X0_avec_rejet(couple):
     return val_X0
 
 
-#prediction de la suite des faces 
+#Fonction qui vérfie si x est sur 32bits 
 def verificationTailleX(X):
     if(len(X)<32):
         while(len(X)<32):
             X='0'+X
     return X
 
+
 def Valeur_to_int(val):
     if(val == "110" or val=="111"):
         return -1
     x=valeur_d.index(val) +1
     return x
+
 
 def verifoutput(X0,X1,X2,X3,numero,numerofin):
     filetest = open('Output_avec_rejet.txt', 'r')
@@ -140,7 +147,6 @@ def verifoutput(X0,X1,X2,X3,numero,numerofin):
             valIntXi = Valeur_to_int(valXi)
             while  (valIntXi==-1):  #si rejet alors on avance dans la lecture de la chaine 
                   valXi=chaine[entier-2] + chaine[entier-1] +chaine[entier]
-                  print ("je suis là ")
                   valIntXi = Valeur_to_int(valXi)
                   entier=entier-3
             print ("valeur ligne="+ str (i+1)+" valeur output:"+ valOutput+ " valeur calcul:"+ str(valIntXi))
@@ -148,7 +154,7 @@ def verifoutput(X0,X1,X2,X3,numero,numerofin):
                     return False    
     return True
 
-#Test sur la prediction de la suite 
+#Prédiction: vérifie si les valeurs de X1, X2 X3 Sont idetiquees aux valeurs du Output
 def testdes(liste): # test pour les 40 lancés de dés
     # calcul des couples : 
     X0=calcul_X0_avec_rejet(liste)
@@ -160,8 +166,8 @@ def testdes(liste): # test pour les 40 lancés de dés
     X1=f'{X1//2**16:08b}'
     X3=f'{X3//2**16:08b}'
     X0=f'{X0//2**16:08b}'
-    #IMPORTANT: inclure X0 pour recommencer du debut et prendre en concideration les rejets de X0 SINON GROS DECALAGE
-    vrai_0_40=verifoutput(X0,X1,X2,X3,0,32) # test pour les lignes 0 à 40 //il se peut qu'on obtient False a partir d'une certaine ligne si il y a eu plusieurs rejet dans x2 et x3 donc on aura beoin de X4 ou voir meme X
+    #IMPORTANT: inclure X0 pour recommencer du debut et prendre en concidération les rejets de X0 SINON GROS DECALAGE
+    vrai_0_40=verifoutput(X0,X1,X2,X3,0,32) # test pour les lignes 0 à 40 //il se peut qu'on obtient False a partir d'une certaine ligne si il y a eu plusieurs rejets dans X2 et X3 donc on aura beoin de X4 ou voir meme X
     return vrai_0_40 
 
 
@@ -169,5 +175,4 @@ def testdes(liste): # test pour les 40 lancés de dés
 couple =liste_couple()
 for c in couple :
      print ("couple_liste : "+c[0]+" "+c[1]+ "\n" )
-#calcul_X0_avec_rejet(couple)
 print ("la prediction est correcte ==>" + str (testdes(couple)))

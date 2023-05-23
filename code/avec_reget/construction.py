@@ -4,10 +4,9 @@ def check(c,couple):
         if(i==c):
             return False
     return True
-
+#fonction qui renvoie un couple en rajoutant 110 ou 111 a l'indice i de la chaine "chaine"
 def aux(chaine,i,couple,rejets):
     max=len(chaine)
-   # print (chaine[max-i::])
     chaine_110=chaine[0:max-i]+"110"+chaine[max-i::]
     chaine_111=chaine[0:max-i]+"111"+chaine[max-i::]
     taille=len(chaine_110)
@@ -25,6 +24,26 @@ def aux(chaine,i,couple,rejets):
     couple.append(c1)
     return couple
 
+#Fonction qui calcul la liste des couples pour un certain nombre de rejet n 
+def liste_couple_rejet_n(rejets,listecouple):
+    if rejets == 0:
+        return listecouple 
+    else:
+        couples = []
+        #oublie la liste des couples
+        listecouplenew=liste_couple_rejet_n(rejets-1,listecouple)
+        #print (listecouplenew)
+        for i in range(0,64,3):
+            for (xo, x1) in listecouplenew:
+                chaine=x1+xo
+                aux(chaine,i,couples,rejets)
+        
+        return couples
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------
+#Les fonctions qui vont suivre sont des fonction de tests 
+
+#Fonction qui renvoie la liste des couple pour un rejet 
 def liste_couple_rejet(listecouple):
     couple =[]
     for i in range(0, 64, 3):
@@ -33,6 +52,7 @@ def liste_couple_rejet(listecouple):
             aux(chaine,i,couple)
     return couple
 
+#Fonction qui renvoie la liste des couple pour deux rejets 
 def liste_couple_rejet_deux(listecouples):
     couple=[]
     for k in range(0, 64, 3):
@@ -45,6 +65,7 @@ def liste_couple_rejet_deux(listecouples):
                 aux(fixe,i,couple)
     return couple 
 
+#Fonction qui renvoie la liste des couple pour 3 rejets
 def liste_couple_rejet_trois(listecouple):
     couple=[]
     for v in range(0, 64, 3):
@@ -70,20 +91,6 @@ def liste_couple_rejet_trois(listecouple):
 
     return couple
 
-def liste_couple_rejet_n(rejets,listecouple):
-    if rejets == 0:
-        return listecouple 
-    else:
-        couples = []
-        #oublie la liste des couples
-        listecouplenew=liste_couple_rejet_n(rejets-1,listecouple)
-        #print (listecouplenew)
-        for i in range(0,64,3):
-            for (xo, x1) in listecouplenew:
-                chaine=x1+xo
-                aux(chaine,i,couples,rejets)
-        
-        return couples
 
 
 def liste_couple_rejet_general(listecouples):
@@ -102,19 +109,5 @@ def liste_couple_rejet_general(listecouples):
     return resultat_final 
 
 
-
-# utilisation de _ _ _ et . . . pour le visuel
-# ___ => 110
-# ... => 111
-# 18 => 64
-# 9 => 32
-#test
-#couple=[("01000101011011010001000011011010","10101010110010010011000111000111")]
-#couplenew=liste_couple_rejet_n(2,couple)
-#fichier = open("essay.txt", "a")
-#for (x0 ,x1 ) in couplenew:
-      # couple.append((x0,x1) )
- #      fichier.write("( "+str(x0) + " , "+ str(x1)+ " )")
-  #     fichier.write("\n")
 
 

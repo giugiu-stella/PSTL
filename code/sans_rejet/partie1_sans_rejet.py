@@ -119,8 +119,7 @@ def verificationTailleX(X):
 def Valeur_to_int(val):
     x=valeur_d.index(val) +1
     if(x == 7):
-        x=1
-        
+        x=1   
     if(x == 8):
         x=2
     return x
