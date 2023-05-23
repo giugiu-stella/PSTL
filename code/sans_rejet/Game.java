@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List; 
 import java.io.IOException;
 import java.io.PrintWriter;
-import code.sans_rejet.Bit_aleatoire_sans_rejet;
 
 public class Game extends JFrame{ 
     HashMap<Integer, List<Integer >> joueurs = new HashMap<>();   //1er nb_j //2eme valeur dés //3eme nb_jeton
@@ -32,6 +31,7 @@ public class Game extends JFrame{
     public Game( ArrayList<Integer> Ordre,  HashMap<Integer , List<Integer >> j) throws IOException
     {   
         super("421"); 
+        //Creation d'un generateur de dé sans rejet 
         generateur=new Bit_aleatoire_sans_rejet();
         writer = new PrintWriter("Output.txt");
         this.Ordre=Ordre;
@@ -53,12 +53,14 @@ public class Game extends JFrame{
         setVisible(true);  
     }
    
+    //Iniciallisation de la liste des joueurs 
     public void iniciliastion_joueur()
     { if (! etape_decharge) {
       for (int i=1 ; i<= nb_joueur; i++) {joueurs.put(i,Arrays.asList(0 ,0,0) );}
      }
     }
     
+    //Fonction de validation des resultats après un jet
     public  class   Valider implements   ActionListener
     { public  void    actionPerformed(ActionEvent e)
         { 
@@ -112,7 +114,7 @@ public class Game extends JFrame{
          }
     }
     
-
+    //Fonction qui permet de relancer un certain 1, 2 ou 3 dés 
     public  class   Relancer implements   ActionListener  //Pour Relancer les dés (on doit verifier les cases qui sont cocher)
     { public  void    actionPerformed(ActionEvent e){
       if (cpt_joueur==1) {nb_relance_1j++;} 
@@ -191,7 +193,7 @@ public class Game extends JFrame{
      return index;    
     }
 
-
+  //Recalcule les jetons des chaque joueur après une partie 
   public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
 
   { System.out.println("jr_g "+j_g);
@@ -245,60 +247,60 @@ public class Game extends JFrame{
     }
     return false;
    }
-
+   //Cheche le ganiant et donc le joueur qui n'a plus de jetons après une partie 
    public int[] trouver_gagnant(int[] liste_ordre){
-    int jgagnant=0;
-    int igagnant=0;
-    //boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x!=-1);
-    //pb avec Arrays.steam donc on fait une fonction
-    boolean found = recherche_atleast(liste_ordre,-1);
-    if(found==true){
-      for(int i=0;i<liste_ordre.length;i++){
-        if(liste_ordre[i]>igagnant){
-          igagnant=liste_ordre[i];
-          jgagnant=i+1;
+      int jgagnant=0;
+      int igagnant=0;
+      //boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x!=-1);
+      //pb avec Arrays.steam donc on fait une fonction
+      boolean found = recherche_atleast(liste_ordre,-1);
+      if(found==true){
+        for(int i=0;i<liste_ordre.length;i++){
+          if(liste_ordre[i]>igagnant){
+            igagnant=liste_ordre[i];
+            jgagnant=i+1;
+          }
         }
       }
-    }
-    else{
-      int [] liste=liste_somme(liste_ordre, liste_ordre.length);
-      for(int i=0;i<liste.length;i++){
-        if(liste[i]!=0 && liste[i]>igagnant){
-          igagnant=liste[i];
-          jgagnant=i+1;
+      else{
+        int [] liste=liste_somme(liste_ordre, liste_ordre.length);
+        for(int i=0;i<liste.length;i++){
+          if(liste[i]!=0 && liste[i]>igagnant){
+            igagnant=liste[i];
+            jgagnant=i+1;
+          }
         }
-      }
 
-    }
-    int [] res={jgagnant,igagnant};
-    return res;
+      }
+      int [] res={jgagnant,igagnant};
+      return res;
    }
 
    public int trouver_perdant(int[] liste_ordre){
-    //boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x==-1);
-    //pb avec Arrays.steam donc on fait une fonction
-    boolean found = recherche_any(liste_ordre,-1);
-    int jperdant=0;
-    int iperdant=17;
-    if(found ==true){
-      int [] liste=liste_somme(liste_ordre, liste_ordre.length);
-      
-      for(int i=0;i<liste.length;i++){
-        if(liste[i]!=0 && liste[i]<iperdant){
-          iperdant=liste[i];
-          jperdant=i+1;
+      //boolean found= Arrays.steam(liste_ordre).anyMatch(x-> x==-1);
+      //pb avec Arrays.steam donc on fait une fonction
+      boolean found = recherche_any(liste_ordre,-1);
+      int jperdant=0;
+      int iperdant=17;
+      if(found ==true){
+        int [] liste=liste_somme(liste_ordre, liste_ordre.length);
+        
+        for(int i=0;i<liste.length;i++){
+          if(liste[i]!=0 && liste[i]<iperdant){
+            iperdant=liste[i];
+            jperdant=i+1;
+          }
         }
       }
-    }
-    else{
-      for(int i=0;i<liste_ordre.length;i++){
-        if(liste_ordre[i]<iperdant){
-          iperdant=liste_ordre[i];
-          jperdant=i+1;
+      else{
+        for(int i=0;i<liste_ordre.length;i++){
+          if(liste_ordre[i]<iperdant){
+            iperdant=liste_ordre[i];
+            jperdant=i+1;
+          }
         }
       }
-    }
-    return jperdant;
+      return jperdant;
    }
  
    public boolean recherche_any(int [] liste, int valeur){
@@ -391,6 +393,7 @@ public class Game extends JFrame{
    public  static  void    main(String args[]) throws IOException
     {   ArrayList<Integer> Ordre = new ArrayList<Integer>();
         HashMap<Integer,List<Integer >> joueurs = new HashMap<>();  
+        //Construction de la table Ordre qui indique le classement des resultats. 
         Ordre.add(421);
         Ordre.add(111);
         Ordre.add(611);

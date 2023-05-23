@@ -8,6 +8,7 @@ def binaire (x):
       return ["001", "111"] 
    return  [valeur_d  [int (x)-1]]
 
+# Fonction de  reconstruction de la liste des couples a partir des faces qui se trouve dans output_sans_rejet
 def liste_couple ():
     x0=""
     x1=""
@@ -82,17 +83,20 @@ def liste_couple ():
     file1.close()
     return couple 
 
+#Remet un x0 (32 bits) sur 48 bits avec un decalage <<16
 def completeX0(xo,cpt):                  
     xo=xo<<16  
     new_xo=cpt+xo  
     return  new_xo
-             
+
+#Equation (a*X+c)mod m            
 def equation_X(X):
     a =25214903917
     m = pow(2,48)     
     c =11
     return (a*X+c)%m
 
+#Fonction qui retrouve X0(48 bits) a partir de la liste des couples 
 def recuperer_X0(liste_couple):
     for couple in liste_couple :
         x0=int (couple[0],2)
@@ -104,24 +108,24 @@ def recuperer_X0(liste_couple):
                 return X0
     return -1
 
+#Fonction qui verfie si x est sur 32bits 
 def verificationTailleX(X):
     if(len(X)<32):
         while(len(X)<32):
             X='0'+X
-
     return X
+
 
 def Valeur_to_int(val):
     x=valeur_d.index(val) +1
-
     if(x == 7):
         x=1
         
     if(x == 8):
         x=2
-
     return x
 
+#Prédiction: Fonction qui verifie si les faces >22 du output sont compatible aux valeur de X2 et X3 (X2 X3 valeurs calculé grace a la gaire et l'équation)
 def verifoutput(X1,X2,numero,numerofin):
     filetest = open('Output_sans_rejet.txt', 'r')
     line = filetest.readlines() 
@@ -130,9 +134,9 @@ def verifoutput(X1,X2,numero,numerofin):
     # s'assurer que les chaînes sont sur 32 bits (si positif -> le bit 0 devant n'est pas présent)
     ValX2=verificationTailleX(X2)
     ValX1=verificationTailleX(X1)
-    print("valeur des chaines :")
-    print(ValX1)
-    print(ValX2)
+    #print("valeur des chaines :")
+    #print(ValX1)
+    #print(ValX2)
 
     for i in range(numero,numerofin):
         valOutput=(line[i])[0]
@@ -144,8 +148,8 @@ def verifoutput(X1,X2,numero,numerofin):
             valXi=ValX2[entier-2] + ValX2[entier-1] +ValX2[entier]
             entier=entier-3
         
-        print("valeur de valXi : ")
-        print(valXi)
+        #print("valeur de valXi : ")
+        #print(valXi)
         valIntXi = Valeur_to_int(valXi)
         if(int (valOutput) != valIntXi):
             print(i)
@@ -155,7 +159,7 @@ def verifoutput(X1,X2,numero,numerofin):
         
     return True
 
-
+#Prediction: fonction qui fait appel a verifoutput
 def testdes(liste): # test pour les 40 lancés de dés
 
     # calcul des couples : 
@@ -163,22 +167,22 @@ def testdes(liste): # test pour les 40 lancés de dés
     X1=equation_X(X0)
     X2=equation_X(X1)
     X3=equation_X(X2)
-    print(X0)
-    print(X1)
-    print(X2)
-    print(X3)
+    #print(X0)
+    print("valeur de X1: " +str(X1))
+    print("valeur de X2: " + str(X2))
+    print("valeur de X3: " + str (X3))
     # transformation des entiers en chaîne binaire : 
     X2=f'{X2//2**16:08b}'
     X1=f'{X1//2**16:08b}'
     X3=f'{X3//2**16:08b}'
-    #vrai=verifoutput(X1,X2,21,32) # test pour les lignes 22 à 33
+    vrai=verifoutput(X1,X2,21,32) # test pour les lignes 22 à 33
     #true=verifoutput(X2,X3,32,40) # test pour les lignes 33 à 40
     
-    return True #(vrai and true)
+    return vrai #(vrai and true)
 
 
 
 #Test
 couple =liste_couple()
-print(recuperer_X0(couple))
-print(testdes(couple))
+print("la valeur de la graine(seed): " +str (recuperer_X0(couple)))
+print("les 40 faces sont compatiblees? " + str (testdes(couple)))
