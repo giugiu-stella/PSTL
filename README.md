@@ -18,6 +18,7 @@ code/avec_rejets:Le jeu avec un générateur avec rejet d'information.
 - Bit_aleatoire_avec_rejet.java: Fichier qui génère un output.txt grace au générateur.
 - partie1_avec_rejet.py: Fichier qui calcule la graine (seed) et  fait la prédiction.
 
+Les dossiers dice et jeu dans code correspondent au premier code de notre version du jeu, que nous avons décidé de ne pas utiliser.
 
 ## Pour lancer le projet: 
 Dans le sous répértoire code/sans_rejets:
@@ -31,6 +32,7 @@ java  Bit_aleatoire_sans_rejet
 ```
 py .\partie1_sans_rejet.py 
 ```
+Pour lancer le jeu :
 ```
 javac .\Game.java.
 java  Game
@@ -46,7 +48,7 @@ java Bit_aleatoire_avec_rejet
 ```
 pypy3 .\partie1_avec_rejet.py 
 ```
-
+Pour lancer le jeu :
 ```
 javac .\Game.java.
 java  Game
