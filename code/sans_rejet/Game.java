@@ -42,7 +42,7 @@ public class Game extends JFrame{
         but1=new JButton("Valider le nombre de jrs ");
         //ajoute un listener : ici le listener est cette classe (une action a But1 )
         but1.addActionListener(new Valider());     
-        //ajoute le boutton dans le panel
+        //ajoute le bouton dans le panel
         pan.add(but1);
         commencer=new JButton("Commencer !");
         commencer.addActionListener(new Commencer());
@@ -53,14 +53,14 @@ public class Game extends JFrame{
         setVisible(true);  
     }
    
-    //Iniciallisation de la liste des joueurs 
+    //Initialisation de la liste des joueurs 
     public void iniciliastion_joueur()
     { if (! etape_decharge) {
       for (int i=1 ; i<= nb_joueur; i++) {joueurs.put(i,Arrays.asList(0 ,0,0) );}
      }
     }
     
-    //Fonction de validation des resultats après un jet
+    //Fonction de validation des resultats après un lancé
     public  class   Valider implements   ActionListener
     { public  void    actionPerformed(ActionEvent e)
         { 
@@ -72,9 +72,9 @@ public class Game extends JFrame{
     }
 
 
-     public  class   Commencer implements   ActionListener  //Pour lancer une premier fois les dés 
+     public  class   Commencer implements   ActionListener  //Pour lancer une première fois les dés 
     {  public  void    actionPerformed(ActionEvent e)
-        { //Inicialisation dela structure joueurs 
+        { //Initialisation de la structure joueurs 
           if (Debut ) {iniciliastion_joueur() ; Debut=false;}
           de_1=generateur.getde();
            writer.println( String.valueOf(de_1));
@@ -85,9 +85,10 @@ public class Game extends JFrame{
           System.out.println("la valeur du de1 " +String.valueOf(de_1));
           System.out.println("la valeur du de2 " +String.valueOf (de_2));
           System.out.println("la valeur du de3 " +String.valueOf ( de_3));
-          //Sauvgrader 
+          //Sauvegarder 
           //1 Relancer: 
-          //Uniquement lors de la Decharge:Le joueur devra choisir les dés qu'il veu relancer puis sur le bouton Relancer 
+          //Uniquement lors de la Decharge:
+          //Le joueur devra choisir les dés qu'il veut relancer puis sur le bouton Relancer 
           if (etape_decharge) {
             if((nb_relancer<nb_relance_1j)|| cpt_joueur ==1){
               check_de1 = new JCheckBox("Relancer de1"); 
@@ -97,11 +98,11 @@ public class Game extends JFrame{
               Relancer=new JButton("Relancer !");
               pan.add(Relancer);
               Relancer.addActionListener(new Relancer());
-            } //ajouter une action au bouton Relancer //atention pas plus de 3fois 
+            } //ajouter une action au bouton Relancer //attention pas plus de 3 fois 
           }
-          //2 Sauvgarder:
-          // si on sauvgarde on passe au 2eme joueur 
-          //La sauvgarde lors de la charge et la decharge ne sont pas les mm (cause gestion joueur + condition d'arret )
+          //2 Sauvegarder:
+          // si on sauvegarde on passe au 2eme joueur 
+          //La sauvegarde lors de la charge et la decharge ne sont pas les même (cause gestion joueur + condition d'arret )
           if (!etape_decharge) {
           Sauvgarder=new JButton("sauvgarder !");
           pan.add(Sauvgarder);
@@ -114,13 +115,13 @@ public class Game extends JFrame{
          }
     }
     
-    //Fonction qui permet de relancer un certain 1, 2 ou 3 dés 
-    public  class   Relancer implements   ActionListener  //Pour Relancer les dés (on doit verifier les cases qui sont cocher)
+    //Fonction qui permet de relancer 1, 2 ou 3 dés 
+    public  class   Relancer implements   ActionListener  //Pour Relancer les dés (on doit verifier les cases qui sont cochées)
     { public  void    actionPerformed(ActionEvent e){
       if (cpt_joueur==1) {nb_relance_1j++;} 
       
       if (nb_relancer!=max ){ 
-         if (check_de1.isSelected()){de_1= generateur.getde();writer.println( String.valueOf(de_1));} //si la case de dé1 est cocheé alors on calcule une nouvelle valeur 
+         if (check_de1.isSelected()){de_1= generateur.getde();writer.println( String.valueOf(de_1));} //si la case de dé1 est cochée alors on calcule une nouvelle valeur 
          
          if (check_de2.isSelected()){de_2= generateur.getde();writer.println( String.valueOf(de_2)); } 
 
@@ -135,8 +136,8 @@ public class Game extends JFrame{
          }
         }
     }
-    //sauvgarde le resultat du joueur courant et passe au suivant+ supprime les checkbox et relancer (car le prochaine joueur doit ne peut pas relancer directement)
-    //ATTENTION: si le dérnier joueur qui valide il faut mettre a jours les jetons 
+    //sauvegarde le resultat du joueur courant et passe au suivant + supprime les checkbox et relancer (car le prochain joueur ne doit pas relancer directement)
+    //ATTENTION: si c'est le dernier joueur qui valide il faut mettre à jour les jetons 
     public  class  sauvgarder implements   ActionListener  
     { public  void    actionPerformed(ActionEvent e){
         int [] liste = {de_1, de_2, de_3};
@@ -149,10 +150,10 @@ public class Game extends JFrame{
             joueurs.get(cpt_joueur).set(0,valeur);
             System.out.println("Table des scores==>" +joueurs);
             cpt_joueur++;
-            //Reinicialisation du nombre de Relanées pour le jr svt 
+            //Réinitialisation du nombre de relance possible pour le joueur suivant 
             nb_relancer=1; 
             System.out.println("joueur suivant ");
-          }else//Mise a jours des jetons Avec la fonction update jetons + recomancer le jeu a partir du 1er  jr 
+          }else//Mise à jour des jetons avec la fonction update jetons + recommencer le jeu a partir du 1er joueur
             {  joueurs.get(cpt_joueur).set(0,valeur);
                cpt_joueur=1;
                 for (int i=1; i<=nb_joueur;i++)
@@ -177,7 +178,7 @@ public class Game extends JFrame{
                                      Decharge=new JButton("Commencer  Dechrger !");
                                      pan.add(Decharge);
                                      etape_decharge=true ;//pour dire que on traite la decharge 
-                                     cpt_joueur=1; //pour caculer les joueurq quit ont deja jouer 
+                                     cpt_joueur=1; //pour calculer les joueurs qui ont deja jouer 
                                      tour_j=looser;//Joueur qui commence la Decharge 
                                      Decharge.addActionListener(new Commencer());
                                      System.out.println("Decharge"); 
@@ -194,7 +195,7 @@ public class Game extends JFrame{
     }
 
   //Recalcule les jetons des chaque joueur après une partie 
-  public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retourner par 
+  public void update_jetons(int j_g,int jp,int index_g)  //index_g est la valeur retournée
 
   { System.out.println("jr_g "+j_g);
     System.out.println("jr_p "+jp);
@@ -233,7 +234,7 @@ public class Game extends JFrame{
         liste[i]=somme((joueurs.get(i+1)).get(0));
       }
       else{
-        liste[i]=0;//on s'en fout !
+        liste[i]=0;
       }
     }
     return liste;
@@ -247,7 +248,7 @@ public class Game extends JFrame{
     }
     return false;
    }
-   //Cheche le ganiant et donc le joueur qui n'a plus de jetons après une partie 
+   //Cherche le gagnant et donc le joueur qui n'a plus de jetons après une partie 
    public int[] trouver_gagnant(int[] liste_ordre){
       int jgagnant=0;
       int igagnant=0;
@@ -312,7 +313,7 @@ public class Game extends JFrame{
     return false;
    }
   
-   //La fonction sauvrgarder lors de la decharge verifie si un joueru n'a plus de jetons et 
+   //La fonction verifie si un joueur n'a plus de jetons
    public  class   sauvgarder_decharge implements   ActionListener 
    { public  void    actionPerformed(ActionEvent e){
      int [] liste = {de_1, de_2, de_3};
@@ -325,11 +326,11 @@ public class Game extends JFrame{
         cpt_joueur++;
         //Joueur suivant 
         tour_j++;
-        if (tour_j>nb_joueur) {tour_j=1;} //  si depace le nombre de joueurs alors on revient au premier 
-        //Reinicialisation du nombre de Relanées pour le jr svt 
+        if (tour_j>nb_joueur) {tour_j=1;} //  si oui -> deplace le nombre de joueurs alors on revient au premier 
+        //Reinitialisation du nombre de relance pour le joueur suivant
         nb_relancer=1; 
         System.out.println("joueur suivant ");
-    }else{      //si tous les joueurs on jouer une manche alors on Update les jetons si le dernier valide 
+    }else{      //si tous les joueurs ont joués une manche et le dernier a validé alors on Update les jetons 
                 joueurs.get(tour_j).set(0,valeur);
                 cpt_joueur=1;
                 nb_relancer=1;
@@ -339,7 +340,7 @@ public class Game extends JFrame{
                 }
                 System.out.println("Table des scores==>" +joueurs);
                 System.out.println("Update Jetons ");
-                //Update jetons (le perdant recoi les jetons du ganiant suivant les score)
+                //Update jetons (le perdant reçoit les jetons du gagnant suivant les scores)
                 int [] tab = liste_ordre(nb_joueur);
                 int [] winner=trouver_gagnant(tab);
                 int looser=trouver_perdant(tab);
@@ -356,8 +357,8 @@ public class Game extends JFrame{
                      grand_gagnant=i;
                    }
                  }
-                  //Verifier si a la fin de la manche il existe un joueur sans Jetons 
-                 //if(il existe un joueur avec 0 jeton on arrete )
+                  //Verifier si à la fin de la manche il existe un joueur sans Jetons 
+                 //if(il existe un joueur avec 0 jeton on arrête )
                  if (sortie) {
                   Sauvgarder.setVisible(false);  
                   commencer.setVisible(false);    

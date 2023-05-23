@@ -137,7 +137,7 @@ public class Game extends JFrame{
         }
     }
     //sauvegarde le resultat du joueur courant et passe au suivant + supprime les checkbox et relancer (car le prochain joueur ne doit pas relancer directement)
-    //ATTENTION: si c'est le dernier joueur qui valide il faut mettre à jour les jetons 
+    // ATTENTION: si c'est le dernier joueur qui valide il faut mettre à jour les jetons 
     public  class  sauvgarder implements   ActionListener  
     { public  void    actionPerformed(ActionEvent e){
         int [] liste = {de_1, de_2, de_3};
@@ -178,7 +178,7 @@ public class Game extends JFrame{
                                      Decharge=new JButton("Commencer  Dechrger !");
                                      pan.add(Decharge);
                                      etape_decharge=true ;//pour dire qu'on traite la decharge 
-                                     cpt_joueur=1; //pour caculer les joueurs qui ont deja joués
+                                     cpt_joueur=1; //pour calculer les joueurs qui ont deja joués
                                      tour_j=looser;//Joueur qui commence la Decharge 
                                      Decharge.addActionListener(new Commencer());
                                      System.out.println("Decharge"); 
