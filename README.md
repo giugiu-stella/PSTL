@@ -23,34 +23,34 @@ Les dossiers dice et jeu dans code correspondent au premier code de notre versio
 ## Pour lancer le projet: 
 Dans le sous répértoire code/sans_rejets:
 ```
-javac .\Bit_aleatoire_sans_rejet.java
+javac ./Bit_aleatoire_sans_rejet.java
 ```
 ```
 java  Bit_aleatoire_sans_rejet
 ```
 
 ```
-py .\partie1_sans_rejet.py 
+py ./partie1_sans_rejet.py 
 ```
 Pour lancer le jeu :
 ```
-javac .\Game.java.
+javac ./Game.java.
 java  Game
 ```
 Dans le sous répértoire code/avec_rejets:
 ```
-javac .\Bit_aleatoire_avec_rejet.java
+javac ./Bit_aleatoire_avec_rejet.java
 ```
 ```
 java Bit_aleatoire_avec_rejet
 ```
 
 ```
-pypy3 .\partie1_avec_rejet.py 
+pypy3 ./partie1_avec_rejet.py 
 ```
 Pour lancer le jeu :
 ```
-javac .\Game.java.
+javac ./Game.java.
 java  Game
 ```
 
