@@ -31,6 +31,10 @@ java  Bit_aleatoire_sans_rejet
 ```
 py .\partie1_sans_rejet.py 
 ```
+```
+javac .\Game.java.
+java  Game
+```
 Dans le sous répértoire code/avec_rejets:
 ```
 javac .\Bit_aleatoire_avec_rejet.java
@@ -41,6 +45,11 @@ java Bit_aleatoire_avec_rejet
 
 ```
 pypy3 .\partie1_avec_rejet.py 
+```
+
+```
+javac .\Game.java.
+java  Game
 ```
 
 
