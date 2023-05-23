@@ -41,7 +41,7 @@ java Bit_aleatoire_avec_rejet
 
 ```
 pypy3 .\partie1_avec_rejet.py 
-
+```
 
 
 ## Authors
