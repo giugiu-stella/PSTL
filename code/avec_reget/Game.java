@@ -25,7 +25,7 @@ public class Game extends JFrame{
     int nb_relancer=0,tour_j; 
     JPanel  pan ;
     int de_1 ,de_2, de_3 ;  int banque_jetons= 1;
-    Bit_aleatoire_sans_rejet generateur ; 
+    Bit_aleatoire_avec_rejet generateur ; 
     //fichier 
     PrintWriter writer ;
     public Game( ArrayList<Integer> Ordre,  HashMap<Integer , List<Integer >> j) throws IOException
@@ -76,11 +76,11 @@ public class Game extends JFrame{
     {  public  void    actionPerformed(ActionEvent e)
         { //Inicialisation dela structure joueurs 
           if (Debut ) {iniciliastion_joueur() ; Debut=false;}
-          de_1=generateur.getde();
+          de_1=generateur.getde().get(0);
            writer.println( String.valueOf(de_1));
-          de_2= generateur.getde(); 
+          de_2= generateur.getde().get(0); 
           writer.println( String.valueOf(de_2));
-          de_3=generateur.getde();
+          de_3=generateur.getde().get(0);
           writer.println( String.valueOf(de_3));
           System.out.println("la valeur du de1 " +String.valueOf(de_1));
           System.out.println("la valeur du de2 " +String.valueOf (de_2));
@@ -120,11 +120,11 @@ public class Game extends JFrame{
       if (cpt_joueur==1) {nb_relance_1j++;} 
       
       if (nb_relancer!=max ){ 
-         if (check_de1.isSelected()){de_1= generateur.getde();writer.println( String.valueOf(de_1));} //si la case de dé1 est cocheé alors on calcule une nouvelle valeur 
+         if (check_de1.isSelected()){de_1= generateur.getde().get(0);writer.println( String.valueOf(de_1));} //si la case de dé1 est cocheé alors on calcule une nouvelle valeur 
          
-         if (check_de2.isSelected()){de_2= generateur.getde();writer.println( String.valueOf(de_2)); } 
+         if (check_de2.isSelected()){de_2= generateur.getde().get(0);writer.println( String.valueOf(de_2)); } 
 
-         if (check_de3.isSelected()){de_3=generateur.getde(); writer.println( String.valueOf(de_3));} 
+         if (check_de3.isSelected()){de_3=generateur.getde().get(0); writer.println( String.valueOf(de_3));} 
          System.out.println("\nla valeur des des apres la relance ");
          System.out.println("la valeur du de1 " +String.valueOf(de_1));
          System.out.println("la valeur du de2 " +String.valueOf (de_2));
