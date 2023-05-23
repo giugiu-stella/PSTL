@@ -15,7 +15,7 @@ def liste_couple ():
     liste_x0  =[x0]      
     liste_x1  =[x1]  
     #Le 1e Dé du fichier est à droite dans x0      
-    #calcul de x0 
+    # calcul de x0 
     sauvgarder=""
     cas_spe=False
     
@@ -32,7 +32,7 @@ def liste_couple ():
                 for j in  range (len(liste_x0)): 
                         liste_x0.append(binaire(line)[1]+liste_x0[j])
                         liste_x0 [j]=binaire(line)[0]+liste_x0[j]
-        else : #juste 2 bit le 3 eme c'est un bit de x1 
+        else : #juste 2 bits, le 3 eme c'est un bit de x1 
             sauvgarder=(binaire(line)[0][0:1])
             if len(binaire(line))==1:
                 for i in  range (len(liste_x0)): 
@@ -124,7 +124,7 @@ def Valeur_to_int(val):
         x=2
     return x
 
-#Prédiction: Fonction qui vérifie si les faces >22 du output_sans_rejet sont compatiblees aux valeurs de X2 et X3 (X2 X3 valeurs calculé grace à la gaire et l'équation)
+#Prédiction: Fonction qui vérifie si les faces >22 du output_sans_rejet sont compatiblees aux valeurs de X2 et X3 (X2 X3 valeurs calculées grâce à la gaire et l'équation)
 def verifoutput(X1,X2,numero,numerofin):
     filetest = open('Output_sans_rejet.txt', 'r')
     line = filetest.readlines() 

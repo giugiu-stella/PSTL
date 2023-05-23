@@ -4,7 +4,8 @@ def check(c,couple):
         if(i==c):
             return False
     return True
-#fonction qui renvoie un couple en rajoutant 110 ou 111 a l'indice i de la chaine "chaine"
+
+# fonction qui renvoie un couple en rajoutant 110 ou 111 à l'indice i de la chaine "chaine"
 def aux(chaine,i,couple,rejets):
     max=len(chaine)
     chaine_110=chaine[0:max-i]+"110"+chaine[max-i::]
@@ -30,7 +31,7 @@ def liste_couple_rejet_n(rejets,listecouple):
         return listecouple 
     else:
         couples = []
-        #oublie la liste des couples
+        # met à jour sa liste des couples
         listecouplenew=liste_couple_rejet_n(rejets-1,listecouple)
         #print (listecouplenew)
         for i in range(0,64,3):
@@ -92,7 +93,7 @@ def liste_couple_rejet_trois(listecouple):
     return couple
 
 
-
+# Fonction qui renvoie la liste des couple pour 4 rejets
 def liste_couple_rejet_general(listecouples):
     resultat_couple =[]
     resultat_final=[]

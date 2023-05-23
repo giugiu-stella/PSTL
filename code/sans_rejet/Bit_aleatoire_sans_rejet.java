@@ -10,7 +10,7 @@ public class Bit_aleatoire_sans_rejet {
   private String[] valeur_d={"000","001","010","011","100","101","110","111"};
   Random rn ;
 
-   //Inicialisation d'une variable Random   
+   //Initialisation d'une variable Random   
   public Bit_aleatoire_sans_rejet(){
     rn=new Random();
   }
@@ -75,7 +75,7 @@ public class Bit_aleatoire_sans_rejet {
   public static void main(String args[]) throws IOException{ 
     Bit_aleatoire_sans_rejet rn= new Bit_aleatoire_sans_rejet();
     PrintWriter writer ;
-    //Ficher output ou les valeurs  des faces seront inscritees 
+    //Ficher output où les valeurs des faces seront inscrites 
     writer = new PrintWriter("Output_sans_rejet.txt");
     for (int j=0; j<40; j++) {
     int faces=rn.getde();

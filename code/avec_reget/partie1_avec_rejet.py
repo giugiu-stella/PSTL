@@ -10,14 +10,14 @@ def binaire (x):
       return ["001"] 
    return  [valeur_d  [int (x)-1]]
 
-# Fonction de reconstruction du couple qui corespond aux faces dans le Output_avec_rejet
+# Fonction de reconstruction du couple qui correspond aux faces dans le Output_avec_rejet
 def liste_couple ():
     x0=""
     x1=""
     liste_x0  =[x0]      
     liste_x1  =[x1]  
-    #LE 1ER Dé ddu fichier est a droit dans x0      
-    #calcule de x0 
+    #LE 1ER Dé du fichier est à droite dans x0      
+    # calcul de x0 
     sauvgarder=""
     for cpt in range(11):
         line = file1.readline() 
@@ -27,14 +27,14 @@ def liste_couple ():
                 for i in  range (len(liste_x0)): 
                     liste_x0 [i]=binaire(line)[0]+liste_x0[i]
         
-        else : #juste 2 bit le 3 eme c'est un bit de x1 
+        else : #juste 2 bits, le 3 eme c'est un bit de x1 
             sauvgarder=(binaire(line)[0][0:1])
             
             if len(binaire(line))==1:
                 
                 for i in  range (len(liste_x0)): 
                     liste_x0 [i]=(binaire(line)[0])[1:3]+liste_x0[i]           
-    #Calcule de x1
+    # Calcul de x1
     for cpt in range(11):
                 line = file1.readline()  
                 if cpt==10:

@@ -14,12 +14,12 @@ public class Bit_aleatoire_avec_rejet {
     private String[] valeur_d={"000","001","010","011","100","101"};
      Random rn ;
   
-    //Inicialisation d'une variable Random   
+    //Initialisation d'une variable Random   
     public Bit_aleatoire_avec_rejet(){
       rn=new Random();
      } 
       
-     //Appelle la fonction nextInt() et renvoie une chaine de caractère de 32 bits 
+     //Appelle la fonction nextInt() et renvoie une chaine de caractères de 32 bits 
      public String generate(){   
         int  valeur=  rn.nextInt()  ;  
         String result = Integer.toBinaryString( valeur);
@@ -28,7 +28,7 @@ public class Bit_aleatoire_avec_rejet {
         return resultWithPadding;
     }
 
-  //Renvoie un bit à partir de la suite de 32bits 
+  //Renvoie un bit à partir de la suite de 32 bits 
   public String bit_aleatoire(){
           if(cpt==-1){
             valeur_random=generate();
@@ -61,14 +61,14 @@ public class Bit_aleatoire_avec_rejet {
   }
 
 
-  //Fonction qui renvoie une face à partir du générateur rn et le nombre de rejets avant de retrouver une valeur
+  //Fonction qui renvoie une face à partir du générateur (fonction nextInt()) et le nombre de rejets avant de retrouver une valeur
   // [nb_rejet avant de retrouver la face, valeur face] 
   public List<Integer> getde ()
   {     String entier="";
          int val=-1;
          boolean fin=false ;
          int cpt=0 ;
-         //while faces==-1 ==>c'est a dire while on a  des rejets on recomance 
+         //while faces==-1 => c'est a dire, tant qu'on a des rejets on recommence
          List<Integer>list = new ArrayList<Integer > () ;
          while (! fin) 
          {list = new ArrayList<Integer > () ;
@@ -105,7 +105,7 @@ public class Bit_aleatoire_avec_rejet {
               cpt =cpt + val.get(1);
               if (cpt >3) { break ;}
           }
-          //limte le nombre de rejets dans un output_avec_rejet à  3 pour facilité le calcul  de la graine 
+          //limte le nombre de rejets dans un output_avec_rejet à  3 pour facilité le calcul de la graine 
           if (cpt ==3)
           {   rejet2=true ;
               for (int j=0; j<faces.size(); j++)
