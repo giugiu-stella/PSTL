@@ -77,7 +77,7 @@ public class Bit_aleatoire_sans_rejet {
     PrintWriter writer ;
     //Ficher output ou les valeurs  des faces seront inscritees 
     writer = new PrintWriter("Output_sans_rejet.txt");
-    for (int j=0; j<40; j++) {
+    for (int j=0; j<22; j++) {
     int faces=rn.getde();
     writer.println( String.valueOf(faces));
   }

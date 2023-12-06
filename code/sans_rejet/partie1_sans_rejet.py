@@ -158,6 +158,33 @@ def verifoutput(X1,X2,numero,numerofin):
         
     return True
 
+def verifoutputbis(X1,X2,numero,numerofin):
+    filetest = open('Output_sans_rejet.txt', 'r')
+    filetestw = open('Output_sans_rejet.txt', 'a')
+
+    line = filetest.readlines() 
+    entier=31
+
+    # s'assurer que les chaînes sont sur 32 bits (si positif -> le bit 0 devant n'est pas présent)
+    ValX2=verificationTailleX(X2)
+    ValX1=verificationTailleX(X1)
+    #print("valeur des chaines :")
+    #print(ValX1)
+    #print(ValX2)
+
+    for i in range(numero,numerofin):
+        
+        if(i==21): # ligne où la valeur est le resultat entre les bits de X1 et X2
+            valXi=ValX2[entier-1] + ValX2[entier] +ValX1[0]
+            entier =entier-2
+        else : 
+            valXi=ValX2[entier-2] + ValX2[entier-1] +ValX2[entier]
+            entier=entier-3
+
+        valIntXi = Valeur_to_int(valXi)
+        filetestw.write(str(valIntXi)+"\n")
+
+     
 #Prediction: fonction qui fait appel à verifoutput
 def testdes(liste): # test pour les 40 lancés de dés
 
@@ -175,13 +202,32 @@ def testdes(liste): # test pour les 40 lancés de dés
     X1=f'{X1//2**16:08b}'
     X3=f'{X3//2**16:08b}'
     vrai=verifoutput(X1,X2,21,32) # test pour les lignes 22 à 33
-    #true=verifoutput(X2,X3,32,40) # test pour les lignes 33 à 40
+    verifoutput(X2,X3,32,40) # test pour les lignes 33 à 40
     
     return vrai #(vrai and true)
 
+def suite(liste): # test pour les 40 lancés de dés
 
+    # calcul des couples : 
+    X0=recuperer_X0(liste)
+    X1=equation_X(X0)
+    X2=equation_X(X1)
+    X3=equation_X(X2)
+    #print(X0)
+    print("valeur de X1: " +str(X1))
+    print("valeur de X2: " + str(X2))
+    print("valeur de X3: " + str (X3))
+    # transformation des entiers en chaîne binaire : 
+    X2=f'{X2//2**16:08b}'
+    X1=f'{X1//2**16:08b}'
+    X3=f'{X3//2**16:08b}'
+    vrai=verifoutputbis(X1,X2,21,32) # test pour les lignes 22 à 33
+    verifoutput(X2,X3,32,40) # test pour les lignes 33 à 40
+    
+    return vrai #(vrai and true)
 
 #Test
 couple =liste_couple()
 print("la valeur de la graine(seed): " +str (recuperer_X0(couple)))
-print("les 40 faces sont compatiblees? " + str (testdes(couple)))
+#print("les 40 faces sont compatiblees? " + str (testdes(couple)))
+suite(couple)
